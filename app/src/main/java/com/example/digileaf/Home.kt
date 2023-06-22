@@ -10,6 +10,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digileaf.model.Plant
 
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+
+
 class Home : Fragment(), PlantAdapter.OnItemClickListener {
 
     private lateinit var recyclerView: RecyclerView
@@ -18,14 +22,24 @@ class Home : Fragment(), PlantAdapter.OnItemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setContentView()
         //Initialize plants
         plantList = ArrayList()
         plantList.add(Plant("Timothy", "2 days old", "Timothy is questionable", R.drawable.image_1))
         plantList.add(Plant("Johnny", "1 days old", "Johnny is <3", R.drawable.image_2))
         plantList.add(Plant("Carla", "4 days old", "Carla is *****", R.drawable.image_3))
+        plantList.add(Plant("Carla", "4 days old", "Carla is *****", R.drawable.image_3))
+        plantList.add(Plant("Carla", "4 days old", "Carla is *****", R.drawable.image_3))
+        plantList.add(Plant("Carla", "4 days old", "Carla is *****", R.drawable.image_3))
+        plantList.add(Plant("Carla", "4 days old", "Carla is *****", R.drawable.image_3))
+        plantList.add(Plant("Carla", "4 days old", "Carla is *****", R.drawable.image_3))
+        plantList.add(Plant("Carla", "4 days old", "Carla is *****", R.drawable.image_3))
+        plantList.add(Plant("Carla", "4 days old", "Carla is *****", R.drawable.image_3))
 
         plantAdapter = PlantAdapter(plantList, this)
+
+
+        Button newButton =
     }
 
     override fun onCreateView(
@@ -44,7 +58,7 @@ class Home : Fragment(), PlantAdapter.OnItemClickListener {
 
         return view
     }
-    
+
     override fun onItemClick(position: Int) {
         Toast.makeText(activity, "Item $position clicked", Toast.LENGTH_SHORT).show()
     }

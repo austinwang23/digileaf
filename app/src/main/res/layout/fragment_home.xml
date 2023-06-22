@@ -1,56 +1,180 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<!-- activity_landing.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Home">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/inventory_header"
+    <!-- Weather Section -->
+    <TextView
+        android:id="@+id/textWeather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_margin="16dp"
+        android:text="Current Weather"
+        android:textSize="18sp" />
+
+    <!-- Recommendation Section -->
+    <TextView
+        android:id="@+id/textRecommendation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:text="Recommendations"
+        android:textSize="18sp" />
+
+    <!-- Plant List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPlants"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textWeather"
+        android:layout_marginTop="8dp"
+        android:padding="8dp" />
 
-        <TextView
-            android:id="@+id/textDev"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Inventory"
-            android:paddingTop="25dp"
-            android:paddingLeft="25dp"
-            android:textColor="@color/white"
-            android:background="@drawable/half_rounded"
-            android:textSize="35sp"></TextView>
+    <!-- New Entry Button -->
+    <Button
+        android:id="@+id/buttonNewEntry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recyclerViewPlants"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Add New Entry" />
 
-        <LinearLayout
-            android:id="@+id/search_view"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="135dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/bg_search"
-            android:elevation="10dp"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+    <!-- New Button Beside the New Entry Button -->
+    <Button
+        android:id="@+id/buttonNewButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recyclerViewPlants"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@id/buttonNewEntry"
+        android:text="New Button" />
 
-            <androidx.appcompat.widget.SearchView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/SearchView"
-                app:iconifiedByDefault="true"
-                app:queryBackground="@android:color/transparent"
-                app:queryHint="Search" />
-        </LinearLayout>
+</RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/home_RV"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/search_view" />
 
-    </RelativeLayout>
+    <!--&lt;!&ndash; landing_page_layout.xml &ndash;&gt;-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:orientation="vertical"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    tools:context=".Home">-->
 
-</FrameLayout>
+<!--    &lt;!&ndash; Weather Section &ndash;&gt;-->
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:padding="16dp">-->
+
+<!--        &lt;!&ndash; Weather Icon &ndash;&gt;-->
+<!--        <ImageView-->
+<!--            android:id="@+id/imgWeatherIcon"-->
+<!--            android:layout_width="152dp"-->
+<!--            android:layout_height="88dp"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:src="@drawable/bottom_img_1" />-->
+
+<!--        &lt;!&ndash; Weather Details &ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_toEndOf="@id/imgWeatherIcon"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvTemperature"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="25°C"-->
+<!--                android:textSize="24sp"-->
+<!--                android:textStyle="bold" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvWeatherCondition"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Sunny"-->
+<!--                android:textSize="18sp" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvLocation"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="City, Country"-->
+<!--                android:textSize="16sp" />-->
+
+<!--        </LinearLayout>-->
+
+<!--        &lt;!&ndash; Additional Text &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/tvAdditionalText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Additional Text"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_alignParentEnd="true" />-->
+
+<!--    </RelativeLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/search_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginStart="25dp"-->
+<!--        android:layout_marginEnd="25dp"-->
+<!--        android:background="@drawable/bg_search"-->
+<!--        android:elevation="10dp"-->
+<!--        android:gravity="center_vertical"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <androidx.appcompat.widget.SearchView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:theme="@style/SearchView"-->
+<!--            app:iconifiedByDefault="true"-->
+<!--            app:queryBackground="@android:color/transparent"-->
+<!--            app:queryHint="Search" />-->
+<!--    </LinearLayout>-->
+
+<!--    &lt;!&ndash; Button Section &ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:padding="16dp">-->
+
+<!--        &lt;!&ndash; Add New Entry Button &ndash;&gt;-->
+<!--        <Button-->
+<!--            android:id="@+id/btnAddEntry"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Add New Entry"-->
+<!--            android:layout_weight="1"-->
+<!--            android:padding="12dp" />-->
+
+<!--        &lt;!&ndash; Your New Button &ndash;&gt;-->
+<!--        <Button-->
+<!--            android:id="@+id/btnCustomButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Custom Button"-->
+<!--            android:layout_weight="1"-->
+<!--            android:padding="12dp" />-->
+
+<!--    </LinearLayout>-->
+
+<!--    &lt;!&ndash; Plant List Section &ndash;&gt;-->
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/home_RV"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_below="@id/search_view" />-->
+
+<!--</LinearLayout>-->

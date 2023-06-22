@@ -27,6 +27,7 @@ class PlantAdapter(
             if (position != RecyclerView.NO_POSITION) {
                 listener.onItemClick(position)
             }
+
         }
     }
 
