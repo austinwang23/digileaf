@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import com.example.digileaf.model.Plant
 class Home : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var addPlantButton: Button
     private lateinit var plantList: ArrayList<Plant>
     private lateinit var plantAdapter: PlantAdapter
 
@@ -56,7 +58,19 @@ class Home : Fragment() {
         recyclerView.adapter = plantAdapter
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
+        // Initialize addPlantButton & onClick handler
+        addPlantButton = view.findViewById(R.id.plant_add_button)
+        addPlantButton.setOnClickListener(addPlantHandler)
+
         return view
+    }
+
+    private val addPlantHandler= View.OnClickListener { view ->
+        when (view.getId()) {
+            R.id.plant_add_button -> {
+                Toast.makeText(activity, "Add plant clicked", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
 }
