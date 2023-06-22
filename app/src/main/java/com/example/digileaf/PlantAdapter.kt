@@ -1,5 +1,6 @@
 package com.example.digileaf
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,27 +10,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.digileaf.model.Plant
 
 class PlantAdapter(
-    private val plantList: ArrayList<Plant>,
-    private val listener: OnItemClickListener
+    private val plantList: ArrayList<Plant>
 ) :
     RecyclerView.Adapter<PlantAdapter.PlantViewHolder>() {
 
-    inner class PlantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    var onItemClick : ((Plant) -> Unit)? = null
+
+    inner class PlantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val plantImageView: ImageView = itemView.findViewById(R.id.plant_item_image)
         val plantNameView: TextView = itemView.findViewById(R.id.plant_item_name)
-        val plantDescriptionView: TextView = itemView.findViewById(R.id.plant_item_description)
+        val plantSpeciesView: TextView = itemView.findViewById(R.id.plant_item_species)
         val plantAgeView: TextView = itemView.findViewById(R.id.plant_item_age)
-
-        init {
-            itemView.setOnClickListener(this);
-        }
-
-        override fun onClick(v: View?) {
-            val position = absoluteAdapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                listener.onItemClick(position)
-            }
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlantViewHolder {
@@ -46,10 +37,12 @@ class PlantAdapter(
         val plant = plantList[position]
         holder.plantImageView.setImageResource(plant.plantImage)
         holder.plantNameView.text = plant.plantName
-        holder.plantDescriptionView.text = plant.plantDescription
+        holder.plantSpeciesView.text = plant.plantSpecies
         holder.plantAgeView.text = plant.plantAge
+
+        holder.itemView.setOnClickListener{
+            onItemClick?.invoke(plant)
+        }
     }
-    interface OnItemClickListener {
-        fun onItemClick(position: Int);
-    }
+
 }

@@ -43,7 +43,7 @@
             android:layout_marginStart="4dp"
             android:textColor="@color/cadet_blue"/>
         <TextView
-            android:id="@+id/plant_item_description"
+            android:id="@+id/plant_item_species"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/plant_item_name"
