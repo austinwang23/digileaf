@@ -2,6 +2,7 @@ package com.example.digileaf
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.digileaf.model.Plant
@@ -22,5 +23,13 @@ class ItemDetailsActivity : AppCompatActivity() {
             plantSpecies.text = plant.plantSpecies
             plantImage.setImageResource(plant.plantImage)
         }
+
+        val backButton : ImageButton = findViewById(R.id.back_button)
+        backButton.setOnClickListener{
+            finish()
+        }
+    }
+    override fun onBackPressed() {
+        finish()
     }
 }

@@ -7,7 +7,6 @@
     android:background="@color/white_ghost"
     tools:context=".ItemDetailsActivity">
 
-
     <ImageButton
         android:id="@+id/back_button"
         android:layout_width="60dp"
