@@ -1,0 +1,40 @@
+<!-- recommendation_item.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Recommendation Image -->
+    <ImageView
+        android:id="@+id/imgRecommendation"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop" />
+
+    <!-- Recommendation Title -->
+    <TextView
+        android:id="@+id/tvRecommendationTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp" />
+
+    <!-- Recommendation Description -->
+    <TextView
+        android:id="@+id/tvRecommendationDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp" />
+
+    <!-- Recommendation Button -->
+    <Button
+        android:id="@+id/btnViewRecommendation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Recommendation"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

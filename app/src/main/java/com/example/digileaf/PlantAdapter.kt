@@ -8,14 +8,28 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digileaf.model.Plant
 
-class PlantAdapter(private val plantList: ArrayList<Plant>) :
+class PlantAdapter(
+    private val plantList: ArrayList<Plant>,
+    private val listener: OnItemClickListener
+) :
     RecyclerView.Adapter<PlantAdapter.PlantViewHolder>() {
 
-    class PlantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class PlantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val plantImageView: ImageView = itemView.findViewById(R.id.plant_item_image)
         val plantNameView: TextView = itemView.findViewById(R.id.plant_item_name)
         val plantDescriptionView: TextView = itemView.findViewById(R.id.plant_item_description)
         val plantAgeView: TextView = itemView.findViewById(R.id.plant_item_age)
+
+        init {
+            itemView.setOnClickListener(this);
+        }
+
+        override fun onClick(v: View?) {
+            val position = absoluteAdapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                listener.onItemClick(position)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlantViewHolder {
@@ -34,5 +48,8 @@ class PlantAdapter(private val plantList: ArrayList<Plant>) :
         holder.plantNameView.text = plant.plantName
         holder.plantDescriptionView.text = plant.plantDescription
         holder.plantAgeView.text = plant.plantAge
+    }
+    interface OnItemClickListener {
+        fun onItemClick(position: Int);
     }
 }

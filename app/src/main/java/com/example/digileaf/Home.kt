@@ -5,12 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digileaf.model.Plant
 
-class Home : Fragment() {
+class Home : Fragment(), PlantAdapter.OnItemClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var plantList: ArrayList<Plant>
@@ -31,7 +32,7 @@ class Home : Fragment() {
         plantList.add(Plant("Johnny", "1 days", "Pretty Plant", R.drawable.image_2))
         plantList.add(Plant("Carla", "2 mos", "Ugly Plant", R.drawable.image_3))
 
-        plantAdapter = PlantAdapter(plantList)
+        plantAdapter = PlantAdapter(plantList, this)
     }
 
     override fun onCreateView(
@@ -50,5 +51,8 @@ class Home : Fragment() {
 
         return view
     }
-
+    
+    override fun onItemClick(position: Int) {
+        Toast.makeText(activity, "Item $position clicked", Toast.LENGTH_SHORT).show()
+    }
 }
