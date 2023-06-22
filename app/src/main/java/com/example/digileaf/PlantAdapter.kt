@@ -12,8 +12,10 @@ class PlantAdapter(private val plantList: ArrayList<Plant>) :
     RecyclerView.Adapter<PlantAdapter.PlantViewHolder>() {
 
     class PlantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageView: ImageView = itemView.findViewById(R.id.plant_item_image)
-        val textView: TextView = itemView.findViewById(R.id.plant_item_name)
+        val plantImageView: ImageView = itemView.findViewById(R.id.plant_item_image)
+        val plantNameView: TextView = itemView.findViewById(R.id.plant_item_name)
+        val plantDescriptionView: TextView = itemView.findViewById(R.id.plant_item_description)
+        val plantAgeView: TextView = itemView.findViewById(R.id.plant_item_age)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlantViewHolder {
@@ -28,7 +30,9 @@ class PlantAdapter(private val plantList: ArrayList<Plant>) :
 
     override fun onBindViewHolder(holder: PlantViewHolder, position: Int) {
         val plant = plantList[position]
-        holder.imageView.setImageResource(plant.plantImage)
-        holder.textView.text = plant.plantName
+        holder.plantImageView.setImageResource(plant.plantImage)
+        holder.plantNameView.text = plant.plantName
+        holder.plantDescriptionView.text = plant.plantDescription
+        holder.plantAgeView.text = plant.plantAge
     }
 }
