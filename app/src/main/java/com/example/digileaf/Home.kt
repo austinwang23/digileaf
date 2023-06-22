@@ -68,7 +68,9 @@ class Home : Fragment() {
     private val addPlantHandler= View.OnClickListener { view ->
         when (view.getId()) {
             R.id.plant_add_button -> {
-                Toast.makeText(activity, "Add plant clicked", Toast.LENGTH_SHORT).show()
+                val intent = Intent(context, AddPlantActivity::class.java)
+//                intent.putExtra("plant", it)
+                startActivity(intent)
             }
         }
     }
