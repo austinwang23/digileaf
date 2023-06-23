@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.digileaf.model.Plant
+import com.example.digileaf.entities.Plant
 
 class ItemDetailsActivity : AppCompatActivity() {
 
@@ -20,10 +20,11 @@ class ItemDetailsActivity : AppCompatActivity() {
             val plantSpecies : TextView = findViewById(R.id.detailed_plant_species)
             val plantDescription: TextView = findViewById(R.id.detailed_plant_description)
 
-            plantName.text = plant.plantName
-            plantSpecies.text = plant.plantSpecies
-            plantImage.setImageResource(plant.plantImage)
-            plantDescription.text = plant.plantDescription
+            plantName.text = plant.name
+            plantSpecies.text = plant.species
+            // TODO - replace with image path
+            plantImage.setImageResource(R.drawable.image_1)
+            plantDescription.text = plant.description
         }
 
         val backButton : ImageButton = findViewById(R.id.back_button)
