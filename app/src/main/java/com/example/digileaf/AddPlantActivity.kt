@@ -14,10 +14,6 @@ class AddPlantActivity : AppCompatActivity() {
     private lateinit var selectImageButton: Button
     private lateinit var imageView: ImageView
 
-    private lateinit var plantName : EditText
-    private lateinit var plantSpecies : EditText
-    private lateinit var plantDescription : EditText
-
     private val PICK_IMAGE_REQUEST = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,17 +38,5 @@ class AddPlantActivity : AppCompatActivity() {
             val imageBitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(imageUri!!)) // prob handle this null better
             imageView.setImageBitmap(imageBitmap)
         }
-        plantName = findViewById(R.id.add_plant_title)
-
-//        val plant = intent.getParcelableExtra<Plant>("plant")
-//        if(plant != null){
-//            val plantName : TextView = findViewById(R.id.detailed_plant_name)
-//            val plantImage : ImageView = findViewById(R.id.detailed_plant_image)
-//            val plantSpecies : TextView = findViewById(R.id.detailed_plant_species)
-//
-//            plantName.text = plant.plantName
-//            plantSpecies.text = plant.plantSpecies
-//            plantImage.setImageResource(plant.plantImage)
-//        }
     }
 }
