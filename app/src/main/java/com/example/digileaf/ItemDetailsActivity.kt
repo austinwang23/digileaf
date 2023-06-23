@@ -18,10 +18,12 @@ class ItemDetailsActivity : AppCompatActivity() {
             val plantName : TextView = findViewById(R.id.detailed_plant_name)
             val plantImage : ImageView = findViewById(R.id.detailed_plant_image)
             val plantSpecies : TextView = findViewById(R.id.detailed_plant_species)
+            val plantDescription: TextView = findViewById(R.id.detailed_plant_description)
 
             plantName.text = plant.plantName
             plantSpecies.text = plant.plantSpecies
             plantImage.setImageResource(plant.plantImage)
+            plantDescription.text = plant.plantDescription
         }
 
         val backButton : ImageButton = findViewById(R.id.back_button)
