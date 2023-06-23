@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Jack",
+    "species": "Potato",
+    "description": "Jack is green and loves sunlight! IDK",
+    "imagePath": ""
+  },
+  {
+    "name": "Apple",
+    "species": "Daisy",
+    "description": "This is apple, This is the description. yadah yadah yadah",
+    "imagePath": ""
+  },
+  {
+    "name": "Dumb Plant",
+    "species": "Cactus",
+    "description": "Dumb cactus. No water. It ok",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/5/55/Apple_orchard_in_Tasmania.jpg"
+  },
+  {
+    "name": "Jack",
+    "species": "Potato",
+    "description": "Jack is green and loves sunlight! IDK",
+    "imagePath": ""
+  },
+  {
+    "name": "Apple",
+    "species": "Daisy",
+    "description": "This is apple, This is the description. yadah yadah yadah",
+    "imagePath": ""
+  },
+  {
+    "name": "Dumb Plant",
+    "species": "Cactus",
+    "description": "Dumb cactus. No water. It ok",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/5/55/Apple_orchard_in_Tasmania.jpg"
+  },
+  {
+    "name": "Jack",
+    "species": "Potato",
+    "description": "Jack is green and loves sunlight! IDK",
+    "imagePath": ""
+  },
+  {
+    "name": "Apple",
+    "species": "Daisy",
+    "description": "This is apple, This is the description. yadah yadah yadah",
+    "imagePath": ""
+  },
+  {
+    "name": "Dumb Plant",
+    "species": "Cactus",
+    "description": "Dumb cactus. No water. It ok",
+    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/5/55/Apple_orchard_in_Tasmania.jpg"
+  }
+]
