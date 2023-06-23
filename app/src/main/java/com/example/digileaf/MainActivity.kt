@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
             ) {
                 when(newTab.id){
                     R.id.home -> replaceFragment(Home())
-                    R.id.calendar -> replaceFragment(CalendarFragment())
+                    R.id.calendar -> replaceFragment(Calendar())
                 }
             }
         })

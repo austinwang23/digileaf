@@ -13,7 +13,7 @@ import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
-class CalendarFragment : Fragment(), CalendarAdapter.OnItemListener {
+class Calendar : Fragment(), CalendarAdapter.OnItemListener {
 
     private lateinit var monthYearText: TextView
     private lateinit var calendarRecyclerView: RecyclerView
