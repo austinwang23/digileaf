@@ -1,3 +1,7 @@
 # Time logs
-| Alan Hu | Austin Wang | Ernst Mach | Wendi Zhao | Yi Zhe Zhang | Zi Zhou Yin | Date | Description |
-|---------|-------------|------------|------------|--------------|-------------|------|-------------|
+| Alan Hu | Austin Wang | Ernst Mach | Wendi Zhao | Yi Zhe Zhang | Zi Zhou Yin | Date   | Description                                                                                                                                               |
+|---------|-------------|------------|------------|--------------|-------------|--------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+|---------|-------------|------------|------------|--------------| 3 hours     | Jun 13 | Created initial projects and set up frontend for the home page as well as navbar                                                                          |
+|---------|-------------|------------|------------|--------------| 2 hours     | Jun 21 | Created the model for the Plant class as well as the recycler view for inventory                                                                          |
+|---------|-------------|------------|------------|--------------| 8 hours     | Jun 22 | Finished mockups for home page, and set up mock data for recycler view. Added click funciontality to plants for detailed page, and created calendar view. |
+|---------|-------------|------------|------------|--------------| 1 hour      | Jun 23 | Updated mock up for detailed plant page.                                                                                                                  |
