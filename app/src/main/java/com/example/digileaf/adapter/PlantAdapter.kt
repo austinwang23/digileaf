@@ -1,6 +1,5 @@
-package com.example.digileaf
+package com.example.digileaf.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.digileaf.R
 import com.example.digileaf.entities.Plant
-import com.example.digileaf.PlantAdapter.PlantViewHolder
+import com.example.digileaf.adapter.PlantAdapter.PlantViewHolder
 
 class PlantAdapter: ListAdapter<Plant, PlantViewHolder>(PLANT_COMPARATOR) {
 

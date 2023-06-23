@@ -1,9 +1,10 @@
-package com.example.digileaf
+package com.example.digileaf.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.digileaf.R
 import java.time.LocalDate
 
 class CalendarAdapter(private val daysOfMonth: ArrayList<String>, private val onItemListener: OnItemListener) :
@@ -25,9 +26,13 @@ class CalendarAdapter(private val daysOfMonth: ArrayList<String>, private val on
         val currentDate = LocalDate.now().dayOfMonth.toString()
 
         if (day == currentDate) {
-            holder.dayOfMonth.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.teal))
+            holder.dayOfMonth.setTextColor(ContextCompat.getColor(holder.itemView.context,
+                R.color.teal
+            ))
         } else {
-            holder.dayOfMonth.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.black))
+            holder.dayOfMonth.setTextColor(ContextCompat.getColor(holder.itemView.context,
+                R.color.black
+            ))
         }
     }
 

@@ -1,8 +1,9 @@
-package com.example.digileaf
+package com.example.digileaf.adapter
 
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.digileaf.R
 
 class CalendarViewHolder(itemView: View, private val onItemListener: CalendarAdapter.OnItemListener) :
     RecyclerView.ViewHolder(itemView), View.OnClickListener {
