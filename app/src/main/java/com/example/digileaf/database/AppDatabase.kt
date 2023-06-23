@@ -22,14 +22,16 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context): AppDatabase {
+            // This builds an empty db
             // return Room.databaseBuilder(context, AppDatabase::class.java, "digileaf-db").build()
             // Seed database if necessary
             return Room.databaseBuilder(context, AppDatabase::class.java, "digileaf-db")
                 .addCallback(
                    PrepopulateData(context)
                 )
+                // wipe and rebuild db instead of migrating
+                // we shouldn't need to migrate data, we can just seed with our own test data
                 .fallbackToDestructiveMigration()
-                .allowMainThreadQueries()
                 .build()
         }
     }

@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.digileaf.entities.Plant
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PlantDao {
@@ -19,5 +20,5 @@ interface PlantDao {
     fun delete(user: Plant)
 
     @Query("SELECT * FROM plants")
-    fun getAll(): List<Plant>
+    fun getAll(): Flow<List<Plant>>
 }

@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.digileaf.model.Plant
+import com.example.digileaf.entities.Plant
+import com.example.digileaf.PlantAdapter.PlantViewHolder
 
-class PlantAdapter(
-    private val plantList: ArrayList<Plant>
-) :
-    RecyclerView.Adapter<PlantAdapter.PlantViewHolder>() {
+class PlantAdapter: ListAdapter<Plant, PlantViewHolder>(PLANT_COMPARATOR) {
 
     var onItemClick : ((Plant) -> Unit)? = null
 
@@ -29,19 +29,34 @@ class PlantAdapter(
         return PlantViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return plantList.size
-    }
-
     override fun onBindViewHolder(holder: PlantViewHolder, position: Int) {
-        val plant = plantList[position]
-        holder.plantImageView.setImageResource(plant.plantImage)
-        holder.plantNameView.text = plant.plantName
-        holder.plantSpeciesView.text = plant.plantSpecies
-        holder.plantAgeView.text = plant.plantAge
+        val plant = getItem(position)
+        // TODO - Store image path and get image resource
+        holder.plantImageView.setImageResource(R.drawable.image_1)
+        holder.plantNameView.text = plant.name
+        holder.plantSpeciesView.text = plant.species
+
+        // TODO - Get rid of plant age
+        holder.plantAgeView.text = "2 mos"
 
         holder.itemView.setOnClickListener{
             onItemClick?.invoke(plant)
+        }
+    }
+
+    companion object {
+        private val PLANT_COMPARATOR = object : DiffUtil.ItemCallback<Plant>() {
+            override fun areItemsTheSame(oldItem: Plant, newItem: Plant): Boolean {
+                return oldItem === newItem
+            }
+
+            override fun areContentsTheSame(oldItem: Plant, newItem: Plant): Boolean {
+                // TODO - Find a better way to do this
+                return ((oldItem.name == newItem.name) &&
+                        (oldItem.description == newItem.description) &&
+                        (oldItem.species == newItem.species) &&
+                        (oldItem.imagePath == newItem.imagePath))
+            }
         }
     }
 
