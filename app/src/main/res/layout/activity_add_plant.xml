@@ -11,7 +11,7 @@
         android:text="Return" />
 
     <EditText
-        android:id="@+id/editTitle"
+        android:id="@+id/add_plant_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name" />

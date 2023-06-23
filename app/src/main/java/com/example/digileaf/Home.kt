@@ -1,6 +1,7 @@
 package com.example.digileaf
 
 import android.content.Intent
+import android.database.sqlite.SQLiteDatabase.deleteDatabase
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.digileaf.database.AppDatabase
 import com.example.digileaf.model.Plant
 
 class Home : Fragment() {
@@ -23,8 +25,21 @@ class Home : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //Initialize plants
+        // partially using seed db
+        val appDatabase = AppDatabase.getInstance(requireContext())
+
+        val plantDao = appDatabase.plantDao()
+
+        val plants = plantDao.getAll()
         plantList = ArrayList()
+
+        for (plant in plants) {
+            plantList.add(Plant(plant.name, "2 days", plant.species, plant.description, R.drawable.image_1))
+        }
+
+        // hardcode
+        //Initialize plants
+        /* plantList = ArrayList()
         plantList.add(Plant("Timothy", "2 days", "Spiky Plant", "asdlfkjaslkdfjasd", R.drawable.image_1))
         plantList.add(Plant("Johnny", "1 days", "Pretty Plant", "asdlfkjaslkdfjasd", R.drawable.image_2))
         plantList.add(Plant("Carla", "2 mos", "Ugly Plant", "asdlfkjaslkdfjasd", R.drawable.image_3))
@@ -33,7 +48,7 @@ class Home : Fragment() {
         plantList.add(Plant("Carla", "2 mos", "Ugly Plant", "asdlfkjaslkdfjasd", R.drawable.image_3))
         plantList.add(Plant("Timothy", "2 days", "Spiky Plant", "asdlfkjaslkdfjasd", R.drawable.image_1))
         plantList.add(Plant("Johnny", "1 days", "Pretty Plant", "asdlfkjaslkdfjasd", R.drawable.image_2))
-        plantList.add(Plant("Carla", "2 mos", "Ugly Plant", "asdlfkjaslkdfjasd", R.drawable.image_3))
+        plantList.add(Plant("Carla", "2 mos", "Ugly Plant", "asdlfkjaslkdfjasd", R.drawable.image_3)) */
 
         plantAdapter = PlantAdapter(plantList)
 
