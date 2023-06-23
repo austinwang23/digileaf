@@ -17,7 +17,6 @@
             android:text="Reminders"
             android:textSize="20sp"
             android:textStyle="bold" />
-
     </LinearLayout>
 
     <ListView

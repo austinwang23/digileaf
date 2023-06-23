@@ -1,0 +1,53 @@
+<!-- create_reminder_layout.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnReturn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Return" />
+
+    <EditText
+        android:id="@+id/editReminderTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Reminder Title"
+        android:padding="16dp" />
+
+    <EditText
+        android:id="@+id/editReminderDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Reminder Description"
+        android:padding="16dp" />
+
+    <Button
+        android:id="@+id/btnSetTimingReminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Timing Reminder"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:padding="12dp" />
+
+    <TextView
+        android:id="@+id/tvSelectedDateTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Selected Date and Time: Not Set"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btnSaveReminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:padding="12dp" />
+
+</LinearLayout>
