@@ -26,10 +26,12 @@ class MainActivity : AppCompatActivity() {
             ) {
                 when(newTab.id){
                     R.id.home -> replaceFragment(Home())
-                    R.id.calendar -> replaceFragment(Calendar())
+                    R.id.calendar -> replaceFragment(CalendarFragment())
                 }
             }
         })
+
+        binding.animatedBottomBar.selectTabById(R.id.home)
 
     }
 
