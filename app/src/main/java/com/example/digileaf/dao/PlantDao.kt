@@ -17,7 +17,7 @@ interface PlantDao {
     fun insertPlant(plant: Plant)
 
     @Delete
-    fun delete(user: Plant)
+    fun delete(plant: Plant)
 
     @Query("SELECT * FROM plants")
     fun getAll(): Flow<List<Plant>>

@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.digileaf.R
+import com.example.digileaf.entities.Journal
 import com.example.digileaf.entities.Plant
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +19,7 @@ class PrepopulateData(private val context: Context) : RoomDatabase.Callback() {
 
         CoroutineScope(Dispatchers.IO).launch {
             prepopulatePlants(context)
+            prepopulateJournals(context)
         }
     }
     suspend fun prepopulatePlants(context: Context) {
@@ -48,6 +50,38 @@ class PrepopulateData(private val context: Context) : RoomDatabase.Callback() {
             Log.e(
                 "Digileaf",
                 exception.localizedMessage ?: "failed to pre-populate plants into database"
+            )
+        }
+    }
+
+    suspend fun prepopulateJournals(context: Context) {
+        try {
+            val journalDao = AppDatabase.getInstance(context).journalDao()
+
+            val journalList: JSONArray =
+                context.resources.openRawResource(R.raw.journals).bufferedReader().use {
+                    JSONArray(it.readText())
+                }
+
+            journalList.takeIf { it.length() > 0 }?.let { list ->
+                for (index in 0 until list.length()) {
+                    val journalObj = list.getJSONObject(index)
+                    Log.e("Digileaf", journalObj.toString())
+                    val journalEntity = Journal(
+                        journalObj.getLong("timestamp"), journalObj.getString("entry"),
+                        journalObj.getString("imagePath"), journalObj.getInt("plantId")
+                    )
+                    journalDao.insertJournal(
+                        journalEntity
+                    )
+
+                }
+                Log.e("Digileaf", "successfully pre-populated journals into database")
+            }
+        } catch (exception: Exception) {
+            Log.e(
+                "Digileaf",
+                exception.localizedMessage ?: "failed to pre-populate journals into database"
             )
         }
     }

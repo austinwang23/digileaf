@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 data class Plant (
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "species") val species: String,
-    @ColumnInfo(name = "description") val description: String,
-    @ColumnInfo(name = "image_path") val imagePath: String,
+    @ColumnInfo(name = "description") val description: String? = null,
+    @ColumnInfo(name = "image_path") val imagePath: String? = null,
     @PrimaryKey(autoGenerate = true) val id: Int = 0
 ) : Parcelable
