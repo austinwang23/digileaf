@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -73,6 +74,12 @@ class ItemDetailsActivity : AppCompatActivity() {
         val backButton: ImageButton = findViewById(R.id.back_button)
         backButton.setOnClickListener {
             finish()
+        }
+
+        val addJournalButton: AppCompatButton = findViewById(R.id.add_journal_button)
+        addJournalButton.setOnClickListener {
+            val intent = Intent(this, ActivityAddJournalEntry::class.java)
+            startActivity(intent)
         }
     }
 
