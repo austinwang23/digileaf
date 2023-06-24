@@ -15,4 +15,10 @@ class PlantRepository(private val plantDao: PlantDao) {
     suspend fun insert(plant: Plant) {
         plantDao.insertPlant(plant)
     }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun delete(plant: Plant) {
+        plantDao.delete(plant)
+    }
 }

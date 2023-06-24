@@ -51,4 +51,14 @@
             android:text="Spiky Plant"/>
     </RelativeLayout>
 
+    <ImageButton
+        android:id="@+id/plant_item_delete"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@android:color/transparent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_delete" />
+
+
 </RelativeLayout>
