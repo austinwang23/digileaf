@@ -1,12 +1,17 @@
 package com.example.digileaf
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,11 +19,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.digileaf.adapter.PlantAdapter
 import com.example.digileaf.database.PlantViewModel
 import com.example.digileaf.database.PlantViewModelFactory
+import com.example.digileaf.entities.Plant
 
 class Home : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var addPlantButton: Button
+    private lateinit var addPlantActivityLauncher : ActivityResultLauncher<Intent>
     private val plantViewModel: PlantViewModel by viewModels {
         PlantViewModelFactory((activity?.application as DigileafApplication).plantRepository)
     }
@@ -26,18 +33,18 @@ class Home : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // hardcode
-        //Initialize plants
-        /* plantList = ArrayList()
-        plantList.add(Plant("Timothy", "2 days", "Spiky Plant", "asdlfkjaslkdfjasd", R.drawable.image_1))
-        plantList.add(Plant("Johnny", "1 days", "Pretty Plant", "asdlfkjaslkdfjasd", R.drawable.image_2))
-        plantList.add(Plant("Carla", "2 mos", "Ugly Plant", "asdlfkjaslkdfjasd", R.drawable.image_3))
-        plantList.add(Plant("Timothy", "2 days", "Spiky Plant", "asdlfkjaslkdfjasd", R.drawable.image_1))
-        plantList.add(Plant("Johnny", "1 days", "Pretty Plant", "asdlfkjaslkdfjasd", R.drawable.image_2))
-        plantList.add(Plant("Carla", "2 mos", "Ugly Plant", "asdlfkjaslkdfjasd", R.drawable.image_3))
-        plantList.add(Plant("Timothy", "2 days", "Spiky Plant", "asdlfkjaslkdfjasd", R.drawable.image_1))
-        plantList.add(Plant("Johnny", "1 days", "Pretty Plant", "asdlfkjaslkdfjasd", R.drawable.image_2))
-        plantList.add(Plant("Carla", "2 mos", "Ugly Plant", "asdlfkjaslkdfjasd", R.drawable.image_3)) */
+        addPlantActivityLauncher = registerForActivityResult(StartActivityForResult()) {result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intent = result.data
+                if (intent != null && intent.hasExtra("plant")) {
+                    Log.e("insertion", "inserting new plant into db")
+                    val plant = intent.getParcelableExtra<Plant>("plant")
+                    if (plant != null) {
+                        plantViewModel.insert(plant)
+                    }
+                }
+            }
+        }
     }
 
     override fun onCreateView(
@@ -68,19 +75,16 @@ class Home : Fragment() {
 
         // Initialize addPlantButton & onClick handler
         addPlantButton = view.findViewById(R.id.plant_add_button)
-        addPlantButton.setOnClickListener(addPlantHandler)
+        addPlantButton.setOnClickListener{
+            launchAddPlantActivity()
+        }
 
         return view
     }
 
-    private val addPlantHandler= View.OnClickListener { view ->
-        when (view.getId()) {
-            R.id.plant_add_button -> {
-                val intent = Intent(context, AddPlantActivity::class.java)
-//                intent.putExtra("plant", it)
-                startActivity(intent)
-            }
-        }
+    private fun launchAddPlantActivity() {
+        val intent = Intent(context, AddPlantActivity::class.java)
+        addPlantActivityLauncher.launch(intent)
     }
 
 }
