@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.digileaf.R
 import com.example.digileaf.entities.Journal
 import com.example.digileaf.adapter.JournalAdapter.JournalViewHolder
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class JournalAdapter: ListAdapter<Journal, JournalViewHolder>(JOURNAL_COMPARATOR) {
 
@@ -18,6 +21,7 @@ class JournalAdapter: ListAdapter<Journal, JournalViewHolder>(JOURNAL_COMPARATOR
     inner class JournalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 //        val journalTimestamp: TextView = itemView.findViewById(R.id.journal_date)
         val journalEntry: TextView = itemView.findViewById(R.id.journal_entry)
+        val journalDate: TextView = itemView.findViewById(R.id.journal_date)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JournalViewHolder {
@@ -28,8 +32,14 @@ class JournalAdapter: ListAdapter<Journal, JournalViewHolder>(JOURNAL_COMPARATOR
 
     override fun onBindViewHolder(holder: JournalViewHolder, position: Int) {
         val journal = getItem(position)
-        // TODO - Store image path and get image resource
+
         holder.journalEntry.text = journal.entry
+
+        val timestamp = journal.timestamp
+        val dateFormat = SimpleDateFormat("MMMM d yyyy", Locale.getDefault())
+        val formattedDate = dateFormat.format(Date(timestamp))
+
+        holder.journalDate.text = formattedDate
 
 
         holder.itemView.setOnClickListener{
