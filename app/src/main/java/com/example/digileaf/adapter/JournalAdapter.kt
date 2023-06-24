@@ -3,7 +3,6 @@ package com.example.digileaf.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -22,7 +21,7 @@ class JournalAdapter: ListAdapter<Journal, JournalViewHolder>(JOURNAL_COMPARATOR
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JournalViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.journal_entry, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.journal_entry_card, parent, false)
 
         return JournalViewHolder(view)
     }

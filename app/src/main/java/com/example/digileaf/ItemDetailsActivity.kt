@@ -1,5 +1,6 @@
 package com.example.digileaf
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.widget.ImageButton
@@ -32,7 +33,6 @@ class ItemDetailsActivity : AppCompatActivity() {
         recyclerView.adapter = journalAdapter
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-
         val plant = intent.getParcelableExtra<Plant>("plant")
         if(plant != null){
             val plantName : TextView = findViewById(R.id.detailed_plant_name)
@@ -63,8 +63,14 @@ class ItemDetailsActivity : AppCompatActivity() {
             })
         }
 
-
-
+        journalAdapter.onItemClick = {
+            val intent = Intent(this, JournalActivity::class.java)
+            intent.putExtra("journal", it)
+            if(plant != null){
+                intent.putExtra("plant", plant)
+            }
+            startActivity(intent)
+        }
 
         val backButton : ImageButton = findViewById(R.id.back_button)
         backButton.setOnClickListener{
