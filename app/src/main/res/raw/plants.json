@@ -15,7 +15,7 @@
     "name": "Dumb Plant",
     "species": "Cactus",
     "description": "Dumb cactus. No water. It ok",
-    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/5/55/Apple_orchard_in_Tasmania.jpg"
+    "imagePath": ""
   },
   {
     "name": "Jack",
@@ -33,7 +33,7 @@
     "name": "Dumb Plant",
     "species": "Cactus",
     "description": "Dumb cactus. No water. It ok",
-    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/5/55/Apple_orchard_in_Tasmania.jpg"
+    "imagePath": ""
   },
   {
     "name": "Jack",
@@ -51,6 +51,6 @@
     "name": "Dumb Plant",
     "species": "Cactus",
     "description": "Dumb cactus. No water. It ok",
-    "imagePath": "https://upload.wikimedia.org/wikipedia/commons/5/55/Apple_orchard_in_Tasmania.jpg"
+    "imagePath": ""
   }
 ]

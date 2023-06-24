@@ -1,22 +1,20 @@
 package com.example.digileaf
 
-import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.example.digileaf.adapter.JournalAdapter
 import com.example.digileaf.database.JournalViewModel
 import com.example.digileaf.database.JournalViewModelFactory
 import com.example.digileaf.entities.Plant
+
 
 class ItemDetailsActivity : AppCompatActivity() {
 
@@ -44,8 +42,18 @@ class ItemDetailsActivity : AppCompatActivity() {
 
             plantName.text = plant.name
             plantSpecies.text = plant.species
-            // TODO - replace with image path
-            plantImage.setImageResource(R.drawable.image_1)
+            if (plant.imagePath == "") {
+                plantImage.setImageResource(R.drawable.default_plant)
+            } else {
+                val imageFile = getFileStreamPath(plant.imagePath)
+                // If for whatever reason, the file no longer exists
+                if(imageFile == null || !imageFile.exists()) {
+                    plantImage.setImageResource(R.drawable.default_plant)
+                } else {
+                    val bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
+                    plantImage.setImageBitmap(bitmap)
+                }
+            }
             plantDescription.text = plant.description
 
             journalViewModel

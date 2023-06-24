@@ -12,6 +12,6 @@ data class Plant (
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "species") val species: String,
     @ColumnInfo(name = "description") val description: String? = null,
-    @ColumnInfo(name = "image_path") val imagePath: String? = null,
+    @ColumnInfo(name = "image_path") val imagePath: String? = "",
     @PrimaryKey(autoGenerate = true) val id: Int = 0
 ) : Parcelable
