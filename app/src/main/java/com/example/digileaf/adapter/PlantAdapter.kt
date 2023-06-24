@@ -23,7 +23,7 @@ class PlantAdapter: ListAdapter<Plant, PlantViewHolder>(PLANT_COMPARATOR) {
         val plantNameView: TextView = itemView.findViewById(R.id.plant_item_name)
         val plantSpeciesView: TextView = itemView.findViewById(R.id.plant_item_species)
         val plantAgeView: TextView = itemView.findViewById(R.id.plant_item_age)
-        val plantDeleteView: ImageView = itemView.findViewById(R.id.delete_id)
+        val plantDeleteView: ImageView = itemView.findViewById(R.id.plant_item_delete)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlantViewHolder {
