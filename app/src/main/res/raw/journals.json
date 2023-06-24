@@ -8,12 +8,6 @@
   {
     "timestamp": 1687556433256,
     "plantId": 1,
-    "entry": "This is entry number 2",
-    "imagePath": ""
-  },
-  {
-    "timestamp": 1687556433256,
-    "plantId": 1,
     "entry": "Tomorrow I will do yadah yadah yadah",
     "imagePath": ""
   },
@@ -21,12 +15,6 @@
     "timestamp": 1687556433256,
     "plantId": 1,
     "entry": "Found dark spots on my plant today",
-    "imagePath": ""
-  },
-  {
-    "timestamp": 1687556433256,
-    "plantId": 1,
-    "entry": "Plant is dying cries",
     "imagePath": ""
   },
   {

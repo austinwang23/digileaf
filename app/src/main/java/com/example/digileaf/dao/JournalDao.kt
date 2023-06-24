@@ -12,12 +12,12 @@ import kotlinx.coroutines.flow.Flow
 interface JournalDao {
     @Insert
     // Can consider using this for random seed data?
-    fun insertAll(vararg journals: Journal)
+    suspend fun insertAll(vararg journals: Journal)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertJournal(journal: Journal)
+    suspend fun insertJournal(journal: Journal)
 
     @Delete
-    fun delete(journal: Journal)
+    suspend fun delete(journal: Journal)
 
     @Query("SELECT * FROM journals")
     fun getAll(): Flow<List<Journal>>

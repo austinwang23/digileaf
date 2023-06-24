@@ -1,5 +1,6 @@
 package com.example.digileaf.adapter
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,8 +32,18 @@ class PlantAdapter: ListAdapter<Plant, PlantViewHolder>(PLANT_COMPARATOR) {
 
     override fun onBindViewHolder(holder: PlantViewHolder, position: Int) {
         val plant = getItem(position)
-        // TODO - Store image path and get image resource
-        holder.plantImageView.setImageResource(R.drawable.image_1)
+
+        if (plant.imagePath == "") {
+            holder.plantImageView.setImageResource(R.drawable.default_plant)
+        } else {
+            val imageFile = holder.itemView.context.getFileStreamPath(plant.imagePath)
+            if(imageFile == null || !imageFile.exists()) {
+                holder.plantImageView.setImageResource(R.drawable.default_plant)
+            } else {
+                val bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
+                holder.plantImageView.setImageBitmap(bitmap)
+            }
+        }
         holder.plantNameView.text = plant.name
         holder.plantSpeciesView.text = plant.species
 

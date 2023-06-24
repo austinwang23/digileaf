@@ -28,7 +28,7 @@
             android:layout_height="match_parent"
             android:paddingRight="5dp">
         <Button
-            android:id="@+id/btnSave"
+            android:id="@+id/add_plant"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -55,10 +55,10 @@
             android:hint="Plant Type" />
 
         <EditText
-            android:id="@+id/editbruh"
+            android:id="@+id/editDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name" />
+            android:hint="Description" />
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"

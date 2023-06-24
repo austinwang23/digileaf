@@ -13,7 +13,7 @@
 
     <ImageView
         android:id="@+id/plant_item_image"
-        android:src="@drawable/image_1"
+        android:src="@drawable/default_plant"
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:scaleType="centerCrop"/>

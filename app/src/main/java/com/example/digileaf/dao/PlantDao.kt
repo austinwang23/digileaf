@@ -12,13 +12,13 @@ import kotlinx.coroutines.flow.Flow
 interface PlantDao {
     @Insert
     // Can consider using this for random seed data?
-    fun insertAll(vararg plants: Plant)
+    suspend fun insertAll(vararg plants: Plant)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertPlant(plant: Plant)
+    suspend fun insertPlant(plant: Plant)
 
     @Delete
-    fun delete(plant: Plant)
+    suspend fun delete(plant: Plant)
 
-    @Query("SELECT * FROM plants")
+    @Query("SELECT * FROM plants ORDER BY id DESC")
     fun getAll(): Flow<List<Plant>>
 }
