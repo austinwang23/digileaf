@@ -16,12 +16,14 @@ import com.example.digileaf.adapter.PlantAdapter.PlantViewHolder
 class PlantAdapter: ListAdapter<Plant, PlantViewHolder>(PLANT_COMPARATOR) {
 
     var onItemClick : ((Plant) -> Unit)? = null
+    var onDeleteClick : ((Plant) -> Unit)? = null
 
     inner class PlantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val plantImageView: ImageView = itemView.findViewById(R.id.plant_item_image)
         val plantNameView: TextView = itemView.findViewById(R.id.plant_item_name)
         val plantSpeciesView: TextView = itemView.findViewById(R.id.plant_item_species)
         val plantAgeView: TextView = itemView.findViewById(R.id.plant_item_age)
+        val plantDeleteView: ImageView = itemView.findViewById(R.id.delete_id)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlantViewHolder {
@@ -52,6 +54,10 @@ class PlantAdapter: ListAdapter<Plant, PlantViewHolder>(PLANT_COMPARATOR) {
 
         holder.itemView.setOnClickListener{
             onItemClick?.invoke(plant)
+        }
+
+        holder.plantDeleteView.setOnClickListener {
+            onDeleteClick?.invoke(plant)
         }
     }
 

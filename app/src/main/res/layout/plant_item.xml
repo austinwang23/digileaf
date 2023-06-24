@@ -51,4 +51,13 @@
             android:text="Spiky Plant"/>
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/delete_id"
+        android:src="@drawable/baseline_delete_24"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="centerCrop"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"/>
+
 </RelativeLayout>
