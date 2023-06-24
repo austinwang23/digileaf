@@ -16,41 +16,5 @@
     "species": "Cactus",
     "description": "Dumb cactus. No water. It ok",
     "imagePath": ""
-  },
-  {
-    "name": "Jack",
-    "species": "Potato",
-    "description": "Jack is green and loves sunlight! IDK",
-    "imagePath": ""
-  },
-  {
-    "name": "Apple",
-    "species": "Daisy",
-    "description": "This is apple, This is the description. yadah yadah yadah",
-    "imagePath": ""
-  },
-  {
-    "name": "Dumb Plant",
-    "species": "Cactus",
-    "description": "Dumb cactus. No water. It ok",
-    "imagePath": ""
-  },
-  {
-    "name": "Jack",
-    "species": "Potato",
-    "description": "Jack is green and loves sunlight! IDK",
-    "imagePath": ""
-  },
-  {
-    "name": "Apple",
-    "species": "Daisy",
-    "description": "This is apple, This is the description. yadah yadah yadah",
-    "imagePath": ""
-  },
-  {
-    "name": "Dumb Plant",
-    "species": "Cactus",
-    "description": "Dumb cactus. No water. It ok",
-    "imagePath": ""
   }
 ]
