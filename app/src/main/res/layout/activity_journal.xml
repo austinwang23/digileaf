@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_ghost"
+    tools:context=".JournalActivity">
+
+    <ImageButton
+        android:id="@+id/journal_page_back_button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_arrow_back" />
+
+    <TextView
+        android:id="@+id/journal_page_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/journal_page_back_button"
+        android:layout_marginStart="16dp"
+        android:layout_toStartOf="@id/journal_page_plant_name"
+        android:text="No Name"
+        android:textColor="@color/black"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/journal_page_plant_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/journal_page_back_button"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:text="Name"
+        android:textColor="@color/teal"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/journal_page_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_below="@+id/journal_page_date"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:text="Lorem ipsum dolor sit amet. Nam fugit sunt qui maxime tempora sit commodi sunt hic incidunt laboriosam. Sed cupiditate iusto aut dolorem dolorem et officia sunt ea eius fugiat ut sint quidem aut quaerat recusandae. Aut dolores galisum sit sint asperiores ut velit voluptate qui quasi pariatur ut labore amet. Non earum itaque est Quis dolorem ut possimus tempore ab impedit obcaecati ut possimus placeat et voluptas galisum."
+        android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/journal_page_image"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/journal_page_entry"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
+
+</RelativeLayout>
