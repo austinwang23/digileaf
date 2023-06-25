@@ -37,7 +37,8 @@ class PrepopulateData(private val context: Context) : RoomDatabase.Callback() {
                     Log.e("Digileaf", plantObj.toString())
                     val plantEntity = Plant(
                         plantObj.getString("name"), plantObj.getString("species"),
-                        plantObj.getString("description"), plantObj.getString("imagePath")
+                        plantObj.getString("description"), plantObj.getString("imagePath"),
+                        plantObj.getString("lastWatered")
                     )
                     plantDao.insertPlant(
                         plantEntity

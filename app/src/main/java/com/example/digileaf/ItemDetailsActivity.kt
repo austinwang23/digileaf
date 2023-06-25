@@ -20,8 +20,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.digileaf.adapter.JournalAdapter
 import com.example.digileaf.database.JournalViewModel
 import com.example.digileaf.database.JournalViewModelFactory
+import com.example.digileaf.database.PlantViewModel
+import com.example.digileaf.database.PlantViewModelFactory
 import com.example.digileaf.entities.Journal
 import com.example.digileaf.entities.Plant
+import com.example.digileaf.entities.PlantStatus
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
@@ -34,6 +37,9 @@ class ItemDetailsActivity : AppCompatActivity(), UpdatePlantStatus.UpdatePlantSt
     private lateinit var journalAdapter: JournalAdapter
     private val journalViewModel: JournalViewModel by viewModels {
         JournalViewModelFactory((this.application as DigileafApplication).journalRepository)
+    }
+    private val plantViewModel: PlantViewModel by viewModels {
+        PlantViewModelFactory((this.application as DigileafApplication).plantRepository)
     }
     private lateinit var addJournalActivityLauncher : ActivityResultLauncher<Intent>
 
@@ -162,17 +168,21 @@ class ItemDetailsActivity : AppCompatActivity(), UpdatePlantStatus.UpdatePlantSt
         val currentDate = LocalDate.now()
         val dateFormat = DateTimeFormatter.ofPattern("MMMM d yyyy", Locale.getDefault())
         val formattedDate = dateFormat.format(currentDate)
+        val plantStatus = PlantStatus(plant.id, plant.lastWater, plant.lastFertilize, plant.lastGroom)
         if (watered) {
             plantStatusWater.text = "Watered today"
+            plantStatus.lastWater = formattedDate
         }
         if (fertilized) {
             plantStatusFertilize.text = "Fertilized today"
+            plantStatus.lastFertilize = formattedDate
         }
         if (groomed) {
             plantStatusGroom.text = "Groomed today"
+            plantStatus.lastGroom = formattedDate
         }
 
-        // TODO - Insert updated plant into db
+        plantViewModel.updatePlantStatus(plantStatus)
     }
 
     private fun launchAddJournalActivity(plantId: Int, plantName: String) {

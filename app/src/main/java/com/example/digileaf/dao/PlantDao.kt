@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.digileaf.entities.Plant
+import com.example.digileaf.entities.PlantStatus
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -17,8 +18,8 @@ interface PlantDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPlant(plant: Plant)
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updatePlant(plant: Plant)
+    @Update(entity = Plant::class)
+    suspend fun updatePlantStatus(vararg plantStatus: PlantStatus)
 
     @Delete
     suspend fun delete(plant: Plant)

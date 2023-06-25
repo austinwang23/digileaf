@@ -1,28 +1,28 @@
 [
   {
     "date": "June 21 2023",
-    "plantId": 1,
+    "plantId": 3,
     "entry": "Today I did blah blah blah blah with my plant",
     "imagePath": "",
     "plantName": "Jack"
   },
   {
     "date": "June 22 2023",
-    "plantId": 1,
+    "plantId": 3,
     "entry": "Tomorrow I will do yadah yadah yadah",
     "imagePath": "",
     "plantName": "Jack"
   },
   {
     "date": "June 23 2023",
-    "plantId": 1,
+    "plantId": 3,
     "entry": "Found dark spots on my plant today",
     "imagePath": "",
     "plantName": "Jack"
   },
   {
     "date": "June 23 2023",
-    "plantId": 1,
+    "plantId": 3,
     "entry": "Plant plant plant plant plant planbt platn really really long description hopefully we can somehow test overflow. Test testsetstsetestsetsetsetestsetsetsetsetsetsetsetsetsetsetsetestes",
     "imagePath": "",
     "plantName": "Jack"

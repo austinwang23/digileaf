@@ -18,3 +18,10 @@ data class Plant (
     @ColumnInfo(name = "last_groom") val lastGroom: String = "",
     @PrimaryKey(autoGenerate = true) val id: Int = 0
 ) : Parcelable
+
+data class PlantStatus (
+    val id: Int,
+    @ColumnInfo(name = "last_water") var lastWater: String,
+    @ColumnInfo(name = "last_fertilize") var lastFertilize: String,
+    @ColumnInfo(name = "last_groom") var lastGroom: String
+)
