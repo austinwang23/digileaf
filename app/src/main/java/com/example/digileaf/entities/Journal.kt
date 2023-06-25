@@ -10,14 +10,15 @@ import kotlinx.parcelize.Parcelize
 @Entity(foreignKeys = [ForeignKey(
     entity = Plant::class,
     parentColumns = arrayOf("id"),
-    childColumns = arrayOf("plantId"),
+    childColumns = arrayOf("plant_id"),
     onDelete = ForeignKey.CASCADE
 )], tableName="journals")
 @Parcelize
 data class Journal (
-    @ColumnInfo(name = "timestamp") val timestamp: Long,
+    @ColumnInfo(name = "date", index=true) val date: String,
     @ColumnInfo(name = "entry") val entry: String,
     @ColumnInfo(name = "image_path") val imagePath: String? = null,
-    @ColumnInfo(name = "plantId", index=true) val plantId: Int,
+    @ColumnInfo(name = "plant_id", index=true) val plantId: Int,
+    @ColumnInfo(name = "plant_name") val plantName: String? = "",
     @PrimaryKey(autoGenerate = true) val id: Int = 0
 ) : Parcelable

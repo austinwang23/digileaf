@@ -32,18 +32,18 @@
 
         <TextView
             android:id="@+id/journal_entry"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="10dp"
-            android:text="Blah oes stuff asdfasdfasfa sdfasdfasd asdf asdf  fasdfasdfa sdfasdfasdfasdfdasasdff sdf sdf sdf " />
+            android:text="Bla asdf asdf asdf asdf asdf asasdf sadf asdf asdf asdf df asdf asasdf asdf   " />
 
             <ImageView
                 android:id="@+id/journal_image"
-                android:layout_weight="2"
-                android:layout_width="wrap_content"
+                android:scaleType="centerCrop"
+                android:layout_width="100dp"
                 android:layout_height="match_parent" />
     </LinearLayout>
 

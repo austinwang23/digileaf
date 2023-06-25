@@ -68,8 +68,9 @@ class PrepopulateData(private val context: Context) : RoomDatabase.Callback() {
                     val journalObj = list.getJSONObject(index)
                     Log.e("Digileaf", journalObj.toString())
                     val journalEntity = Journal(
-                        journalObj.getLong("timestamp"), journalObj.getString("entry"),
-                        journalObj.getString("imagePath"), journalObj.getInt("plantId")
+                        journalObj.getString("date"), journalObj.getString("entry"),
+                        journalObj.getString("imagePath"), journalObj.getInt("plantId"),
+                        journalObj.getString("plantName")
                     )
                     journalDao.insertJournal(
                         journalEntity
