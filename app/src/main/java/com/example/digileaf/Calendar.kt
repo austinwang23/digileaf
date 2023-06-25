@@ -1,24 +1,34 @@
 package com.example.digileaf
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digileaf.adapter.CalendarAdapter
+import com.example.digileaf.database.JournalViewModel
+import com.example.digileaf.database.JournalViewModelFactory
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class Calendar : Fragment(), CalendarAdapter.OnItemListener {
 
     private lateinit var monthYearText: TextView
     private lateinit var calendarRecyclerView: RecyclerView
     private lateinit var selectedDate: LocalDate
+    private val journalViewModel: JournalViewModel by viewModels {
+        JournalViewModelFactory((activity?.application as DigileafApplication).journalRepository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +53,10 @@ class Calendar : Fragment(), CalendarAdapter.OnItemListener {
         monthYearText.text = monthYearFromDate(selectedDate)
         val daysInMonth = daysInMonthArray(selectedDate)
 
-        val calendarAdapter = CalendarAdapter(daysInMonth, this)
+        val isCurMonth = monthYearFromDate(selectedDate) == monthYearFromDate(LocalDate.now())
+
+        val calendarAdapter = CalendarAdapter(daysInMonth, isCurMonth,this)
+
         val layoutManager = GridLayoutManager(context, 7)
         calendarRecyclerView.layoutManager = layoutManager
         calendarRecyclerView.adapter = calendarAdapter
@@ -85,8 +98,15 @@ class Calendar : Fragment(), CalendarAdapter.OnItemListener {
 
     override fun onItemClick(position: Int, dayText: String) {
         if (dayText != "") {
-            val message = "Selected Date $dayText ${monthYearFromDate(selectedDate)}"
-            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+            val monthFormat = DateTimeFormatter.ofPattern("MMMM", Locale.getDefault())
+            val yearFormat = DateTimeFormatter.ofPattern("yyyy", Locale.getDefault())
+            val formattedDate = monthFormat.format(selectedDate) + " " + dayText + " " + yearFormat.format(selectedDate)
+
+            Log.e("calendar", "opening date $formattedDate")
+
+            val intent = Intent(context, JournalListActivity::class.java)
+            intent.putExtra("date", formattedDate)
+            startActivity(intent)
         }
     }
 }

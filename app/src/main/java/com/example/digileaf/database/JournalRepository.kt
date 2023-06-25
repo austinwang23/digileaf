@@ -11,6 +11,14 @@ class JournalRepository(private val journalDao: JournalDao) {
         return journalDao.getAllByPlantId(plantId)
     }
 
+    fun allJournalDates() : Flow<List<String>> {
+        return journalDao.getAllJournalDates()
+    }
+
+    fun allJournalsByDate(Date: String) : Flow<List<Journal>> {
+        return journalDao.getAllByDate(Date)
+    }
+
     // suspended function are performed asynchronously by default
     // suspended functions do not violate no main thread db rule
     @Suppress("RedundantSuspendModifier")

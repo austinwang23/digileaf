@@ -72,9 +72,6 @@ class ItemDetailsActivity : AppCompatActivity() {
         journalAdapter.onItemClick = {
             val intent = Intent(this, JournalActivity::class.java)
             intent.putExtra("journal", it)
-            if (plant != null) {
-                intent.putExtra("plant", plant)
-            }
             startActivity(intent)
         }
 
@@ -101,7 +98,7 @@ class ItemDetailsActivity : AppCompatActivity() {
         val addJournalButton: AppCompatButton = findViewById(R.id.add_journal_button)
         addJournalButton.setOnClickListener {
             if (plant != null) {
-                launchAddJournalActivity(plant.id)
+                launchAddJournalActivity(plant.id, plant.name)
             }
         }
     }
@@ -110,9 +107,10 @@ class ItemDetailsActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun launchAddJournalActivity(plantId: Int) {
+    private fun launchAddJournalActivity(plantId: Int, plantName: String) {
         val intent = Intent(this, AddJournalEntryActivity::class.java)
         intent.putExtra("plantId", plantId)
+        intent.putExtra("plantName", plantName)
         addJournalActivityLauncher.launch(intent)
     }
 }

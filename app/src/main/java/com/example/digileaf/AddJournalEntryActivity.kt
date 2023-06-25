@@ -13,7 +13,9 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageButton
 import com.example.digileaf.entities.Journal
-import java.util.Calendar
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 
 class AddJournalEntryActivity : AppCompatActivity() {
@@ -53,9 +55,12 @@ class AddJournalEntryActivity : AppCompatActivity() {
         addJournalButton = findViewById(R.id.add_journal_entry)
         addJournalButton.setOnClickListener {
             val plantId = intent.getIntExtra("plantId", -1)
+            val plantName = intent.getStringExtra("plantName")
             val addJournalIntent = Intent()
             if (!(TextUtils.isEmpty(editDescription.text))) {
-                val currentDate = Calendar.getInstance()
+                val currentDate = LocalDate.now()
+                val dateFormat = DateTimeFormatter.ofPattern("MMMM d yyyy", Locale.getDefault())
+                val formattedDate = dateFormat.format(currentDate)
 
                 var imagePath = ""
                 val drawable = imageView.drawable
@@ -70,7 +75,7 @@ class AddJournalEntryActivity : AppCompatActivity() {
                     imagePath = fileName
                 }
 
-                val journalEntry = Journal(currentDate.time.time, editDescription.text.toString(), imagePath, plantId)
+                val journalEntry = Journal(formattedDate, editDescription.text.toString(), imagePath, plantId, plantName)
                 addJournalIntent.putExtra("journal", journalEntry)
                 setResult(Activity.RESULT_OK, addJournalIntent)
                 finish()

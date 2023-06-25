@@ -12,9 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.digileaf.R
 import com.example.digileaf.entities.Journal
 import com.example.digileaf.adapter.JournalAdapter.JournalViewHolder
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class JournalAdapter : ListAdapter<Journal, JournalViewHolder>(JOURNAL_COMPARATOR) {
 
@@ -37,10 +34,7 @@ class JournalAdapter : ListAdapter<Journal, JournalViewHolder>(JOURNAL_COMPARATO
         val journal = getItem(position)
         holder.journalEntry.text = journal.entry
 
-        val timestamp = journal.timestamp
-        val dateFormat = SimpleDateFormat("MMMM d yyyy", Locale.getDefault())
-        val formattedDate = dateFormat.format(Date(timestamp))
-        holder.journalDate.text = formattedDate
+        holder.journalDate.text = journal.date
 
         if (journal.imagePath != "") {
             val imageFile = holder.itemView.context.getFileStreamPath(journal.imagePath)
@@ -68,7 +62,7 @@ class JournalAdapter : ListAdapter<Journal, JournalViewHolder>(JOURNAL_COMPARATO
 
             override fun areContentsTheSame(oldItem: Journal, newItem: Journal): Boolean {
                 // TODO - Find a better way to do this
-                return ((oldItem.timestamp == newItem.timestamp) &&
+                return ((oldItem.date == newItem.date) &&
                         (oldItem.entry == newItem.entry) &&
                         (oldItem.plantId == newItem.plantId) &&
                         (oldItem.imagePath == newItem.imagePath))

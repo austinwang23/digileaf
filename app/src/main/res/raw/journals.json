@@ -1,26 +1,30 @@
 [
   {
-    "timestamp": 1687556433256,
+    "date": "June 21 2023",
     "plantId": 1,
     "entry": "Today I did blah blah blah blah with my plant",
-    "imagePath": ""
+    "imagePath": "",
+    "plantName": "Jack"
   },
   {
-    "timestamp": 1687556433256,
+    "date": "June 22 2023",
     "plantId": 1,
     "entry": "Tomorrow I will do yadah yadah yadah",
-    "imagePath": ""
+    "imagePath": "",
+    "plantName": "Jack"
   },
   {
-    "timestamp": 1687556433256,
+    "date": "June 23 2023",
     "plantId": 1,
     "entry": "Found dark spots on my plant today",
-    "imagePath": ""
+    "imagePath": "",
+    "plantName": "Jack"
   },
   {
-    "timestamp": 1687556433256,
+    "date": "June 23 2023",
     "plantId": 1,
     "entry": "Plant plant plant plant plant planbt platn really really long description hopefully we can somehow test overflow. Test testsetstsetestsetsetsetestsetsetsetsetsetsetsetsetsetsetsetestes",
-    "imagePath": ""
+    "imagePath": "",
+    "plantName": "Jack"
   }
 ]

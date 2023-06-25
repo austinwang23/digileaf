@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.digileaf.R
 import java.time.LocalDate
 
-class CalendarAdapter(private val daysOfMonth: ArrayList<String>, private val onItemListener: OnItemListener) :
+class CalendarAdapter(private val daysOfMonth: ArrayList<String>, private val isCurMonth: Boolean, private val onItemListener: OnItemListener) :
     RecyclerView.Adapter<CalendarViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {
@@ -25,7 +25,7 @@ class CalendarAdapter(private val daysOfMonth: ArrayList<String>, private val on
         // Get the current day
         val currentDate = LocalDate.now().dayOfMonth.toString()
 
-        if (day == currentDate) {
+        if (isCurMonth && day == currentDate) {
             holder.dayOfMonth.setTextColor(ContextCompat.getColor(holder.itemView.context,
                 R.color.teal
             ))
