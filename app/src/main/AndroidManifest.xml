@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Digileaf"
         tools:targetApi="31">
         <activity
+            android:name=".JournalListActivity"
+            android:exported="false" />
+        <activity
             android:name=".JournalActivity"
             android:exported="false" />
         <activity
@@ -25,8 +28,8 @@
             android:name=".AddPlantActivity"
             android:exported="false" />
         <activity
-            android:name=".ActivityAddJournalEntry"
-            android:exported="false"/>
+            android:name=".AddJournalEntryActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

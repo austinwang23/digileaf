@@ -111,7 +111,7 @@ class ItemDetailsActivity : AppCompatActivity() {
     }
 
     private fun launchAddJournalActivity(plantId: Int) {
-        val intent = Intent(this, ActivityAddJournalEntry::class.java)
+        val intent = Intent(this, AddJournalEntryActivity::class.java)
         intent.putExtra("plantId", plantId)
         addJournalActivityLauncher.launch(intent)
     }

@@ -16,7 +16,7 @@ import com.example.digileaf.entities.Journal
 import java.util.Calendar
 
 
-class ActivityAddJournalEntry : AppCompatActivity() {
+class AddJournalEntryActivity : AppCompatActivity() {
     private lateinit var editDescription: EditText
     private lateinit var selectImageButton: Button
     private lateinit var imageView: ImageView
