@@ -1,19 +1,26 @@
 package com.example.digileaf
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digileaf.adapter.JournalAdapter
 import com.example.digileaf.database.JournalViewModel
 import com.example.digileaf.database.JournalViewModelFactory
+import com.example.digileaf.entities.Journal
 import com.example.digileaf.entities.Plant
 
 
@@ -23,6 +30,7 @@ class ItemDetailsActivity : AppCompatActivity() {
     private val journalViewModel: JournalViewModel by viewModels {
         JournalViewModelFactory((this.application as DigileafApplication).journalRepository)
     }
+    private lateinit var addJournalActivityLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,13 +78,41 @@ class ItemDetailsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val backButton: ImageButton = findViewById(R.id.back_button)
-        backButton.setOnClickListener {
+        addJournalActivityLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intent = result.data
+                if (intent != null && intent.hasExtra("journal")) {
+                    Log.e("insertion", "inserting new journal into db")
+                    val journal = intent.getParcelableExtra<Journal>("journal")
+                    if (plant != null && journal != null) {
+                        journalViewModel.insert(journal)
+                    }
+                }
+            }
+        }
+
+        val backButton : ImageButton = findViewById(R.id.back_button)
+        backButton.setOnClickListener{
             finish()
+        }
+
+        val addJournalButton: AppCompatButton = findViewById(R.id.add_journal_button)
+        addJournalButton.setOnClickListener {
+            if (plant != null) {
+                launchAddJournalActivity(plant.id)
+            }
         }
     }
 
     override fun onBackPressed() {
         finish()
+    }
+
+    private fun launchAddJournalActivity(plantId: Int) {
+        val intent = Intent(this, ActivityAddJournalEntry::class.java)
+        intent.putExtra("plantId", plantId)
+        addJournalActivityLauncher.launch(intent)
     }
 }
