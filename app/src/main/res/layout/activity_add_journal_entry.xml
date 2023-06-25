@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="New Journal Entry"
+            android:text="Today's Journal"
             android:textSize="24dp" />
 
         <LinearLayout
@@ -50,12 +50,6 @@
         android:layout_weight="1"
         android:padding="20dp"
         android:orientation="vertical">
-
-        <!-- Date Picker -->
-        <DatePicker
-            android:id="@+id/datePicker"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <EditText
             android:id="@+id/editDescription"

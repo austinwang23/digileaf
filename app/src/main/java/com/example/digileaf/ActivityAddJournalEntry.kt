@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.widget.Button
-import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -18,8 +17,6 @@ import java.util.Calendar
 
 
 class ActivityAddJournalEntry : AppCompatActivity() {
-
-    private lateinit var datePicker: DatePicker
     private lateinit var editDescription: EditText
     private lateinit var selectImageButton: Button
     private lateinit var imageView: ImageView
@@ -34,23 +31,9 @@ class ActivityAddJournalEntry : AppCompatActivity() {
         setContentView(R.layout.activity_add_journal_entry)
 
         // Initialize views
-        datePicker = findViewById(R.id.datePicker)
         editDescription = findViewById(R.id.editDescription)
         selectImageButton = findViewById(R.id.select_image_button)
         imageView = findViewById(R.id.image_view)
-
-        // Set current date as default in the custom date picker
-        val currentDate = Calendar.getInstance()
-        val currentYear = currentDate.get(Calendar.YEAR)
-        val currentMonth = currentDate.get(Calendar.MONTH)
-        val currentDay = currentDate.get(Calendar.DAY_OF_MONTH)
-        datePicker.init(currentYear, currentMonth, currentDay, null)
-
-        // Date picker dialog listener
-        datePicker.setOnDateChangedListener { view, year, monthOfYear, dayOfMonth ->
-            // Handle date change here
-            // You can access the selected date using year, monthOfYear, and dayOfMonth
-        }
 
         // Select image button click listener
         selectImageButton.setOnClickListener {
@@ -72,12 +55,7 @@ class ActivityAddJournalEntry : AppCompatActivity() {
             val plantId = intent.getIntExtra("plantId", -1)
             val addJournalIntent = Intent()
             if (!(TextUtils.isEmpty(editDescription.text))) {
-                val day = datePicker.dayOfMonth
-                val month = datePicker.month
-                val year = datePicker.year
-
-                val calendar = Calendar.getInstance()
-                calendar.set(year, month, day)
+                val currentDate = Calendar.getInstance()
 
                 var imagePath = ""
                 val drawable = imageView.drawable
@@ -92,7 +70,7 @@ class ActivityAddJournalEntry : AppCompatActivity() {
                     imagePath = fileName
                 }
 
-                val journalEntry = Journal(calendar.time.time, editDescription.text.toString(), imagePath, plantId)
+                val journalEntry = Journal(currentDate.time.time, editDescription.text.toString(), imagePath, plantId)
                 addJournalIntent.putExtra("journal", journalEntry)
                 setResult(Activity.RESULT_OK, addJournalIntent)
                 finish()
