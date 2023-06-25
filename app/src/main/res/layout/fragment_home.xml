@@ -58,9 +58,10 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             app:cardCornerRadius="20dp"
-            android:elevation="20dp">
+            android:elevation="20dp"
+            android:id="@+id/weather_card">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -117,6 +118,19 @@
                     android:textSize="16sp" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/weather_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/weather_card"
+            android:layout_marginTop="10dp"
+            android:text="Take your plants outisde!"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
 
     </RelativeLayout>
 
