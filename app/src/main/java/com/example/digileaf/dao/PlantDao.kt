@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.digileaf.entities.Plant
 import kotlinx.coroutines.flow.Flow
 
@@ -15,6 +16,9 @@ interface PlantDao {
     suspend fun insertAll(vararg plants: Plant)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPlant(plant: Plant)
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun updatePlant(plant: Plant)
 
     @Delete
     suspend fun delete(plant: Plant)
