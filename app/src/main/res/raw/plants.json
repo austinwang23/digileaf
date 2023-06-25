@@ -3,18 +3,21 @@
     "name": "Jack",
     "species": "Potato",
     "description": "Jack is green and loves sunlight! IDK",
-    "imagePath": ""
+    "imagePath": "",
+    "lastWatered": ""
   },
   {
     "name": "Apple",
     "species": "Daisy",
     "description": "This is apple, This is the description. yadah yadah yadah",
-    "imagePath": ""
+    "imagePath": "",
+    "lastWatered": "June 21 2023"
   },
   {
     "name": "Dumb Plant",
     "species": "Cactus",
     "description": "Dumb cactus. No water. It ok",
-    "imagePath": ""
+    "imagePath": "",
+    "lastWatered": "June 22 2023"
   }
 ]

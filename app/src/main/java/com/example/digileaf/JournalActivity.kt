@@ -7,10 +7,6 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.digileaf.entities.Journal
-import com.example.digileaf.entities.Plant
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class JournalActivity : AppCompatActivity() {
 
@@ -19,7 +15,6 @@ class JournalActivity : AppCompatActivity() {
         setContentView(R.layout.activity_journal)
 
         val journal = intent.getParcelableExtra<Journal>("journal")
-        val plant = intent.getParcelableExtra<Plant>("plant")
         if(journal != null){
             val journalDate : TextView = findViewById(R.id.journal_page_date)
             val journalPlantName : TextView = findViewById(R.id.journal_page_plant_name)
@@ -27,7 +22,7 @@ class JournalActivity : AppCompatActivity() {
             val journalEntry: TextView = findViewById(R.id.journal_page_entry)
 
             journalEntry.text = journal.entry
-            journalPlantName.text = plant?.name ?: ""
+            journalPlantName.text = journal.plantName ?: ""
 
             if (journal.imagePath != "") {
                 val imageFile = getFileStreamPath(journal.imagePath)
@@ -39,10 +34,7 @@ class JournalActivity : AppCompatActivity() {
                     journalImage.setImageBitmap(bitmap)
                 }
             }
-            val timestamp = journal.timestamp
-            val dateFormat = SimpleDateFormat("MMMM d yyyy", Locale.getDefault())
-            val formattedDate = dateFormat.format(Date(timestamp))
-            journalDate.text = formattedDate
+            journalDate.text = journal.date
         }
 
         val backButton : ImageButton = findViewById(R.id.journal_page_back_button)

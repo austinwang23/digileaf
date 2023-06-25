@@ -3,6 +3,7 @@ package com.example.digileaf.database
 import androidx.annotation.WorkerThread
 import com.example.digileaf.dao.PlantDao
 import com.example.digileaf.entities.Plant
+import com.example.digileaf.entities.PlantStatus
 import kotlinx.coroutines.flow.Flow
 
 class PlantRepository(private val plantDao: PlantDao) {
@@ -20,5 +21,11 @@ class PlantRepository(private val plantDao: PlantDao) {
     @WorkerThread
     suspend fun delete(plant: Plant) {
         plantDao.delete(plant)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun updatePlantStatus(plantStatus: PlantStatus) {
+        plantDao.updatePlantStatus(plantStatus)
     }
 }

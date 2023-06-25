@@ -17,6 +17,14 @@ class JournalViewModel(private val repository: JournalRepository) : ViewModel() 
         return repository.allJournalsByPlantId(plantId).asLiveData()
     }
 
+    fun allJournalByDate(date: String) : LiveData<List<Journal>> {
+        return repository.allJournalsByDate(date).asLiveData()
+    }
+
+    fun allJournalDates(): LiveData<List<String>> {
+        return repository.allJournalDates().asLiveData()
+    }
+
     // Do through coroutine --> by default no database operations are allowed on main thread
     fun insert(journal: Journal) = viewModelScope.launch {
         repository.insert(journal)
