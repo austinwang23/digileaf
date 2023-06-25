@@ -63,6 +63,7 @@
             app:cardCornerRadius="20dp">
 
             <RelativeLayout
+                android:background="@color/teal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -72,7 +73,7 @@
                     android:layout_height="100dp"
                     android:layout_centerVertical="true"
                     android:layout_margin="10dp"
-                    android:elevation="10dp"
+                    android:elevation="15dp"
                     app:cardCornerRadius="50dp">
 
                     <ImageView
@@ -80,6 +81,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:scaleType="centerCrop"
                         />
                 </androidx.cardview.widget.CardView>
 
@@ -87,7 +89,7 @@
                     android:id="@+id/weather_temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:layout_toEndOf="@id/weather_icon_container"
                     android:text="Temperature"
                     android:textColor="@color/black"
@@ -99,10 +101,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/weather_temperature"
-                    android:layout_marginTop="10dp"
                     android:layout_toEndOf="@id/weather_icon_container"
                     android:text="Location"
-                    android:textColor="@color/teal"
+                    android:textColor="@color/dark_late_gray"
                     android:textSize="16sp" />
 
                 <TextView
@@ -113,7 +114,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_toEndOf="@id/weather_icon_container"
                     android:text="Feeling Muggy"
-                    android:textColor="@color/black_soft"
+                    android:textColor="@color/white_smoke"
                     android:textSize="16sp" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
