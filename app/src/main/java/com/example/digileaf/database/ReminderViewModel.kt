@@ -35,6 +35,7 @@ class ReminderViewModel(private val repository: ReminderRepository): ViewModel()
 class ReminderModelFactory(private val repository: ReminderRepository): ViewModelProvider.Factory {
     override fun <T: ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ReminderViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
             return ReminderViewModel(repository) as T
         }
 

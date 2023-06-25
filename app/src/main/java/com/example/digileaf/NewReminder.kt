@@ -6,7 +6,9 @@ import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.example.digileaf.database.ReminderModelFactory
 import com.example.digileaf.database.ReminderViewModel
 import com.example.digileaf.databinding.FragmentNewReminderBinding
 import com.example.digileaf.entities.Reminder
@@ -16,8 +18,11 @@ import java.time.LocalTime
 class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentNewReminderBinding
-    private lateinit var reminderViewModel: ReminderViewModel
+//    private lateinit var reminderViewModel: ReminderViewModel
     private var dueTime: LocalTime? = null
+    private val reminderViewModel: ReminderViewModel by viewModels {
+        ReminderModelFactory((activity?.application as DigileafApplication).reminderRepository)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,7 +43,7 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
         else {
             binding.reminderTitle.text = "New Reminder"
         }
-        reminderViewModel = ViewModelProvider(activity)[ReminderViewModel::class.java]
+//        reminderViewModel = ViewModelProvider(activity)[ReminderViewModel::class.java]
         binding.timePickerButton.setOnClickListener{
             openTimePicker()
         }
