@@ -12,8 +12,11 @@
         android:title="Calendar"
         />
     <item
+        android:id="@+id/reminders"
+        android:icon="@drawable/ic_reminder"
+        android:title="Reminders" />
+    <item
         android:id="@+id/test2"
         android:icon="@drawable/ic_home"
-        android:title="test2"
-        />
+        android:title="test2" />
 </menu>
