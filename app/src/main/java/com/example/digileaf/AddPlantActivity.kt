@@ -113,10 +113,7 @@ class AddPlantActivity : AppCompatActivity() {
 
     private fun startCameraActivity() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        if (takePictureIntent.resolveActivity(packageManager) != null) {
-            startActivityForResult(takePictureIntent, TAKE_PICTURE_REQUEST)
-        }
-
+        startActivityForResult(takePictureIntent, TAKE_PICTURE_REQUEST)
     }
 
     override fun onRequestPermissionsResult(
