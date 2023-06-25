@@ -55,17 +55,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/plant_inventory"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="100dp"
-            android:elevation="10dp"
             app:cardCornerRadius="20dp">
 
             <RelativeLayout
-                android:background="@color/teal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/white">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/weather_icon_container"
@@ -81,8 +80,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:scaleType="centerCrop"
-                        />
+                        android:scaleType="centerCrop" />
                 </androidx.cardview.widget.CardView>
 
                 <TextView
@@ -103,7 +101,7 @@
                     android:layout_below="@id/weather_temperature"
                     android:layout_toEndOf="@id/weather_icon_container"
                     android:text="Location"
-                    android:textColor="@color/dark_late_gray"
+                    android:textColor="@color/teal"
                     android:textSize="16sp" />
 
                 <TextView
@@ -114,7 +112,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_toEndOf="@id/weather_icon_container"
                     android:text="Feeling Muggy"
-                    android:textColor="@color/white_smoke"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
