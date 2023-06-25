@@ -29,5 +29,6 @@ data class ForecastDayInfo(
 
 data class Condition(
     val icon: String,
-    val text: String
+    val text: String,
+    val code: Int
 )

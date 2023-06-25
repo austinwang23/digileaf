@@ -1,7 +1,10 @@
 package com.example.digileaf
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,21 +17,26 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.digileaf.adapter.PlantAdapter
 import com.example.digileaf.database.PlantViewModel
 import com.example.digileaf.database.PlantViewModelFactory
 import com.example.digileaf.entities.Plant
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.example.digileaf.helpers.WeatherCodeMappings
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
+import com.google.android.gms.tasks.CancellationTokenSource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import com.bumptech.glide.Glide
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 private const val BASE_URL = "http://api.weatherapi.com/v1/"
@@ -49,11 +57,14 @@ class Home : Fragment() {
     private lateinit var weatherLocationTextView: TextView
     private lateinit var weatherIconImageView: ImageView
     private lateinit var weatherDescriptionTextView: TextView
+    private lateinit var weatherTipTextView: TextView
 
-    private fun getWeatherData() {
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1
+
+    private fun getWeatherData(latLong: String) {
         val call = weatherApiService.getWeatherData(
             apiKey = "f5a80a80e75940b0bc1192359232406",
-            location = "43.464256,-80.520409",
+            location = latLong,
             days = 1,
             includeAqi = "no",
             includeAlerts = "no"
@@ -70,6 +81,7 @@ class Home : Fragment() {
                     val maxTempC = forecastDay?.day?.maxtemp_c
                     val weatherIcon = forecastDay?.day?.condition?.icon
                     val weatherDescription = forecastDay?.day?.condition?.text
+                    val weatherCode = forecastDay?.day?.condition?.code
 
                     weatherTemperatureTextView.text = "${maxTempC?.toString()}°C"
                     weatherLocationTextView.text = weatherData?.location?.name
@@ -77,6 +89,7 @@ class Home : Fragment() {
                         .load("https:${weatherIcon}")
                         .into(weatherIconImageView)
                     weatherDescriptionTextView.text = weatherDescription
+                    weatherTipTextView.text = WeatherCodeMappings.getOrDefault(weatherCode as Int, "")
 //                    Log.d("Weather Data", weatherData.toString())
                 } else {
                     Log.e("API", "Error: ${response.code()}")
@@ -87,6 +100,22 @@ class Home : Fragment() {
                 Log.e("API", "Failure: ${t.message}")
             }
         })
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getLocation() {
+        val priority = Priority.PRIORITY_BALANCED_POWER_ACCURACY
+        val cancellationTokenSource = CancellationTokenSource()
+        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
+        fusedLocationClient.getCurrentLocation(priority, cancellationTokenSource.token)
+            .addOnSuccessListener { location ->
+                val latLong = location.latitude.toString() + "," + location.longitude.toString()
+                getWeatherData(latLong)
+            }
+            .addOnFailureListener { exception ->
+                Log.d("Location", "Oops location failed with exception: $exception")
+            }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,7 +142,23 @@ class Home : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        getWeatherData()
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Request the camera permission if it is not granted
+            requestPermissions(
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+        } else {
+            getLocation()
+        }
 
         val plantAdapter = PlantAdapter()
 
@@ -156,6 +201,7 @@ class Home : Fragment() {
         weatherLocationTextView = view.findViewById(R.id.weather_location)
         weatherIconImageView = view.findViewById(R.id.weather_icon)
         weatherDescriptionTextView = view.findViewById(R.id.weather_description)
+        weatherTipTextView = view.findViewById(R.id.weather_tip)
     }
 
     private fun launchAddPlantActivity() {
@@ -163,4 +209,17 @@ class Home : Fragment() {
         addPlantActivityLauncher.launch(intent)
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && (grantResults[0] == PackageManager.PERMISSION_GRANTED || grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
+                getLocation()
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        }
+    }
 }
