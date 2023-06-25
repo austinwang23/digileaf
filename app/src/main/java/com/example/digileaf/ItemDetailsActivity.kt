@@ -31,23 +31,21 @@ class ItemDetailsActivity : AppCompatActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.journal_RV)
         journalAdapter = JournalAdapter()
         recyclerView.adapter = journalAdapter
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val plant = intent.getParcelableExtra<Plant>("plant")
-        if(plant != null){
-            val plantName : TextView = findViewById(R.id.detailed_plant_name)
-            val plantImage : ImageView = findViewById(R.id.detailed_plant_image)
-            val plantSpecies : TextView = findViewById(R.id.detailed_plant_species)
+        if (plant != null) {
+            val plantName: TextView = findViewById(R.id.detailed_plant_name)
+            val plantImage: ImageView = findViewById(R.id.detailed_plant_image)
+            val plantSpecies: TextView = findViewById(R.id.detailed_plant_species)
             val plantDescription: TextView = findViewById(R.id.detailed_plant_description)
 
             plantName.text = plant.name
             plantSpecies.text = plant.species
-            if (plant.imagePath == "") {
-                plantImage.setImageResource(R.drawable.default_plant)
-            } else {
+            if (plant.imagePath != "") {
                 val imageFile = getFileStreamPath(plant.imagePath)
                 // If for whatever reason, the file no longer exists
-                if(imageFile == null || !imageFile.exists()) {
+                if (imageFile == null || !imageFile.exists()) {
                     plantImage.setImageResource(R.drawable.default_plant)
                 } else {
                     val bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
@@ -66,17 +64,18 @@ class ItemDetailsActivity : AppCompatActivity() {
         journalAdapter.onItemClick = {
             val intent = Intent(this, JournalActivity::class.java)
             intent.putExtra("journal", it)
-            if(plant != null){
+            if (plant != null) {
                 intent.putExtra("plant", plant)
             }
             startActivity(intent)
         }
 
-        val backButton : ImageButton = findViewById(R.id.back_button)
-        backButton.setOnClickListener{
+        val backButton: ImageButton = findViewById(R.id.back_button)
+        backButton.setOnClickListener {
             finish()
         }
     }
+
     override fun onBackPressed() {
         finish()
     }

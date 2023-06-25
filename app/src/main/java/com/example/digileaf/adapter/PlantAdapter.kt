@@ -22,7 +22,6 @@ class PlantAdapter: ListAdapter<Plant, PlantViewHolder>(PLANT_COMPARATOR) {
         val plantImageView: ImageView = itemView.findViewById(R.id.plant_item_image)
         val plantNameView: TextView = itemView.findViewById(R.id.plant_item_name)
         val plantSpeciesView: TextView = itemView.findViewById(R.id.plant_item_species)
-        val plantAgeView: TextView = itemView.findViewById(R.id.plant_item_age)
         val plantDeleteView: ImageView = itemView.findViewById(R.id.plant_item_delete)
     }
 
@@ -48,9 +47,6 @@ class PlantAdapter: ListAdapter<Plant, PlantViewHolder>(PLANT_COMPARATOR) {
         }
         holder.plantNameView.text = plant.name
         holder.plantSpeciesView.text = plant.species
-
-        // TODO - Get rid of plant age
-        holder.plantAgeView.text = "2 mos"
 
         holder.itemView.setOnClickListener{
             onItemClick?.invoke(plant)

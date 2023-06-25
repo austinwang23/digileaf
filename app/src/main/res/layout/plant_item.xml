@@ -34,15 +34,6 @@
             android:layout_marginStart="8dp"
             android:text="Timothy"/>
         <TextView
-            android:id="@+id/plant_item_age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2 mos"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="4dp"
-            android:textColor="@color/cadet_blue"/>
-        <TextView
             android:id="@+id/plant_item_species"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
