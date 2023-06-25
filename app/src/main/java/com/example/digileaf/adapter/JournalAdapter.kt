@@ -51,6 +51,8 @@ class JournalAdapter : ListAdapter<Journal, JournalViewHolder>(JOURNAL_COMPARATO
                 val bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
                 holder.journalImage.setImageBitmap(bitmap)
             }
+        } else {
+            holder.journalImage.visibility = View.GONE
         }
 
         holder.itemView.setOnClickListener {
