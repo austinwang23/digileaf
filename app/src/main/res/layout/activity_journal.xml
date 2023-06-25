@@ -45,18 +45,19 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
-        android:text="Lorem ipsum dolor sit amet. Nam fugit sunt qui maxime tempora sit commodi sunt hic incidunt laboriosam. Sed cupiditate iusto aut dolorem dolorem et officia sunt ea eius fugiat ut sint quidem aut quaerat recusandae. Aut dolores galisum sit sint asperiores ut velit voluptate qui quasi pariatur ut labore amet. Non earum itaque est Quis dolorem ut possimus tempore ab impedit obcaecati ut possimus placeat et voluptas galisum."
+        android:text="Lorem ipsum dolor sit amet. Nam fugit sunt qui tempora sit commodi sunt hic incidunt laboriosam. Sed cupiditate iusto aut dolorem dolorem et officia sunt ea eius fugiat ut sint quidem aut quaerat recusandae. Aut dolores galisum sit sint asperiores ut velit voluptate qui quasi pariatur ut labore amet. Non earum itaque est Quis dolorem ut possimus tempore ab impedit obcaecati ut possimus placeat et voluptas galisum."
         android:textSize="20sp" />
 
-        <ImageView
-            android:id="@+id/journal_page_image"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/journal_page_entry"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp" />
+    <ImageView
+        android:id="@+id/journal_page_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/journal_page_entry"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/default_plant"
+        android:layout_marginBottom="16dp" />
 
 </RelativeLayout>

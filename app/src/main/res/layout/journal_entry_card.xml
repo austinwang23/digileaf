@@ -11,43 +11,34 @@
     android:elevation="5dp"
     android:focusable="true">
 
+    <TextView
+        android:id="@+id/journal_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:layout_marginTop="8dp"
+        android:text="June 23"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/journal_entry"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="horizontal">
+        android:layout_below="@id/journal_date"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/journal_image"
+        android:text="Blah oes stuff asdfasdfasf" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/journal_date"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:text="June 23"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/journal_entry"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/journal_date"
-                android:layout_marginStart="8dp"
-                android:text="Blah Blah BLah this is my plant he does stuff" />
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/journal_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-
+    <ImageView
+        android:id="@+id/journal_image"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
