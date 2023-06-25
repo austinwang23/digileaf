@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.digileaf.entities.Plant
+import com.example.digileaf.entities.PlantStatus
 import kotlinx.coroutines.launch
 
 class PlantViewModel(private val repository: PlantRepository) : ViewModel() {
@@ -21,6 +22,10 @@ class PlantViewModel(private val repository: PlantRepository) : ViewModel() {
 
     fun delete(plant: Plant) = viewModelScope.launch {
         repository.delete(plant)
+    }
+
+    fun updatePlantStatus(plantStatus: PlantStatus) = viewModelScope.launch {
+        repository.updatePlantStatus(plantStatus)
     }
 }
 
