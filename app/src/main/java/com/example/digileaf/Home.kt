@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
@@ -71,6 +72,12 @@ class Home : Fragment() {
             val intent = Intent(context, ItemDetailsActivity::class.java)
             intent.putExtra("plant", it)
             startActivity(intent)
+        }
+
+        plantAdapter.onDeleteClick = {
+            Log.e("deletion", "deleting plant from db")
+            Toast.makeText(activity, "deleting plant ${it.name}", Toast.LENGTH_SHORT).show()
+            plantViewModel.delete(it)
         }
 
         // Initialize addPlantButton & onClick handler

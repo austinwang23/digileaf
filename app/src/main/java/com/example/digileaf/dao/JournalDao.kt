@@ -22,6 +22,6 @@ interface JournalDao {
     @Query("SELECT * FROM journals")
     fun getAll(): Flow<List<Journal>>
 
-    @Query("SELECT * FROM journals WHERE plantId = :plantId")
+    @Query("SELECT * FROM journals WHERE plantId = :plantId ORDER BY timestamp DESC")
     fun getAllByPlantId(plantId: Int): Flow<List<Journal>>
 }

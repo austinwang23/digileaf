@@ -18,6 +18,10 @@ class PlantViewModel(private val repository: PlantRepository) : ViewModel() {
     fun insert(plant: Plant) = viewModelScope.launch {
         repository.insert(plant)
     }
+
+    fun delete(plant: Plant) = viewModelScope.launch {
+        repository.delete(plant)
+    }
 }
 
 class PlantViewModelFactory(private val repository: PlantRepository) : ViewModelProvider.Factory {

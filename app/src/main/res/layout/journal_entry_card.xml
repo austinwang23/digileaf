@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="40dp"
+    android:background="@drawable/plant_item_bg"
+    android:clickable="true"
+    android:elevation="5dp"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/journal_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="June 23"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_below="@id/journal_date"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/journal_entry"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp"
+            android:text="Blah oes stuff asdfasdfasfa sdfasdfasd asdf asdf  fasdfasdfa sdfasdfasdfasdfdasasdff sdf sdf sdf " />
+
+            <ImageView
+                android:id="@+id/journal_image"
+                android:layout_weight="2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+    </LinearLayout>
+
+</RelativeLayout>
