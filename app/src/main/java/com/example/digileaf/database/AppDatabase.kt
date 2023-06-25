@@ -6,13 +6,16 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.digileaf.dao.JournalDao
 import com.example.digileaf.dao.PlantDao
+import com.example.digileaf.dao.ReminderDao
 import com.example.digileaf.entities.Journal
 import com.example.digileaf.entities.Plant
+import com.example.digileaf.entities.Reminder
 
-@Database(entities = [Plant::class, Journal::class], version = 1, exportSchema = false)
+@Database(entities = [Plant::class, Journal::class, Reminder::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun plantDao(): PlantDao
     abstract fun journalDao(): JournalDao
+    abstract fun reminderDao(): ReminderDao
 
     companion object {
         @Volatile

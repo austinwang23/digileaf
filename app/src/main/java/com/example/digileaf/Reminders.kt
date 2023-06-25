@@ -1,24 +1,26 @@
 package com.example.digileaf
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.appcompat.widget.AppCompatButton
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.digileaf.adapter.ReminderAdapter
 import com.example.digileaf.adapter.ReminderClickListener
+import com.example.digileaf.database.PlantViewModelFactory
+import com.example.digileaf.database.ReminderModelFactory
 import com.example.digileaf.database.ReminderViewModel
 import com.example.digileaf.databinding.FragmentRemindersBinding
-import com.example.digileaf.model.Reminder
+import com.example.digileaf.entities.Reminder
 
 class Reminders : Fragment(), ReminderClickListener {
-    private lateinit var reminderViewModel: ReminderViewModel
+    private val reminderViewModel: ReminderViewModel by viewModels {
+        ReminderModelFactory((activity?.application as DigileafApplication).reminderRepository)
+    }
     private lateinit var addReminderButton: Button
     private lateinit var binding: FragmentRemindersBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +35,6 @@ class Reminders : Fragment(), ReminderClickListener {
         val view = binding.root
 
         val activity = requireActivity()
-        reminderViewModel = ViewModelProvider(activity)[ReminderViewModel::class.java]
 
         // Initialize addReminderButton & onClick handler
         addReminderButton = view.findViewById(R.id.reminder_add_button)

@@ -2,17 +2,14 @@ package com.example.digileaf
 
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.os.LocaleList
 import android.text.Editable
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TimePicker
 import androidx.lifecycle.ViewModelProvider
 import com.example.digileaf.database.ReminderViewModel
 import com.example.digileaf.databinding.FragmentNewReminderBinding
-import com.example.digileaf.model.Reminder
+import com.example.digileaf.entities.Reminder
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.time.LocalTime
 
@@ -32,8 +29,8 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
             val editable = Editable.Factory.getInstance()
             binding.title.text = editable.newEditable(reminderItem!!.title)
             binding.desc.text = editable.newEditable(reminderItem!!.desc)
-            if (reminderItem!!.dueTime != null) {
-                dueTime = reminderItem!!.dueTime
+            if (reminderItem!!.dueTime() != null) {
+                dueTime = reminderItem!!.dueTime()
                 updateTimeButtonText()
             }
         }
@@ -81,14 +78,18 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
     private fun saveAction() {
         val title = binding.title.text.toString()
         val desc = binding.desc.text.toString()
+        val dueTimeString = if (dueTime == null) null else Reminder.timeFormatter.format(dueTime)
 
         // editing a reminder
         if (reminderItem != null) {
-            reminderViewModel.updateReminder(reminderItem!!.id, title, desc, dueTime)
+            reminderItem!!.title = title
+            reminderItem!!.desc = desc
+            reminderItem!!.dueTimeString = dueTimeString
+            reminderViewModel.updateReminder(reminderItem!!)
         }
         // creating a new reminder
         else {
-            val newReminder = Reminder(title, desc, dueTime, null)
+            val newReminder = Reminder(title, desc, dueTimeString, null)
             reminderViewModel.addReminder(newReminder)
         }
 

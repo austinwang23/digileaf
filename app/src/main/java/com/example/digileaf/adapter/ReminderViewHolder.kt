@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Paint
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digileaf.databinding.ReminderCellBinding
-import com.example.digileaf.model.Reminder
+import com.example.digileaf.entities.Reminder
 import java.time.format.DateTimeFormatter
 
 class ReminderViewHolder(
@@ -32,8 +32,8 @@ class ReminderViewHolder(
             clickListener.editReminder(reminder)
         }
 
-        if (reminder.dueTime != null) {
-            binding.dueTime.text = timeFormat.format(reminder.dueTime)
+        if (reminder.dueTime() != null) {
+            binding.dueTime.text = timeFormat.format(reminder.dueTime())
         }
         else {
             binding.dueTime.text = ""
