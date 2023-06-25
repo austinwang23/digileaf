@@ -74,6 +74,7 @@
                         android:layout_marginTop="20dp"
                         android:background="@drawable/bg_circle"
                         android:src="@drawable/ic_water"
+                        android:clickable="false"
                         app:tint="@color/white" />
 
                     <TextView
@@ -81,8 +82,9 @@
                         android:layout_height="match_parent"
                         android:layout_below="@id/water_icon"
                         android:layout_centerHorizontal="true"
+                        android:id="@+id/plant_last_water"
                         android:gravity="center"
-                        android:text="watered \n 2 days ago" />
+                        android:text="No data available" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -98,6 +100,7 @@
                         android:layout_marginTop="20dp"
                         android:background="@drawable/bg_circle"
                         android:src="@drawable/ic_fertilizer"
+                        android:clickable="false"
                         app:tint="@color/white" />
 
                     <TextView
@@ -105,8 +108,9 @@
                         android:layout_height="match_parent"
                         android:layout_below="@id/fertilizer_icon"
                         android:layout_centerHorizontal="true"
+                        android:id="@+id/plant_last_fertilize"
                         android:gravity="center"
-                        android:text="fertilized 2 days ago" />
+                        android:text="No data available" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -121,6 +125,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/bg_circle"
+                        android:clickable="false"
                         android:src="@drawable/ic_grooming"
                         app:tint="@color/white" />
 
@@ -130,7 +135,8 @@
                         android:layout_below="@id/grooming_icon"
                         android:layout_centerHorizontal="true"
                         android:gravity="center"
-                        android:text="groomed 2 days ago" />
+                        android:id="@+id/plant_last_groom"
+                        android:text="No data available" />
                 </RelativeLayout>
 
             </LinearLayout>
