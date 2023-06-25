@@ -97,6 +97,7 @@
         android:layout_alignParentBottom="true">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/add_journal_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/btn_bg_journal"
