@@ -233,6 +233,5 @@
         android:layout_height="match_parent"
         android:layout_above="@id/journal_button"
         android:layout_below="@id/detailed_plant_timeline"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp" />
 </RelativeLayout>
