@@ -5,6 +5,7 @@
 |         |             |            |            |              | 3 hour      | Jun 13 | Created initial projects and set up frontend for the home page as well as navbar                                                                          |
 |         |             |            |            |              | 2 hour      | Jun 21 | Created the model for the Plant class as well as the recycler view for inventory                                                                          |
 |         |             |            |            |              | 8 hour      | Jun 22 | Finished mockups for home page, and set up mock data for recycler view. Added click functionality to plants for detailed page, and created calendar view. |
+|         |             |            |            | 5 hour       |             |        | Created on-click interactive plant information panels when user clicks on specified plant in home page. |
 |         |             |            | 6 hour     |              |             | Jun 22 | Database setup with pre-populated plant data. Updated recyclerview to use database data synchronously                                                     |
 |         |             |            | 3 hour     |              |             | Jun 23 | Database update to use live data and access asynchronously off of main thread. Follow android live model architecture                                     |
 |         |             |            |            |              | 1 hour      | Jun 23 | Updated mock up for detailed plant page.                                                                                                                  |
@@ -14,7 +15,8 @@
 | 2 hour  |             |            |            |              |             | Jun 23 | Created UI for reminders page, populate with mock data with recycler view
 |         |  1hr           |            |       |              |               | Jun 23 | Created Add Plant page                                                 |                                                                                 |
 | 4 hour  |             |            |            |              |             | Jun 24 | Added UI and functionality to add and edit reminders, added time selector                                                                                 |
-| 3 hour  |             |            |            |              |             | Jun 24 | Database integration for reminders                                                                                                                        |
+| 3 hour  |             |            |            |              |             | Jun 24 | Database integration for reminders
+|         |             |            |            | 3 hour       |             | Jun 24 | Added plant deletion button for plant panels on home page    |
 |         |             |            |            |              | 6 hour      | Jun 24 | Added detail journal page and updated UI for multiple layouts                                                                                             |
 |         |             |            | 5 hour     |              |             | Jun 24 | Insert journal entries into database (with refactor), view journals through calendar                                                                      |
 |         |  2hrs           |            |       |              |              | Jun 24 | Added upload image feature to AddPlant page
