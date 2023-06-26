@@ -1,3 +1,4 @@
+
 # Time logs
 | Alan Hu | Austin Wang | Ernst Mach | Wendi Zhao | Yi Zhe Zhang | Zi Zhou Yin | Date   | Description                                                                                                                                               |
 |---------|-------------|------------|------------|--------------|-------------|--------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -10,10 +11,13 @@
 |         |             |            | 1 hour     |              |             | Jun 23 | Seeded DB with journal data                                                                                                                               |
 |         |             |            |            |              | 1 hour      | Jun 23 | Added journal entries to plant details view using seeded data                                                                                             |
 |         |             |            | 2 hour     |              |             | Jun 23 | Add new plants into the DB and fetch images based on imagePath if possible                                                                                |
-| 2 hour  |             |            |            |              |             | Jun 23 | Created UI for reminders page, populate with mock data with recycler view                                                                                 |
+| 2 hour  |             |            |            |              |             | Jun 23 | Created UI for reminders page, populate with mock data with recycler view
+|         |  1hr           |            |       |              |               | Jun 23 | Created Add Plant page                                                 |                                                                                 |
 | 4 hour  |             |            |            |              |             | Jun 24 | Added UI and functionality to add and edit reminders, added time selector                                                                                 |
 | 3 hour  |             |            |            |              |             | Jun 24 | Database integration for reminders                                                                                                                        |
 |         |             |            |            |              | 6 hour      | Jun 24 | Added detail journal page and updated UI for multiple layouts                                                                                             |
 |         |             |            | 5 hour     |              |             | Jun 24 | Insert journal entries into database (with refactor), view journals through calendar                                                                      |
+|         |  2hrs           |            |       |              |              | Jun 24 | Added upload image feature to AddPlant page
+|         |  2hrs           |            |       |              |              | Jun 24 | Added Take picture with camera feature to Add plant page
 |         |             |            |            |              | 3 hour      | Jun 25 | Updated detailed plant page to support plant actions, created weather widget on home page                                                                 |
 |         |             |            | 4 hour     |              |             | Jun 25 | Added plant status dialog and ability to update and store plant status, UI updates, location based weather fetching with tip                              |
