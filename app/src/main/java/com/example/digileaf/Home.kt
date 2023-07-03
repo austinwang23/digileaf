@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -58,6 +59,8 @@ class Home : Fragment() {
     private lateinit var weatherIconImageView: ImageView
     private lateinit var weatherDescriptionTextView: TextView
     private lateinit var weatherTipTextView: TextView
+    private lateinit var plantQuiz: CardView
+    private lateinit var lightMeter: CardView // TO IMPLEMENT
 
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
 
@@ -189,6 +192,16 @@ class Home : Fragment() {
         addPlantButton = view.findViewById(R.id.plant_add_button)
         addPlantButton.setOnClickListener{
             launchAddPlantActivity()
+        }
+
+        plantQuiz = view.findViewById(R.id.plant_quiz_card)
+        plantQuiz.setOnClickListener{
+            Log.e("plant quiz", "clicked on plant quiz")
+        }
+
+        lightMeter = view.findViewById(R.id.light_meter_card)
+        lightMeter.setOnClickListener{
+            Log.e("light meter", "clicked on light meter")
         }
 
         return view

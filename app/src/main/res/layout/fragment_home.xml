@@ -23,25 +23,80 @@
             android:textSize="35sp"></TextView>
 
         <LinearLayout
-            android:id="@+id/search_view"
+            android:id="@+id/addon_container"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="25dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="135dp"
-            android:layout_marginEnd="25dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/bg_search"
             android:elevation="10dp"
             android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <androidx.appcompat.widget.SearchView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/SearchView"
-                app:iconifiedByDefault="true"
-                app:queryBackground="@android:color/transparent"
-                app:queryHint="Search" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/plant_quiz_card"
+                android:layout_width="70dp"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:elevation="60dp"
+                app:cardCornerRadius="20dp"
+                android:layout_weight="1"
+                android:clickable="true">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="10dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_fertilizer"
+                        app:tint="@color/teal"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Plant Quiz"
+                        android:textColor="@color/teal"
+                        android:textSize="20sp"
+                        android:textStyle="bold"></TextView>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/light_meter_card"
+                android:layout_width="70dp"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:elevation="15dp"
+                app:cardCornerRadius="20dp"
+                android:layout_weight="1"
+                android:clickable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="10dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_light"
+                        app:tint="@color/teal"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Light Meter"
+                        android:textColor="@color/teal"
+                        android:textSize="20sp"
+                        android:textStyle="bold"></TextView>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
 
         <include
@@ -49,7 +104,7 @@
             layout="@layout/plant_inventory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/search_view" />
+            android:layout_below="@id/addon_container" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
