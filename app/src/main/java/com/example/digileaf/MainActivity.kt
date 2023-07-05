@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.animatedBottomBar.setOnTabSelectListener(object : AnimatedBottomBar.OnTabSelectListener {
+        binding.activityMainBottomBar.animatedBottomBar.setOnTabSelectListener(object : AnimatedBottomBar.OnTabSelectListener {
             override fun onTabSelected(
                 lastIndex: Int,
                 lastTab: AnimatedBottomBar.Tab?,
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        binding.animatedBottomBar.selectTabById(R.id.home)
+        binding.activityMainBottomBar.animatedBottomBar.selectTabById(R.id.home)
 
     }
 

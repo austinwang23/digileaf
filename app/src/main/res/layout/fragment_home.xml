@@ -9,7 +9,14 @@
     <RelativeLayout
         android:id="@+id/inventory_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/bottom_bar"
+            layout="@layout/animated_bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
 
         <ImageView
             android:id="@+id/textDev"
@@ -110,22 +117,26 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/weather_card"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="match_parent"
+            android:layout_above="@id/weather_tip_card"
             android:layout_below="@id/plant_inventory"
-            android:layout_margin="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             app:cardCornerRadius="20dp">
+
+            <ImageView
+                android:id="@+id/weather_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_sunny" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/plant_inventory">
-
-                <ImageView
-                    android:id="@+id/weather_background"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/bg_sunny" />
 
                 <ImageView
                     android:id="@+id/weather_icon"
@@ -159,7 +170,7 @@
                     android:layout_marginStart="10dp"
                     android:text="00"
                     android:textColor="@color/white"
-                    android:textSize="40sp"
+                    android:textSize="36sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -171,49 +182,50 @@
                     android:text="Searching..."
                     android:textColor="@color/white"
                     android:textSize="16sp" />
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/weather_location"
-                    android:layout_margin="5dp"
-                    app:cardCornerRadius="20dp">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/bg_tooltip" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/ic_tooltip"
-                            app:tint="@color/white" />
-
-                        <TextView
-                            android:id="@+id/weather_tip"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="20dp"
-                            android:layout_marginBottom="10dp"
-                            android:text="Loading weather data..."
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
             </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/weather_tip_card"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_above="@id/bottom_bar"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="20dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_tooltip" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_tooltip"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:id="@+id/weather_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Loading weather data... \n"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
 </FrameLayout>

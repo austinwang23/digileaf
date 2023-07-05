@@ -21,29 +21,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"></FrameLayout>
 
-        <nl.joery.animatedbottombar.AnimatedBottomBar
-            android:id="@+id/animatedBottomBar"
-            android:background="@drawable/bg_half_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="5dp"
-            app:abb_animationDuration="500"
-            app:abb_animationInterpolator="@android:anim/overshoot_interpolator"
-            app:abb_indicatorAppearance="round"
-            app:abb_indicatorColor="@color/white"
-            app:abb_indicatorHeight="5dp"
-            app:abb_indicatorMargin="30dp"
-            app:abb_selectedIndex="1"
-            app:abb_selectedTabType="text"
-            app:abb_tabAnimation="slide"
-            app:abb_tabColorSelected="@color/white"
-            app:abb_tabColor="@color/white"
-            app:abb_tabs="@menu/main"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            >
-        </nl.joery.animatedbottombar.AnimatedBottomBar>
+        <include android:id="@+id/activity_main_bottom_bar" layout="@layout/animated_bottom_bar"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
