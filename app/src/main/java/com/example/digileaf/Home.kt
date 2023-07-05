@@ -197,6 +197,8 @@ class Home : Fragment() {
         plantQuiz = view.findViewById(R.id.plant_quiz_card)
         plantQuiz.setOnClickListener{
             Log.e("plant quiz", "clicked on plant quiz")
+            val intent = Intent(context, PlantQuizActivity::class.java)
+            startActivity(intent)
         }
 
         lightMeter = view.findViewById(R.id.light_meter_card)

@@ -90,7 +90,7 @@
                     android:id="@+id/water_helper_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="no"
+                    android:text="little"
                     android:textColor="@color/teal"
                     android:textSize="20sp" />
                 <TextView
@@ -105,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:valueFrom="0"
-                android:valueTo="3"
+                android:valueTo="2"
                 android:stepSize="1"
                 app:labelBehavior="gone"/>
         </LinearLayout>
@@ -131,7 +131,7 @@
                     android:id="@+id/sun_helper_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="no"
+                    android:text="little"
                     android:textColor="@color/teal"
                     android:textSize="20sp" />
                 <TextView
@@ -155,7 +155,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:text="I have young children"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp" />
         <CheckBox android:id="@+id/checkbox_pet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -164,7 +164,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/add_journal_button"
+        android:id="@+id/submit_plant_quiz"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
