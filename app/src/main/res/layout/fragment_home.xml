@@ -110,46 +110,56 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/weather_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="125dp"
             android:layout_below="@id/plant_inventory"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="10dp"
-            android:elevation="20dp"
+            android:layout_margin="5dp"
             app:cardCornerRadius="20dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white">
+                android:layout_below="@id/plant_inventory">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/weather_icon_container"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="10dp"
-                    android:elevation="15dp"
-                    app:cardCornerRadius="50dp">
+                <ImageView
+                    android:id="@+id/weather_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_sunny" />
 
-                    <ImageView
-                        android:id="@+id/weather_icon"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:scaleType="centerCrop" />
-                </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/weather_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_no_location"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:id="@+id/weather_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toRightOf="@id/weather_icon"
+                    android:gravity="right"
+                    android:text="Loading weather data..."
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/weather_temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_toEndOf="@id/weather_icon_container"
-                    android:text="Temperature"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:layout_below="@id/weather_icon"
+                    android:layout_marginStart="10dp"
+                    android:text="00"
+                    android:textColor="@color/white"
+                    android:textSize="40sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -157,36 +167,57 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/weather_temperature"
-                    android:layout_toEndOf="@id/weather_icon_container"
-                    android:text="Location"
-                    android:textColor="@color/teal"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/weather_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/weather_location"
-                    android:layout_marginTop="10dp"
-                    android:layout_toEndOf="@id/weather_icon_container"
-                    android:text="Feeling Muggy"
-                    android:textColor="@color/black"
+                    android:layout_marginStart="10dp"
+                    android:text="Searching..."
+                    android:textColor="@color/white"
                     android:textSize="16sp" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/weather_tip"
+        <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/weather_card"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="10dp"
-            android:text="Take your plants outisde!"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="20dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_tooltip" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_tooltip"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:id="@+id/weather_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Loading weather data..."
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 

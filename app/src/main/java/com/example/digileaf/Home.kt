@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -29,6 +28,7 @@ import com.example.digileaf.adapter.PlantAdapter
 import com.example.digileaf.database.PlantViewModel
 import com.example.digileaf.database.PlantViewModelFactory
 import com.example.digileaf.entities.Plant
+import com.example.digileaf.helpers.WeatherBackgroundMappings
 import com.example.digileaf.helpers.WeatherCodeMappings
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
@@ -41,6 +41,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 private const val BASE_URL = "http://api.weatherapi.com/v1/"
+
 class Home : Fragment() {
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
@@ -50,7 +51,7 @@ class Home : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var addPlantButton: CardView
-    private lateinit var addPlantActivityLauncher : ActivityResultLauncher<Intent>
+    private lateinit var addPlantActivityLauncher: ActivityResultLauncher<Intent>
     private val plantViewModel: PlantViewModel by viewModels {
         PlantViewModelFactory((activity?.application as DigileafApplication).plantRepository)
     }
@@ -59,6 +60,7 @@ class Home : Fragment() {
     private lateinit var weatherIconImageView: ImageView
     private lateinit var weatherDescriptionTextView: TextView
     private lateinit var weatherTipTextView: TextView
+    private lateinit var weatherBackgroundImageView: ImageView
     private lateinit var plantQuiz: CardView
     private lateinit var lightMeter: CardView // TO IMPLEMENT
 
@@ -92,7 +94,14 @@ class Home : Fragment() {
                         .load("https:${weatherIcon}")
                         .into(weatherIconImageView)
                     weatherDescriptionTextView.text = weatherDescription
-                    weatherTipTextView.text = WeatherCodeMappings.getOrDefault(weatherCode as Int, "")
+                    weatherTipTextView.text =
+                        WeatherCodeMappings.getOrDefault(weatherCode as Int, "")
+                    weatherBackgroundImageView.setImageResource(
+                        WeatherBackgroundMappings.getOrDefault(
+                            weatherCode as Int,
+                            R.drawable.bg_sunny
+                        )
+                    )
 //                    Log.d("Weather Data", weatherData.toString())
                 } else {
                     Log.e("API", "Error: ${response.code()}")
@@ -124,18 +133,19 @@ class Home : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        addPlantActivityLauncher = registerForActivityResult(StartActivityForResult()) {result: ActivityResult ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val intent = result.data
-                if (intent != null && intent.hasExtra("plant")) {
-                    Log.e("insertion", "inserting new plant into db")
-                    val plant = intent.getParcelableExtra<Plant>("plant")
-                    if (plant != null) {
-                        plantViewModel.insert(plant)
+        addPlantActivityLauncher =
+            registerForActivityResult(StartActivityForResult()) { result: ActivityResult ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val intent = result.data
+                    if (intent != null && intent.hasExtra("plant")) {
+                        Log.e("insertion", "inserting new plant into db")
+                        val plant = intent.getParcelableExtra<Plant>("plant")
+                        if (plant != null) {
+                            plantViewModel.insert(plant)
+                        }
                     }
                 }
             }
-        }
     }
 
     override fun onCreateView(
@@ -156,7 +166,10 @@ class Home : Fragment() {
         ) {
             // Request the camera permission if it is not granted
             requestPermissions(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ),
                 LOCATION_PERMISSION_REQUEST_CODE
             )
         } else {
@@ -170,7 +183,8 @@ class Home : Fragment() {
 
         // Set up the RecyclerView with the adapter and layout manager
         recyclerView.adapter = plantAdapter
-        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         plantViewModel.allPlants.observe(viewLifecycleOwner, Observer {
             it.let { plantAdapter.submitList(it) }
@@ -190,19 +204,19 @@ class Home : Fragment() {
 
         // Initialize addPlantButton & onClick handler
         addPlantButton = view.findViewById(R.id.plant_add_button)
-        addPlantButton.setOnClickListener{
+        addPlantButton.setOnClickListener {
             launchAddPlantActivity()
         }
 
         plantQuiz = view.findViewById(R.id.plant_quiz_card)
-        plantQuiz.setOnClickListener{
+        plantQuiz.setOnClickListener {
             Log.e("plant quiz", "clicked on plant quiz")
             val intent = Intent(context, PlantQuizActivity::class.java)
             startActivity(intent)
         }
 
         lightMeter = view.findViewById(R.id.light_meter_card)
-        lightMeter.setOnClickListener{
+        lightMeter.setOnClickListener {
             Log.e("light meter", "clicked on light meter")
         }
 
@@ -217,6 +231,7 @@ class Home : Fragment() {
         weatherIconImageView = view.findViewById(R.id.weather_icon)
         weatherDescriptionTextView = view.findViewById(R.id.weather_description)
         weatherTipTextView = view.findViewById(R.id.weather_tip)
+        weatherBackgroundImageView = view.findViewById(R.id.weather_background)
     }
 
     private fun launchAddPlantActivity() {
