@@ -9,7 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="white_smoke">#F5F5F5</color>
     <color name="white_ghost">#f9f8fd</color>
-    <color name="teal">#0c9869</color>
+    <color name="teal">#2e9959</color>
     <color name="green_pale">#a7eab7</color>
     <color name="black_soft">#740C0C0C</color>
     <color name="light_red">#FF7362</color>
@@ -20,4 +20,6 @@
     <color name="dark_late_gray2">#3b5059</color>
     <color name="cadet_blue">#64b296</color>
     <color name="light_blue">#afd7ce</color>
+    <color name="orange_red">#f3684c</color>
+    <color name="dark_green">#3d5d3d</color>
 </resources>

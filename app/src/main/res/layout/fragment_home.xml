@@ -11,89 +11,90 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <ImageView
             android:id="@+id/textDev"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/half_rounded"
-            android:paddingLeft="25dp"
-            android:paddingTop="50dp"
-            android:text="Inventory"
-            android:textColor="@color/white"
-            android:textSize="35sp"></TextView>
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_homepage_banner" />
 
         <LinearLayout
             android:id="@+id/addon_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="135dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="145dp"
+            android:layout_marginBottom="10dp"
             android:elevation="10dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/plant_quiz_card"
-                android:layout_width="70dp"
-                android:layout_height="60dp"
+                android:layout_width="30dp"
+                android:layout_height="50dp"
                 android:layout_centerVertical="true"
                 android:layout_margin="10dp"
-                android:elevation="60dp"
-                app:cardCornerRadius="20dp"
                 android:layout_weight="1"
-                android:clickable="true">
+                android:backgroundTint="@color/orange_red"
+                android:clickable="true"
+                android:elevation="60dp"
+                app:cardCornerRadius="50dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="horizontal">
+
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_marginEnd="10dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_fertilizer"
-                        app:tint="@color/teal"/>
+                        app:tint="@color/white" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Plant Quiz"
-                        android:textColor="@color/teal"
-                        android:textSize="20sp"
-                        android:textStyle="bold"></TextView>
+                        android:textColor="@color/white"
+                        android:textSize="16sp"></TextView>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/light_meter_card"
-                android:layout_width="70dp"
-                android:layout_height="60dp"
+                android:layout_width="30dp"
+                android:layout_height="50dp"
                 android:layout_centerVertical="true"
                 android:layout_margin="10dp"
-                android:elevation="15dp"
-                app:cardCornerRadius="20dp"
                 android:layout_weight="1"
-                android:clickable="true">
+                android:backgroundTint="@color/orange_red"
+                android:clickable="true"
+                android:elevation="15dp"
+                app:cardCornerRadius="50dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="horizontal">
+
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_marginEnd="10dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_light"
-                        app:tint="@color/teal"/>
+                        app:tint="@color/white" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Light Meter"
-                        android:textColor="@color/teal"
-                        android:textSize="20sp"
-                        android:textStyle="bold"></TextView>
+                        android:textColor="@color/white"
+                        android:textSize="16sp"></TextView>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -107,6 +108,7 @@
             android:layout_below="@id/addon_container" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/weather_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/plant_inventory"
@@ -114,9 +116,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
-            app:cardCornerRadius="20dp"
             android:elevation="20dp"
-            android:id="@+id/weather_card">
+            app:cardCornerRadius="20dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -179,11 +180,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/weather_card"
-            android:layout_marginTop="10dp"
-            android:text="Take your plants outisde!"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
+            android:text="Take your plants outisde!"
             android:textColor="@color/black"
             android:textSize="16sp" />
 

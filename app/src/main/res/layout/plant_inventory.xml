@@ -9,7 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="Your Plants"
         android:textSize="28sp"
         android:textColor="@color/black"
@@ -17,17 +16,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <androidx.cardview.widget.CardView
         android:id="@+id/plant_add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"
-        android:textColor="@color/white"
-        android:background="@drawable/btn_bg"
-        android:layout_marginTop="16dp"
+        android:layout_centerVertical="true"
+        android:backgroundTint="@color/teal"
+        android:clickable="true"
+        android:elevation="60dp"
+        app:cardCornerRadius="50dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_add"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add a plant"
+                android:textColor="@color/white"
+                android:textSize="16sp"></TextView>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/plant_RV"

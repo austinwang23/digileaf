@@ -49,7 +49,7 @@ class Home : Fragment() {
     private val weatherApiService = retrofit.create(WeatherApiService::class.java)
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var addPlantButton: Button
+    private lateinit var addPlantButton: CardView
     private lateinit var addPlantActivityLauncher : ActivityResultLauncher<Intent>
     private val plantViewModel: PlantViewModel by viewModels {
         PlantViewModelFactory((activity?.application as DigileafApplication).plantRepository)
