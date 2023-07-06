@@ -13,8 +13,7 @@ interface PlantApiService {
         @Query("indoor") indoor: Int,
         @Query("watering") waterFrequency: String,
         @Query("sunlight") sunlight: String,
-        @Query("poisonous") poisonous: Int? = 0,
-        @Query("edible") edible: Int? = 0,
+        @Query("poisonous") poisonous: Int? = null,
     ): Call<PlantResponse>
 }
 

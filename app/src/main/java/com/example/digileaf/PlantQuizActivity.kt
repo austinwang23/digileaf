@@ -1,16 +1,23 @@
 package com.example.digileaf
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.digileaf.entities.Plant
 import com.google.android.material.slider.Slider
 
-class PlantQuizActivity: AppCompatActivity() {
+class PlantQuizActivity: AppCompatActivity(), PlantRecommendationDialogListener {
     private lateinit var indoorTextButton: TextView
     private lateinit var outdoorTextButton: TextView
     private lateinit var waterHelperText : TextView
@@ -21,6 +28,7 @@ class PlantQuizActivity: AppCompatActivity() {
     private lateinit var petsCheckBox: CheckBox
     private lateinit var submitQuiz: Button
     private var isIndoors = true
+    private lateinit var nearbyVendorsActivityLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +74,13 @@ class PlantQuizActivity: AppCompatActivity() {
             submitPlantQuiz()
         }
 
+        nearbyVendorsActivityLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    resetQuiz()
+                }
+            }
+
         val backButton : ImageButton = findViewById(R.id.back_button)
         backButton.setOnClickListener{
             finish()
@@ -91,8 +106,21 @@ class PlantQuizActivity: AppCompatActivity() {
     }
 
     private fun submitPlantQuiz() {
-        val plantRecommendationParams = PlantRecommendationParams(isIndoors, waterSlider.value, sunSlider.value, childrenCheckbox.isChecked, petsCheckBox.isChecked)
-        val plantRecommendationDialog = PlantRecommendation(plantRecommendationParams)
+        val plantRecommendationParams = PlantRecommendationParams(isIndoors, waterSlider.value, sunSlider.value, (childrenCheckbox.isChecked || petsCheckBox.isChecked))
+        val plantRecommendationDialog = PlantRecommendation(plantRecommendationParams, this)
         plantRecommendationDialog.show(this.supportFragmentManager, "plantRecommendationDialog")
+    }
+
+    override fun seeNearbyVendors() {
+        val intent = Intent(this, NearbyVendorsActivity::class.java)
+        nearbyVendorsActivityLauncher.launch((intent))
+    }
+
+    private fun resetQuiz() {
+        updatePlantIndoorOutdoorStatus(true)
+        waterSlider.value = 0f
+        sunSlider.value = 0f
+        childrenCheckbox.isChecked = false
+        petsCheckBox.isChecked = false
     }
 }

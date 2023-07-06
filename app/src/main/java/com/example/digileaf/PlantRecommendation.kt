@@ -23,13 +23,16 @@ data class PlantRecommendationParams (
     val isIndoors: Boolean,
     val waterFrequency: Float,
     val sunlight: Float,
-    val isPoisonous: Boolean,
-    val isEdible: Boolean
+    val isPoisonous: Boolean
 )
+
+interface PlantRecommendationDialogListener {
+    fun seeNearbyVendors()
+}
 
 private const val BASE_URL = "https://perenual.com/api/"
 
-class PlantRecommendation(params: PlantRecommendationParams): DialogFragment() {
+class PlantRecommendation(params: PlantRecommendationParams, listener: PlantRecommendationDialogListener): DialogFragment() {
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
@@ -43,9 +46,11 @@ class PlantRecommendation(params: PlantRecommendationParams): DialogFragment() {
     private lateinit var plants: List<Plant>
     private lateinit var seeAnotherPlant: MaterialButton
     private var plantApiParams: PlantRecommendationParams
+    private var callbackListener: PlantRecommendationDialogListener
 
     init {
         this.plantApiParams = params
+        this.callbackListener = listener
     }
 
     override fun onCreateView(
@@ -74,10 +79,13 @@ class PlantRecommendation(params: PlantRecommendationParams): DialogFragment() {
             dismiss()
         }
 
+        binding.plantQuizNearbyVendorsButton.setOnClickListener{
+            callbackListener.seeNearbyVendors()
+            dismiss()
+        }
+
         getPlantRecommendations()
     }
-
-    private fun booleanToInt(b: Boolean) = if (b) 1 else 0
 
     private fun getPlantRecommendations() {
 
@@ -90,9 +98,9 @@ class PlantRecommendation(params: PlantRecommendationParams): DialogFragment() {
 
         var sunlight: String = when (this.plantApiParams.sunlight) {
             0f -> "part_shade"
-            1f -> "sun-part_shade"
+            1f -> "part_shade"
             2f -> "full_sun"
-            else -> "sun-part_shade"
+            else -> "part_shade"
         }
 
         val call = plantApiService.getPlantData(
@@ -101,8 +109,7 @@ class PlantRecommendation(params: PlantRecommendationParams): DialogFragment() {
             indoor = if (this.plantApiParams.isIndoors) 1 else 0,
             waterFrequency = waterFrequency,
             sunlight = sunlight,
-            poisonous = if (this.plantApiParams.isPoisonous) 1 else null,
-            edible = if (this.plantApiParams.isEdible) 1 else null
+            poisonous = if (this.plantApiParams.isPoisonous) 1 else null
         )
 
         Log.e("PLANT API", "making api call")
@@ -134,6 +141,8 @@ class PlantRecommendation(params: PlantRecommendationParams): DialogFragment() {
 
     private fun showPlantResults() {
         if (plants.isEmpty()) {
+            // TODO - add some handling here (no plant matches ur requirements??)
+            dismiss()
             return
         }
         if (plants.size == 1) {
