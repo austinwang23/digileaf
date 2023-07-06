@@ -1,35 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".JournalListActivity">
-
-    <ImageButton
-        android:id="@+id/journal_list_back_button"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_arrow_back" />
+    android:orientation="vertical"
+    tools:context=".JournalListBottom">
 
     <TextView
         android:id="@+id/journal_list_heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/journal_list_back_button"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:text="Journals"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/journal_list_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="10dp"
+        android:text="No journal entries for this date."
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/journal_list_RV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/journal_list_heading"
-        android:layout_marginBottom="16dp" />
+        android:layout_height="match_parent" />
 
-</RelativeLayout>
+</LinearLayout>

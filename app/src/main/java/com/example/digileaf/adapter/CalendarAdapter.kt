@@ -27,8 +27,9 @@ class CalendarAdapter(private val daysOfMonth: ArrayList<String>, private val is
 
         if (isCurMonth && day == currentDate) {
             holder.dayOfMonth.setTextColor(ContextCompat.getColor(holder.itemView.context,
-                R.color.teal
+                R.color.white
             ))
+            holder.dayOfMonth.setBackgroundResource(R.drawable.bg_circle)
         } else {
             holder.dayOfMonth.setTextColor(ContextCompat.getColor(holder.itemView.context,
                 R.color.black

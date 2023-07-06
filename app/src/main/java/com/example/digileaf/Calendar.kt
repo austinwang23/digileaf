@@ -104,9 +104,11 @@ class Calendar : Fragment(), CalendarAdapter.OnItemListener {
 
             Log.e("calendar", "opening date $formattedDate")
 
-            val intent = Intent(context, JournalListActivity::class.java)
-            intent.putExtra("date", formattedDate)
-            startActivity(intent)
+            val bottomSheetFragment = JournalListBottom()
+            val bundle = Bundle()
+            bundle.putString("date", formattedDate)
+            bottomSheetFragment.arguments = bundle
+            bottomSheetFragment.show(parentFragmentManager, "journal_list_bottom_sheet")
         }
     }
 }
