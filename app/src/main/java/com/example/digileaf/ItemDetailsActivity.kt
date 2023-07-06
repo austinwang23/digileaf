@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -43,7 +44,7 @@ class ItemDetailsActivity : AppCompatActivity(), UpdatePlantStatus.UpdatePlantSt
     }
     private lateinit var addJournalActivityLauncher : ActivityResultLauncher<Intent>
 
-    private lateinit var updatePlantStatusButton: AppCompatButton
+    private lateinit var updatePlantStatusButton: CardView
     lateinit var updatePlantStatus: UpdatePlantStatus
     lateinit var updatePlantStatusCallbackListener: UpdatePlantStatus.UpdatePlantStatusDialogListener
     lateinit var plantStatusWater: TextView
@@ -145,7 +146,7 @@ class ItemDetailsActivity : AppCompatActivity(), UpdatePlantStatus.UpdatePlantSt
             finish()
         }
 
-        val addJournalButton: AppCompatButton = findViewById(R.id.add_journal_button)
+        val addJournalButton: CardView = findViewById(R.id.add_journal_button)
         addJournalButton.setOnClickListener {
             if (plant != null) {
                 launchAddJournalActivity(plant.id, plant.name)

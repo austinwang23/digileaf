@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white_ghost"
+    android:background="@drawable/bg_sunflower"
     tools:context=".ItemDetailsActivity">
 
 
@@ -51,9 +51,9 @@
             android:id="@+id/detailed_plant_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginEnd="-5dp"
             android:clipToPadding="false"
             app:cardCornerRadius="10dp"
-            android:layout_marginEnd="-5dp"
             app:cardElevation="0dp">
 
             <LinearLayout
@@ -73,16 +73,16 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/bg_circle"
-                        android:src="@drawable/ic_water"
                         android:clickable="false"
+                        android:src="@drawable/ic_water"
                         app:tint="@color/white" />
 
                     <TextView
+                        android:id="@+id/plant_last_water"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@id/water_icon"
                         android:layout_centerHorizontal="true"
-                        android:id="@+id/plant_last_water"
                         android:gravity="center"
                         android:text="No data available" />
                 </RelativeLayout>
@@ -99,16 +99,16 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/bg_circle"
-                        android:src="@drawable/ic_fertilizer"
                         android:clickable="false"
+                        android:src="@drawable/ic_fertilizer"
                         app:tint="@color/white" />
 
                     <TextView
+                        android:id="@+id/plant_last_fertilize"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@id/fertilizer_icon"
                         android:layout_centerHorizontal="true"
-                        android:id="@+id/plant_last_fertilize"
                         android:gravity="center"
                         android:text="No data available" />
                 </RelativeLayout>
@@ -130,12 +130,12 @@
                         app:tint="@color/white" />
 
                     <TextView
+                        android:id="@+id/plant_last_groom"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@id/grooming_icon"
                         android:layout_centerHorizontal="true"
                         android:gravity="center"
-                        android:id="@+id/plant_last_groom"
                         android:text="No data available" />
                 </RelativeLayout>
 
@@ -148,6 +148,7 @@
         android:id="@+id/detailed_plant_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/detailed_plant_species"
         android:layout_below="@id/detailed_plant_header"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
@@ -161,77 +162,110 @@
         android:id="@+id/detailed_plant_species"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/detailed_plant_name"
+        android:layout_below="@id/detailed_plant_header"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         android:text="Species"
-        android:layout_marginStart="16dp"
         android:textColor="@color/teal"
         android:textSize="20sp" />
-
-    <RelativeLayout
-        android:id="@+id/journal_button"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/add_journal_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/btn_bg"
-            android:elevation="20dp"
-            android:padding="10dp"
-            android:text="Add Journal"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/update_plant_status_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/btn_bg"
-            android:elevation="20dp"
-            android:padding="10dp"
-            android:text="Update Plant"
-            android:layout_marginEnd="16dp"
-            android:layout_alignParentEnd="true"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-    </RelativeLayout>
 
     <TextView
         android:id="@+id/detailed_plant_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/detailed_plant_species"
+        android:layout_below="@+id/detailed_plant_name"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="10dp"
+        android:textColor="@color/black"
         android:text="Lorem ipsum dolor sit amet. Quo quibusdam tenetur ut ipsum internos et culpa commodi qui sint eaque."
         android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/detailed_plant_timeline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/detailed_plant_description"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="10dp"
-        android:text="Timeline"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/journal_RV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/journal_button"
-        android:layout_below="@id/detailed_plant_timeline"
-        android:layout_marginBottom="16dp" />
+        android:layout_below="@id/detailed_plant_description"
+        android:layout_marginBottom="10dp" />
+
+    <RelativeLayout
+        android:id="@+id/journal_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/add_journal_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/teal"
+            android:clickable="true"
+            app:cardCornerRadius="50dp"
+            android:layout_marginStart="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_add"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add journal"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"></TextView>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/update_plant_status_button"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/teal"
+            android:clickable="true"
+            app:cardCornerRadius="50dp"
+            android:layout_marginStart="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_update"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Update Plant"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"></TextView>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
 </RelativeLayout>
