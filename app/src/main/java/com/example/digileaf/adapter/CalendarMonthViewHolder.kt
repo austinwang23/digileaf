@@ -5,8 +5,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digileaf.R
 
-class CalendarViewHolder(itemView: View) :
+class CalendarMonthViewHolder(itemView: View) :
     RecyclerView.ViewHolder(itemView) {
-
-    val dayOfMonth: TextView = itemView.findViewById(R.id.cellDayText)
+    val month: TextView = itemView.findViewById(R.id.monthYearTV)
+    val dayRecyclerView: RecyclerView = itemView.findViewById(R.id.calendar_day_RV)
 }
