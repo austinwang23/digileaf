@@ -15,6 +15,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageButton
+import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.digileaf.entities.Plant
@@ -26,10 +27,10 @@ class AddPlantActivity : AppCompatActivity() {
         private const val TAKE_PICTURE_REQUEST = 3
     }
 
-    private lateinit var selectImageButton: Button
-    private lateinit var takePictureButton: Button
+    private lateinit var selectImageButton: CardView
+    private lateinit var takePictureButton: CardView
     private lateinit var backButton: AppCompatImageButton
-    private lateinit var addPlantButton: Button
+    private lateinit var addPlantButton: CardView
     private lateinit var imageView: ImageView
 
     private lateinit var plantName : EditText

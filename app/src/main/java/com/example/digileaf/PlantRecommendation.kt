@@ -152,7 +152,7 @@ class PlantRecommendation(params: PlantRecommendationParams, listener: PlantReco
         val randomIndex = Random.nextInt(plants.size);
         val plant = plants[randomIndex]
         if(plant.default_image.original_url.contains("upgrade_access")) {
-            plantImage.setImageResource(R.drawable.default_plant)
+            plantImage.setImageResource(R.drawable.`default_plant`)
         } else {
             Glide.with(requireContext())
                 .load(plant.default_image.thumbnail)

@@ -28,7 +28,7 @@ class JournalActivity : AppCompatActivity() {
                 val imageFile = getFileStreamPath(journal.imagePath)
                 // If for whatever reason, the file no longer exists
                 if(imageFile == null || !imageFile.exists()) {
-                    journalImage.setImageResource(R.drawable.default_plant)
+                    journalImage.setImageResource(R.drawable.`default_plant`)
                 } else {
                     val bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
                     journalImage.setImageBitmap(bitmap)

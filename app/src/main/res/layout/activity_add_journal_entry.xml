@@ -1,99 +1,210 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white_ghost"
     android:orientation="vertical">
 
-    <!-- Toolbar -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_arrow_back" />
 
-        <LinearLayout
-            android:layout_width="100dp"
-            android:layout_height="60dp">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/plant_image_container"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/back_button"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="75dp">
 
-            <ImageButton
-                android:id="@+id/back_button"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_arrow_back" />
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/white_smoke" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/journal_empty_image_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:gravity="center"
-            android:text="Today's Journal"
-            android:textSize="24dp" />
+            android:text="Add an image"
+            android:textStyle="italic"
+            android:textColor="@color/black_soft" />
 
-        <LinearLayout
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:paddingRight="5dp">
+    </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/add_journal_entry"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Save" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Entry Form -->
     <LinearLayout
+        android:id="@+id/plant_photo_options"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:padding="20dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/plant_image_container"
+        android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/editDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Description"
-            android:inputType="textMultiLine"
-            android:lines="4" />
-
-        <!-- Image Selection -->
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical"
-            android:padding="2dp">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/select_image_button"
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/teal"
+            android:clickable="true"
+            android:elevation="60dp"
+            app:cardCornerRadius="50dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <Button
-                    android:id="@+id/select_image_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Select Image"
-                    android:layout_centerInParent="true"/>
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/take_picture_button"
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_add"
+                    app:tint="@color/white" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Take Picture"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_gravity="center_vertical" />
+                    android:text="Upload"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"></TextView>
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-            <ImageView
-                android:id="@+id/image_view"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/take_picture_button"
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/teal"
+            android:clickable="true"
+            android:elevation="60dp"
+            app:cardCornerRadius="50dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/select_image_button"
-                android:layout_marginTop="16dp"
-                android:scaleType="fitCenter" />
-        </LinearLayout>
+                android:layout_margin="15dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_menu_camera"
+                    app:tint="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Take Photo"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"></TextView>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/add_plant_settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/add_journal_entry"
+        android:layout_below="@id/plant_photo_options"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Description"
+            android:textColor="@color/teal"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:elevation="15dp"
+            app:cardCornerRadius="20dp">
+
+            <EditText
+                android:id="@+id/editDescription"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:background="@null"
+                android:gravity="left"
+                android:hint="Write down anything you want about today..."
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:textStyle="italic" />
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/add_journal_entry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/teal"
+        android:clickable="true"
+        android:elevation="60dp"
+        app:cardCornerRadius="50dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_journal"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Journal"
+                android:textColor="@color/white"
+                android:textSize="16sp"></TextView>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

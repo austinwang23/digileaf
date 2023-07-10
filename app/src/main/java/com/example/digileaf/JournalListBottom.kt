@@ -44,7 +44,7 @@ class JournalListBottom : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.journal_list_RV)
-        journalAdapter = JournalAdapter()
+        journalAdapter = JournalAdapter(true)
         recyclerView.adapter = journalAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 

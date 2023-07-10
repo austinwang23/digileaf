@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_sunflower"
+    android:background="@color/white_ghost"
     tools:context=".ItemDetailsActivity">
 
 
@@ -44,7 +44,8 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:background="@drawable/bg_circle"
-                android:src="@drawable/default_plant" />
+                android:src="@drawable/default_plant"
+                android:scaleType="centerCrop"/>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -182,12 +183,23 @@
         android:text="Lorem ipsum dolor sit amet. Quo quibusdam tenetur ut ipsum internos et culpa commodi qui sint eaque."
         android:textSize="18sp" />
 
+    <TextView
+        android:id="@+id/detailed_plant_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detailed_plant_description"
+        android:layout_marginStart="16dp"
+        android:text="No journal entries found"
+        android:textColor="@color/black_soft"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/journal_RV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/journal_button"
-        android:layout_below="@id/detailed_plant_description"
+        android:layout_below="@id/detailed_plant_empty"
         android:layout_marginBottom="10dp" />
 
     <RelativeLayout

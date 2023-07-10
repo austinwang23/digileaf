@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -13,7 +14,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,6 +51,9 @@ class ItemDetailsActivity : AppCompatActivity(), UpdatePlantStatus.UpdatePlantSt
     lateinit var plantStatusFertilize: TextView
     lateinit var plantStatusGroom: TextView
     lateinit var plant: Plant
+    private lateinit var emptyJournal: TextView
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_details)
@@ -67,6 +70,7 @@ class ItemDetailsActivity : AppCompatActivity(), UpdatePlantStatus.UpdatePlantSt
         val plantImage: ImageView = findViewById(R.id.detailed_plant_image)
         val plantSpecies: TextView = findViewById(R.id.detailed_plant_species)
         val plantDescription: TextView = findViewById(R.id.detailed_plant_description)
+        emptyJournal = findViewById(R.id.detailed_plant_empty)
         plantStatusWater = findViewById(R.id.plant_last_water)
         plantStatusFertilize = findViewById(R.id.plant_last_fertilize)
         plantStatusGroom = findViewById(R.id.plant_last_groom)
@@ -77,7 +81,7 @@ class ItemDetailsActivity : AppCompatActivity(), UpdatePlantStatus.UpdatePlantSt
             val imageFile = getFileStreamPath(plant.imagePath)
             // If for whatever reason, the file no longer exists
             if (imageFile == null || !imageFile.exists()) {
-                plantImage.setImageResource(R.drawable.default_plant)
+                plantImage.setImageResource(R.drawable.`default_plant`)
             } else {
                 val bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
                 plantImage.setImageBitmap(bitmap)
@@ -116,9 +120,15 @@ class ItemDetailsActivity : AppCompatActivity(), UpdatePlantStatus.UpdatePlantSt
             }
         }
 
-        journalViewModel.allJournalsByPlantId(plant.id).observe(this, Observer {
-            it.let { journalAdapter.submitList(it) }
+        journalViewModel.allJournalsByPlantId(plant.id).observe(this, Observer { journals ->
+            if (journals.isNotEmpty()) {
+                emptyJournal.visibility = View.GONE
+                journalAdapter.submitList(journals)
+            } else {
+                emptyJournal.visibility = View.VISIBLE
+            }
         })
+
 
         journalAdapter.onItemClick = {
             val intent = Intent(this, JournalActivity::class.java)

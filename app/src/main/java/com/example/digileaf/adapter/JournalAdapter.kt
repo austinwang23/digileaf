@@ -14,15 +14,21 @@ import com.example.digileaf.R
 import com.example.digileaf.entities.Journal
 import com.example.digileaf.adapter.JournalAdapter.JournalViewHolder
 
-class JournalAdapter : ListAdapter<Journal, JournalViewHolder>(JOURNAL_COMPARATOR) {
+class JournalAdapter(isCalendarView: Boolean = false) : ListAdapter<Journal, JournalViewHolder>(JOURNAL_COMPARATOR) {
 
     var onItemClick: ((Journal) -> Unit)? = null
+    private val isCalendarView: Boolean
+
+    init {
+        this.isCalendarView = isCalendarView
+    }
 
     inner class JournalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val journalImageContainer : CardView = itemView.findViewById(R.id.journal_image_container)
         val journalImage: ImageView = itemView.findViewById(R.id.journal_image)
         val journalEntry: TextView = itemView.findViewById(R.id.journal_entry)
         val journalDate: TextView = itemView.findViewById(R.id.journal_date)
+        val journalPlantName: TextView = itemView.findViewById(R.id.journal_plant_name)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JournalViewHolder {
@@ -37,12 +43,15 @@ class JournalAdapter : ListAdapter<Journal, JournalViewHolder>(JOURNAL_COMPARATO
         holder.journalEntry.text = journal.entry
 
         holder.journalDate.text = journal.date
+        if (isCalendarView) {
+            holder.journalPlantName.text = journal.plantName
+        }
 
         if (journal.imagePath != "") {
             val imageFile = holder.itemView.context.getFileStreamPath(journal.imagePath)
             // If for whatever reason, the file no longer exists
             if (imageFile == null || !imageFile.exists()) {
-                holder.journalImage.setImageResource(R.drawable.default_plant)
+                holder.journalImage.setImageResource(R.drawable.`default_plant`)
             } else {
                 val bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
                 holder.journalImage.setImageBitmap(bitmap)

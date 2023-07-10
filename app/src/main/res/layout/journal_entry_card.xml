@@ -45,6 +45,16 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/journal_plant_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/white"
+        android:gravity="right"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
         android:id="@+id/journal_entry"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

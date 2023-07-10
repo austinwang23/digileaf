@@ -35,11 +35,11 @@ class PlantAdapter: ListAdapter<Plant, PlantViewHolder>(PLANT_COMPARATOR) {
         val plant = getItem(position)
 
         if (plant.imagePath == "") {
-            holder.plantImageView.setImageResource(R.drawable.default_plant)
+            holder.plantImageView.setImageResource(R.drawable.`default_plant`)
         } else {
             val imageFile = holder.itemView.context.getFileStreamPath(plant.imagePath)
             if(imageFile == null || !imageFile.exists()) {
-                holder.plantImageView.setImageResource(R.drawable.default_plant)
+                holder.plantImageView.setImageResource(R.drawable.`default_plant`)
             } else {
                 val bitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
                 holder.plantImageView.setImageBitmap(bitmap)

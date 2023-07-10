@@ -9,11 +9,14 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.TextUtils
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageButton
+import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.digileaf.entities.Journal
@@ -29,13 +32,14 @@ class AddJournalEntryActivity : AppCompatActivity() {
     }
 
     private lateinit var editDescription: EditText
-    private lateinit var selectImageButton: Button
-    private lateinit var takePictureButton: Button
+    private lateinit var selectImageButton: CardView
+    private lateinit var takePictureButton: CardView
+    private lateinit var emptyImagePlaceholder : TextView
 
     private lateinit var imageView: ImageView
 
     private lateinit var backButton: AppCompatImageButton
-    private lateinit var addJournalButton: Button
+    private lateinit var addJournalButton: CardView
 
     private val SELECT_IMAGE_REQUEST_CODE = 1
 
@@ -44,6 +48,7 @@ class AddJournalEntryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_journal_entry)
 
         // Initialize views
+        emptyImagePlaceholder = findViewById(R.id.journal_empty_image_text)
         editDescription = findViewById(R.id.editDescription)
         selectImageButton = findViewById(R.id.select_image_button)
         takePictureButton = findViewById(R.id.take_picture_button)
@@ -143,10 +148,12 @@ class AddJournalEntryActivity : AppCompatActivity() {
             val selectedImageUri = data.data
             // Handle selected image URI here
             imageView.setImageURI(selectedImageUri)
+            emptyImagePlaceholder.visibility = View.GONE
         }
         else if (requestCode == TAKE_PICTURE_REQUEST && resultCode == RESULT_OK && data != null) {
             val imageBitmap = data.extras?.get("data") as Bitmap
             imageView.setImageBitmap(imageBitmap)
+            emptyImagePlaceholder.visibility = View.GONE
         }
     }
 }
