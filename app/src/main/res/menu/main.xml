@@ -16,7 +16,7 @@
         android:icon="@drawable/ic_reminder"
         android:title="Reminders" />
     <item
-        android:id="@+id/test2"
-        android:icon="@drawable/ic_home"
-        android:title="test2" />
+        android:id="@+id/achievements"
+        android:icon="@drawable/ic_star"
+        android:title="Achievements" />
 </menu>

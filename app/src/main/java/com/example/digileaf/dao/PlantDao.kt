@@ -26,4 +26,10 @@ interface PlantDao {
 
     @Query("SELECT * FROM plants ORDER BY id DESC")
     fun getAll(): Flow<List<Plant>>
+
+    @Query("SELECT COUNT(*) FROM plants")
+    suspend fun getPlantCount(): Int
+
+    @Query("SELECT COUNT(*) FROM plants WHERE last_water <> ''")
+    suspend fun getWateredCount(): Int
 }

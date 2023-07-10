@@ -1,6 +1,7 @@
 package com.example.digileaf.database
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
@@ -26,6 +27,24 @@ class PlantViewModel(private val repository: PlantRepository) : ViewModel() {
 
     fun updatePlantStatus(plantStatus: PlantStatus) = viewModelScope.launch {
         repository.updatePlantStatus(plantStatus)
+    }
+
+    fun getPlantCount(): LiveData<Int> {
+        val result = MutableLiveData<Int>()
+
+        viewModelScope.launch {
+            result.postValue(repository.getPlantCount())
+        }
+        return result
+    }
+
+    fun getWateredCount(): LiveData<Int> {
+        val result = MutableLiveData<Int>()
+
+        viewModelScope.launch {
+            result.postValue(repository.getWateredCount())
+        }
+        return result
     }
 }
 

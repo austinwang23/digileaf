@@ -35,7 +35,7 @@
 |         |             |            |            |              | 3 hour      | Jul 4  | Complete re-do and overhaul of Homepage UI                                                                                                                |
 |         |             |            |            |              | 2 hour      | Jul 5  | Continuation of UI overhaul on Homepage                                                                                                                   |
 |         |             |            | 3 hour     |              |             | Jul 5  | Added nearby vendors view to plant quiz, hooked up open street map sdk                                                                                    |
-|         |             |            | 4 hour     |              |             | Jul 9  | Custom map markers for vendors with navigation, map UI update                                                                                             |
+|         |             |            | 7 hour     |              |             | Jul 9  | Custom dialog map marker for vendors, added navigation route from user to vendor, map UI update, and setup initial logic for achievements system          |
 |         |             |            |            |              | 8 hour      | Jul 9  | Updated UI for every fragment and re did UI for multiple forms                                                                                            |
 
 |         |             |            |            |              |             | Jul 14  | D4: Architecture Style Examples                                                                                                                          |

@@ -28,4 +28,15 @@ class PlantRepository(private val plantDao: PlantDao) {
     suspend fun updatePlantStatus(plantStatus: PlantStatus) {
         plantDao.updatePlantStatus(plantStatus)
     }
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun getPlantCount(): Int {
+        return plantDao.getPlantCount()
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun getWateredCount(): Int {
+        return plantDao.getWateredCount()
+    }
 }

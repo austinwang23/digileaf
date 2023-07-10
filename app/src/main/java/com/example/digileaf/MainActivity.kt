@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.home -> replaceFragment(Home())
                     R.id.calendar -> replaceFragment(Calendar())
                     R.id.reminders -> replaceFragment(Reminders())
+                    R.id.achievements -> replaceFragment(Achievements())
                 }
             }
         })
