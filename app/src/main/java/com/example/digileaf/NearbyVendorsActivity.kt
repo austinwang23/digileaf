@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,6 +11,8 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
@@ -19,16 +20,23 @@ import com.google.android.gms.tasks.CancellationTokenSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.osmdroid.bonuspack.location.NominatimPOIProvider
+import org.osmdroid.bonuspack.routing.OSRMRoadManager
+import org.osmdroid.bonuspack.routing.RoadManager
 import org.osmdroid.config.Configuration
+import org.osmdroid.util.BoundingBox
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.FolderOverlay
 import org.osmdroid.views.overlay.Marker
+import org.osmdroid.views.overlay.Polyline
 
-class NearbyVendorsActivity: AppCompatActivity() {
+
+class NearbyVendorsActivity: AppCompatActivity(), VendorDialogListener {
+    private lateinit var mapContainer: CardView
     private lateinit var map: MapView
     private lateinit var currentLocation: GeoPoint
     private lateinit var loadingView: LinearLayout
+    private var navigationOverlay: Polyline? = null
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +44,7 @@ class NearbyVendorsActivity: AppCompatActivity() {
         setContentView(R.layout.activity_nearby_vendors)
         Configuration.getInstance().userAgentValue = this.packageName
 
+        mapContainer = findViewById(R.id.nearby_vendors_map_container)
         map = findViewById(R.id.nearby_vendors_map)
         map.setMultiTouchControls(true)
 
@@ -93,9 +102,8 @@ class NearbyVendorsActivity: AppCompatActivity() {
                 vendorMarker.snippet = vendor.mDescription
                 vendorMarker.position = vendor.mLocation
                 vendorMarker.icon = vendorIcon
-                if (vendor.mThumbnail != null) {
-                    vendorMarker.image = BitmapDrawable(vendor.mThumbnail)
-                }
+                vendorMarker.infoWindow = null
+                vendorMarker.setOnMarkerClickListener { marker, mapView -> onMarkerClick(marker, mapView) }
                 nearbyVendorMarkers.add(vendorMarker)
             }
 
@@ -104,7 +112,44 @@ class NearbyVendorsActivity: AppCompatActivity() {
                 map.overlays.add(nearbyVendorMarkers)
                 loadingView.visibility = View.GONE
                 map.invalidate()
-                map.visibility = View.VISIBLE
+                mapContainer.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun onMarkerClick(marker: Marker, mapView: MapView): Boolean {
+        mapView.controller.animateTo(marker.position)
+        val vendorDialog = VendorDetail(marker, this)
+        vendorDialog.show(this.supportFragmentManager, "vendorDialog")
+        return true
+    }
+
+    override fun navigateToVendor(marker: Marker) {
+        val context = this
+        if (navigationOverlay != null) {
+            map.overlays.remove(navigationOverlay)
+        }
+        lifecycleScope.launch(Dispatchers.Main){
+            addNavigationRoute(context, marker)
+        }
+    }
+
+    private fun addNavigationRoute(context: Context, marker: Marker) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val roadManager: RoadManager = OSRMRoadManager(context, context.packageName)
+            val waypoints = ArrayList<GeoPoint>()
+            waypoints.add(currentLocation)
+            waypoints.add(marker.position)
+            val road = roadManager.getRoad(waypoints)
+            navigationOverlay = RoadManager.buildRoadOverlay(road)
+            navigationOverlay!!.color = ContextCompat.getColor(context, R.color.teal)
+            navigationOverlay!!.width = 15f
+
+            // display map
+            runOnUiThread {
+                map.zoomToBoundingBox(navigationOverlay!!.bounds.increaseByScale(1.2f), true)
+                map.overlays.add(navigationOverlay)
+                map.invalidate()
             }
         }
     }

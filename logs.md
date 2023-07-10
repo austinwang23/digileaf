@@ -35,6 +35,7 @@
 |         |             |            |            |              | 3 hour      | Jul 4  | Complete re-do and overhaul of Homepage UI                                                                                                                |
 |         |             |            |            |              | 2 hour      | Jul 5  | Continuation of UI overhaul on Homepage                                                                                                                   |
 |         |             |            | 3 hour     |              |             | Jul 5  | Added nearby vendors view to plant quiz, hooked up open street map sdk                                                                                    |
+|         |             |            | 4 hour     |              |             | Jul 9  | Custom map markers for vendors with navigation, map UI update                                                                                             |
 
 |         |             |            |            |              |             | Jul 14  | D4: Architecture Style Examples                                                                                                                          |
 |         |             |            |            |              |             | Jul 21  | D5: Design Pattern Examples                                                                                                                              |
