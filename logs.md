@@ -36,7 +36,7 @@
 |         |             |            |            |              | 2 hour      | Jul 5  | Continuation of UI overhaul on Homepage                                                                                                                   |
 |         |             |            | 3 hour     |              |             | Jul 5  | Added nearby vendors view to plant quiz, hooked up open street map sdk                                                                                    |
 |         |             |            | 7 hour     |              |             | Jul 9  | Custom dialog map marker for vendors, added navigation route from user to vendor, map UI update, and setup initial logic for achievements system          |
-|         |             |            |            |              | 8 hour      | Jul 9  | Updated UI for every fragment and re did UI for multiple forms                                                                                            |
+|         |             |            |            |              | 10 hour     | Jul 9  | Updated UI for every fragment and re did UI for multiple forms and created mockups for achievement badges                                                 |
 
 |         |             |            |            |              |             | Jul 14  | D4: Architecture Style Examples                                                                                                                          |
 |         |             |            |            |              |             | Jul 21  | D5: Design Pattern Examples                                                                                                                              |
