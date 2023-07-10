@@ -80,36 +80,40 @@ class Home : Fragment() {
                 call: Call<WeatherResponse>,
                 response: Response<WeatherResponse>
             ) {
-                if (response.isSuccessful) {
-                    val weatherData = response.body()
-                    val forecastDay = weatherData?.forecast?.forecastday?.get(0)
-                    val maxTempC = forecastDay?.day?.maxtemp_c
-                    val weatherIcon = forecastDay?.day?.condition?.icon
-                    val weatherDescription = forecastDay?.day?.condition?.text
-                    val weatherCode = forecastDay?.day?.condition?.code
+                if (isAdded) {
+                    if (response.isSuccessful) {
+                        val weatherData = response.body()
+                        val forecastDay = weatherData?.forecast?.forecastday?.get(0)
+                        val maxTempC = forecastDay?.day?.maxtemp_c
+                        val weatherIcon = forecastDay?.day?.condition?.icon
+                        val weatherDescription = forecastDay?.day?.condition?.text
+                        val weatherCode = forecastDay?.day?.condition?.code
 
-                    weatherTemperatureTextView.text = "${maxTempC?.toString()}°C"
-                    weatherLocationTextView.text = weatherData?.location?.name
-                    Glide.with(requireContext())
-                        .load("https:${weatherIcon}")
-                        .into(weatherIconImageView)
-                    weatherDescriptionTextView.text = weatherDescription
-                    weatherTipTextView.text =
-                        WeatherCodeMappings.getOrDefault(weatherCode as Int, "")
-                    weatherBackgroundImageView.setImageResource(
-                        WeatherBackgroundMappings.getOrDefault(
-                            weatherCode as Int,
-                            R.drawable.bg_sunny
+                        weatherTemperatureTextView.text = "${maxTempC?.toString()}°C"
+                        weatherLocationTextView.text = weatherData?.location?.name
+                        Glide.with(requireContext())
+                            .load("https:${weatherIcon}")
+                            .into(weatherIconImageView)
+                        weatherDescriptionTextView.text = weatherDescription
+                        weatherTipTextView.text =
+                            WeatherCodeMappings.getOrDefault(weatherCode as Int, "")
+                        weatherBackgroundImageView.setImageResource(
+                            WeatherBackgroundMappings.getOrDefault(
+                                weatherCode as Int,
+                                R.drawable.bg_sunny
+                            )
                         )
-                    )
 //                    Log.d("Weather Data", weatherData.toString())
-                } else {
-                    Log.e("API", "Error: ${response.code()}")
+                    } else {
+                        Log.e("API", "Error: ${response.code()}")
+                    }
                 }
             }
 
             override fun onFailure(call: Call<WeatherResponse>, t: Throwable) {
-                Log.e("API", "Failure: ${t.message}")
+                if (isAdded) {
+                    Log.e("API", "Failure: ${t.message}")
+                }
             }
         })
     }
@@ -226,12 +230,14 @@ class Home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        weatherTemperatureTextView = view.findViewById(R.id.weather_temperature)
-        weatherLocationTextView = view.findViewById(R.id.weather_location)
-        weatherIconImageView = view.findViewById(R.id.weather_icon)
-        weatherDescriptionTextView = view.findViewById(R.id.weather_description)
-        weatherTipTextView = view.findViewById(R.id.weather_tip)
-        weatherBackgroundImageView = view.findViewById(R.id.weather_background)
+        if(isAdded){
+            weatherTemperatureTextView = view.findViewById(R.id.weather_temperature)
+            weatherLocationTextView = view.findViewById(R.id.weather_location)
+            weatherIconImageView = view.findViewById(R.id.weather_icon)
+            weatherDescriptionTextView = view.findViewById(R.id.weather_description)
+            weatherTipTextView = view.findViewById(R.id.weather_tip)
+            weatherBackgroundImageView = view.findViewById(R.id.weather_background)
+        }
     }
 
     private fun launchAddPlantActivity() {
