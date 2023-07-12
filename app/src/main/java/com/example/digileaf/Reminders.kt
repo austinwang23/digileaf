@@ -63,4 +63,8 @@ class Reminders : Fragment(), ReminderClickListener {
     override fun completeReminder(reminder: Reminder) {
         reminderViewModel.setCompleted(reminder)
     }
+
+    override fun deleteReminder(reminder: Reminder) {
+        reminderViewModel.deleteReminder(reminder)
+    }
 }

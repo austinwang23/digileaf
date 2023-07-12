@@ -31,6 +31,9 @@ class ReminderViewHolder(
         binding.reminderCellContainer.setOnClickListener{
             clickListener.editReminder(reminder)
         }
+        binding.reminderDelete.setOnClickListener{
+            clickListener.deleteReminder(reminder)
+        }
 
         if (reminder.dueTime() != null) {
             binding.dueTime.text = timeFormat.format(reminder.dueTime())

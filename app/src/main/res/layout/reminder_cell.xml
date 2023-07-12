@@ -43,5 +43,15 @@
             android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="20dp"/>
+
+        <ImageButton
+            android:id="@+id/reminder_delete"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_delete"
+            app:tint="@color/black" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
