@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +22,7 @@ class Reminders : Fragment(), ReminderClickListener {
     private val reminderViewModel: ReminderViewModel by viewModels {
         ReminderModelFactory((activity?.application as DigileafApplication).reminderRepository)
     }
-    private lateinit var addReminderButton: Button
+    private lateinit var addReminderButton: CardView
     private lateinit var binding: FragmentRemindersBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
