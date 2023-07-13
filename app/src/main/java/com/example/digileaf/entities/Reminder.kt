@@ -15,6 +15,7 @@ class Reminder(
     @ColumnInfo(name = "title") var title: String,
     @ColumnInfo(name = "desc") var desc : String,
     @ColumnInfo(name = "dueTimeString") var dueTimeString: String?,
+    @ColumnInfo(name = "dueDateString") var dueDateString: String?,
     @ColumnInfo(name = "completedDateString") var completedDateString: String?,
     @PrimaryKey(autoGenerate = true) val id: Int = 0
 ) {
@@ -30,6 +31,13 @@ class Reminder(
             return null
         }
         return LocalTime.parse(dueTimeString, timeFormatter)
+    }
+
+    fun dueDate(): LocalDate? {
+        if (dueDateString == null) {
+            return null
+        }
+        return LocalDate.parse(dueTimeString, timeFormatter)
     }
 
     fun isCompleted(): Boolean {

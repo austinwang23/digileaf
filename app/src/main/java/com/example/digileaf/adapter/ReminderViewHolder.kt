@@ -21,6 +21,7 @@ class ReminderViewHolder(
         if (reminder.isCompleted()) {
             binding.title.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             binding.dueTime.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+            binding.dueDate.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
         }
 
         binding.completeButton.setImageResource(reminder.imageResource())
@@ -40,6 +41,13 @@ class ReminderViewHolder(
         }
         else {
             binding.dueTime.text = ""
+        }
+
+        if (reminder.dueTime() != null) {
+            binding.dueDate.text = timeFormat.format(reminder.dueDate())
+        }
+        else {
+            binding.dueDate.text = ""
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.digileaf
 
+import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.text.Editable
@@ -7,19 +8,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.digileaf.database.ReminderModelFactory
 import com.example.digileaf.database.ReminderViewModel
 import com.example.digileaf.databinding.FragmentNewReminderBinding
 import com.example.digileaf.entities.Reminder
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import java.time.LocalDate
 import java.time.LocalTime
 
 class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentNewReminderBinding
-//    private lateinit var reminderViewModel: ReminderViewModel
     private var dueTime: LocalTime? = null
+    private var dueDate: LocalDate? = null
     private val reminderViewModel: ReminderViewModel by viewModels {
         ReminderModelFactory((activity?.application as DigileafApplication).reminderRepository)
     }
@@ -38,12 +39,19 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
                 dueTime = reminderItem!!.dueTime()
                 updateTimeButtonText()
             }
+            if (reminderItem!!.dueDate() != null) {
+                dueDate = reminderItem!!.dueDate()
+                updateDateButtonText()
+            }
         }
         // creating a new reminder
         else {
             binding.reminderTitle.text = "New Reminder"
         }
-//        reminderViewModel = ViewModelProvider(activity)[ReminderViewModel::class.java]
+
+        binding.datePickerButton.setOnClickListener{
+            openDatePicker()
+        }
         binding.timePickerButton.setOnClickListener{
             openTimePicker()
         }
@@ -52,6 +60,20 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
         }
     }
 
+    private fun openDatePicker() {
+        if (dueDate == null) {
+            dueDate = LocalDate.now()
+        }
+        val listener = DatePickerDialog.OnDateSetListener{ _, selectedYear, selectedMonth, selectedDay ->
+            dueDate = LocalDate.of(selectedYear, selectedMonth, selectedDay)
+            updateDateButtonText()
+        }
+
+        //set up time picker dialog
+        val dialog = DatePickerDialog(requireContext(), listener, dueDate!!.year, dueDate!!.monthValue, dueDate!!.dayOfMonth)
+//        dialog.setTitle("Reminder Time")
+        dialog.show()
+    }
     private fun openTimePicker() {
         if (dueTime == null) {
             dueTime = LocalTime.now()
@@ -63,8 +85,12 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
 
         //set up time picker dialog
         val dialog = TimePickerDialog(activity, listener, dueTime!!.hour, dueTime!!.minute, true)
-        dialog.setTitle("Reminder Time")
+//        dialog.setTitle("Reminder Time")
         dialog.show()
+    }
+
+    private fun updateDateButtonText() {
+        binding.datePickerButton.text = String.format("%02d-%02d-%04d", dueDate!!.monthValue, dueDate!!.dayOfMonth, dueDate!!.year)
     }
 
     private fun updateTimeButtonText() {
@@ -83,18 +109,20 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
     private fun saveAction() {
         val title = binding.title.text.toString()
         val desc = binding.desc.text.toString()
+        val dueDateString = if (dueDate == null) null else Reminder.dateFormatter.format(dueDate)
         val dueTimeString = if (dueTime == null) null else Reminder.timeFormatter.format(dueTime)
 
         // editing a reminder
         if (reminderItem != null) {
             reminderItem!!.title = title
             reminderItem!!.desc = desc
+            reminderItem!!.dueDateString = dueDateString
             reminderItem!!.dueTimeString = dueTimeString
             reminderViewModel.updateReminder(reminderItem!!)
         }
         // creating a new reminder
         else {
-            val newReminder = Reminder(title, desc, dueTimeString, null)
+            val newReminder = Reminder(title, desc, dueTimeString, dueDateString, null)
             reminderViewModel.addReminder(newReminder)
         }
 
