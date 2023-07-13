@@ -37,7 +37,7 @@ class Reminder(
         if (dueDateString == null) {
             return null
         }
-        return LocalDate.parse(dueTimeString, timeFormatter)
+        return LocalDate.parse(dueDateString, dateFormatter)
     }
 
     fun isCompleted(): Boolean {

@@ -70,7 +70,6 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
 
         //set up time picker dialog
         val dialog = DatePickerDialog(requireContext(), listener, dueDate!!.year, dueDate!!.monthValue, dueDate!!.dayOfMonth)
-//        dialog.setTitle("Reminder Time")
         dialog.show()
     }
     private fun openTimePicker() {

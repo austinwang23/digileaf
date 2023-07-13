@@ -43,7 +43,7 @@ class ReminderViewHolder(
             binding.dueTime.text = ""
         }
 
-        if (reminder.dueTime() != null) {
+        if (reminder.dueDate() != null) {
             binding.dueDate.text = timeFormat.format(reminder.dueDate())
         }
         else {
