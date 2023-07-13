@@ -27,7 +27,6 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val activity = requireActivity()
 
         // editing a reminder
         if (reminderItem != null) {

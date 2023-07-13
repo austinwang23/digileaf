@@ -35,8 +35,6 @@ class Reminders : Fragment(), ReminderClickListener {
         binding = FragmentRemindersBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        val activity = requireActivity()
-
         // Initialize addReminderButton & onClick handler
         addReminderButton = view.findViewById(R.id.reminder_add_button)
         addReminderButton.setOnClickListener{
