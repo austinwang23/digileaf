@@ -5,7 +5,10 @@ import android.graphics.Paint
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digileaf.databinding.ReminderCellBinding
 import com.example.digileaf.entities.Reminder
-import java.text.SimpleDateFormat
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
 
 class ReminderViewHolder(
@@ -30,12 +33,17 @@ class ReminderViewHolder(
         binding.completeButton.setColorFilter(reminder.imageColor(context))
         binding.completeButton.setOnClickListener{
             clickListener.completeReminder(reminder)
+            // Start a coroutine on the GlobalScope
+            GlobalScope.launch(Dispatchers.Main) {
+                // Delay the execution of deleteReminder by 5 seconds
+                delay(2000)
+
+                // Call deleteReminder after the delay
+                clickListener.deleteReminder(reminder)
+            }
         }
         binding.reminderCellContainer.setOnClickListener{
             clickListener.editReminder(reminder)
-        }
-        binding.reminderDelete.setOnClickListener{
-            clickListener.deleteReminder(reminder)
         }
 
         if (reminder.dueTime() != null) {
