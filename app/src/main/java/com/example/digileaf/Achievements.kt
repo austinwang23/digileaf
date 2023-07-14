@@ -40,16 +40,26 @@ class Achievements: Fragment() {
 
             // Set num trophy icons displayed
             achievementsContainer.removeAllViews()
-            for (i in 1..unlockedAchievements) {
-                val achievementImageView = ImageView(requireContext())
-                achievementImageView.layoutParams = LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-                achievementImageView.setImageResource(R.drawable.ic_achievement)
-                achievementImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gray))
-                achievementsContainer.addView(achievementImageView)
-            }
+           for (i in 1..unlockedAchievements) {
+               val achievementImageView = ImageView(requireContext())
+               achievementImageView.layoutParams = LinearLayout.LayoutParams(
+                   ViewGroup.LayoutParams.WRAP_CONTENT,
+                   ViewGroup.LayoutParams.WRAP_CONTENT
+               )
+               achievementImageView.setImageResource(R.drawable.ic_achievement)
+               achievementImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gold))
+               achievementsContainer.addView(achievementImageView)
+           }
+           for (i in 1..totalAchievements - unlockedAchievements) {
+               val achievementImageView = ImageView(requireContext())
+               achievementImageView.layoutParams = LinearLayout.LayoutParams(
+                   ViewGroup.LayoutParams.WRAP_CONTENT,
+                   ViewGroup.LayoutParams.WRAP_CONTENT
+               )
+               achievementImageView.setImageResource(R.drawable.ic_achievement)
+               achievementImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gray))
+               achievementsContainer.addView(achievementImageView)
+           }
         }
 
         plantViewModel.getPlantCount().observe(viewLifecycleOwner, Observer {
