@@ -19,12 +19,23 @@ data class Forecast(
 )
 
 data class ForecastDay(
-    val day: ForecastDayInfo
+    val day: ForecastDayInfo,
+    val astro : Astro
 )
 
 data class ForecastDayInfo(
     val maxtemp_c: Float,
-    val condition : Condition
+    val maxwind_kph: Float,
+    val avgtemp_c: Float,
+    val condition : Condition,
+    val daily_chance_of_rain : Float,
+    val totalprecip_mm: Float,
+)
+
+data class Astro(
+    val sunrise : String,
+    val moonrise : String,
+    val sunset : String
 )
 
 data class Condition(
