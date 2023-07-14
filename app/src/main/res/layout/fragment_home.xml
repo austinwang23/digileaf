@@ -168,7 +168,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_location"
+                    android:src="@drawable/ic_no_location"
                     app:tint="@color/white" />
 
                 <TextView

@@ -34,6 +34,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/location_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -82,7 +83,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/weather_description"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_location"
+                android:src="@drawable/ic_no_location"
                 app:tint="@color/white" />
 
             <TextView
@@ -105,7 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/weather_detail_2"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="32dp"
                 android:orientation="horizontal">
 
                 <RelativeLayout
@@ -190,7 +191,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="32dp"
                 android:orientation="horizontal">
 
                 <RelativeLayout

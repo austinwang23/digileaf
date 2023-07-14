@@ -39,15 +39,17 @@ class WeatherPageActivity : AppCompatActivity() {
         val weatherMoonriseTextView : TextView = findViewById(R.id.moonrise)
         val weatherBackgroundImageView : ImageView = findViewById(R.id.weather_card_background)
 
+
+
         locationTextView.text = weatherLocation
         Glide.with(this)
             .load("https:${weatherIcon}")
             .into(weatherIconImageView)
-        weatherTemperatrueTextView.text = maxTempC.toString()
+        weatherTemperatrueTextView.text = "${maxTempC?.toString()}°C"
         weatherDescriptionTextView.text = weatherDescription
         weatherTipTextView.text = weatherTip
-        weatherWindSpeedTextView.text = weatherWindSpeed.toString()
-        weatherTotalPrecipTextView.text = weatherTotalPrecip.toString()
+        weatherWindSpeedTextView.text = weatherWindSpeed.toString() + "km/h"
+        weatherTotalPrecipTextView.text = weatherTotalPrecip.toString() + "mm"
         weatherAvgTempTextView.text = weatherAverageTemp.toString()
         weatherSunriseView.text = weatherSunrise
         weatherSunsetTextView.text = weatherSunset
