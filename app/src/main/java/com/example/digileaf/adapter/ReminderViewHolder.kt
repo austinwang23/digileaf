@@ -5,6 +5,7 @@ import android.graphics.Paint
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digileaf.databinding.ReminderCellBinding
 import com.example.digileaf.entities.Reminder
+import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 
 class ReminderViewHolder(
@@ -13,6 +14,7 @@ class ReminderViewHolder(
     private val clickListener: ReminderClickListener
 ): RecyclerView.ViewHolder(binding.root) {
     private val timeFormat = DateTimeFormatter.ofPattern("HH:mm")
+    private val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
     fun bindReminder(reminder: Reminder) {
         binding.title.text = reminder.title
@@ -44,7 +46,7 @@ class ReminderViewHolder(
         }
 
         if (reminder.dueDate() != null) {
-            binding.dueDate.text = timeFormat.format(reminder.dueDate())
+            binding.dueDate.text = dateFormat.format(reminder.dueDate())
         }
         else {
             binding.dueDate.text = ""
