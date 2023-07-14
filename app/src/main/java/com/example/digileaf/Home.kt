@@ -5,6 +5,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.hardware.Sensor
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +18,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -65,6 +68,9 @@ class Home : Fragment() {
     private lateinit var lightMeter: CardView // TO IMPLEMENT
 
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
+
+    private lateinit var sensorManager: SensorManager
+    private lateinit var lightSensor: Sensor
 
     private fun getWeatherData(latLong: String) {
         val call = weatherApiService.getWeatherData(
@@ -214,16 +220,22 @@ class Home : Fragment() {
 
         plantQuiz = view.findViewById(R.id.plant_quiz_card)
         plantQuiz.setOnClickListener {
-            Log.e("plant quiz", "clicked on plant quiz")
             val intent = Intent(context, PlantQuizActivity::class.java)
             startActivity(intent)
         }
 
         lightMeter = view.findViewById(R.id.light_meter_card)
-        lightMeter.setOnClickListener {
-            Log.e("light meter", "clicked on light meter")
-        }
+        sensorManager = requireActivity().getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
 
+        if (lightSensor == null) {
+            lightMeter.visibility = View.GONE
+        } else {
+            lightMeter.setOnClickListener {
+                val intent = Intent(context, LightMeterActivity::class.java)
+                startActivity(intent)
+            }
+        }
         return view
     }
 
