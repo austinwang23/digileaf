@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white_ghost"
     android:orientation="vertical"
-    tools:context=".Calendar">
+    tools:context=".Achievement">
 
     <TextView
         android:id="@+id/achievements_title"
@@ -55,7 +55,8 @@
         android:id="@+id/achievements_scroll_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/achievements_total">
+        android:layout_below="@id/achievements_total"
+        android:layout_above="@+id/bottom_bar">
 
 
         <LinearLayout
@@ -830,12 +831,14 @@
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
-            <!-- Really jank way of leaving space at the bottom because idk how xml works-->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="80dp" />
         </LinearLayout>
 
     </ScrollView>
 
+    <include
+        android:id="@+id/bottom_bar"
+        layout="@layout/animated_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>
