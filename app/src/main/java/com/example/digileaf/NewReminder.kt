@@ -116,7 +116,6 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
     }
 
     private fun saveAction() {
-        Log.d("save", "fuckme")
         val title = binding.title.text.toString()
         val desc = binding.desc.text.toString()
         val dueDateString = if (dueDate == null) null else Reminder.dateFormatter.format(dueDate)
@@ -142,7 +141,6 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
     }
 
     private fun scheduleNotification() {
-        Log.d("notification", "fuck")
         if (dueDate == null || dueTime == null) {
             return
         }
@@ -150,8 +148,7 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
         val intent = Intent(applicationContext, Notification::class.java)
         val title = binding.title.text.toString()
         val message = binding.desc.text.toString()
-        Log.d("notification", title)
-        Log.d("notification", message)
+
         intent.putExtra(titleExtra, title)
         intent.putExtra(messageExtra, message)
 
@@ -177,16 +174,10 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
         val hour = dueTime!!.hour
         val day = dueDate!!.dayOfMonth
         val month = dueDate!!.monthValue - 1
-
-        Log.d("notification", "month")
-        Log.d("notification", month.toString())
-
         val year = dueDate!!.year
 
         val calendar = Calendar.getInstance()
         calendar.set(year, month, day, hour, minute)
-        Log.d("notification", "getTime()")
-        Log.d("notification", calendar.timeInMillis.toString())
         return calendar.timeInMillis
     }
 
