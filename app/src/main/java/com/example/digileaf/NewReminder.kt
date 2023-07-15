@@ -1,9 +1,17 @@
 package com.example.digileaf
 
+import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.TimePickerDialog
+import android.content.Context
+import android.content.Context.NOTIFICATION_SERVICE
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +23,7 @@ import com.example.digileaf.entities.Reminder
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.time.LocalDate
 import java.time.LocalTime
+import java.util.Calendar
 
 class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
 
@@ -48,6 +57,8 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
             binding.reminderTitle.text = "New Reminder"
         }
 
+        createNotificationChannel()
+
         binding.datePickerButton.setOnClickListener{
             openDatePicker()
         }
@@ -55,6 +66,7 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
             openTimePicker()
         }
         binding.saveButton.setOnClickListener{
+            scheduleNotification()
             saveAction()
         }
     }
@@ -64,12 +76,12 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
             dueDate = LocalDate.now()
         }
         val listener = DatePickerDialog.OnDateSetListener{ _, selectedYear, selectedMonth, selectedDay ->
-            dueDate = LocalDate.of(selectedYear, selectedMonth, selectedDay)
+            dueDate = LocalDate.of(selectedYear, selectedMonth + 1, selectedDay)
             updateDateButtonText()
         }
 
-        //set up time picker dialog
-        val dialog = DatePickerDialog(requireContext(), listener, dueDate!!.year, dueDate!!.monthValue, dueDate!!.dayOfMonth)
+        //set up date picker dialog
+        val dialog = DatePickerDialog(requireContext(), listener, dueDate!!.year, dueDate!!.monthValue - 1, dueDate!!.dayOfMonth)
         dialog.show()
     }
     private fun openTimePicker() {
@@ -83,7 +95,6 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
 
         //set up time picker dialog
         val dialog = TimePickerDialog(activity, listener, dueTime!!.hour, dueTime!!.minute, true)
-//        dialog.setTitle("Reminder Time")
         dialog.show()
     }
 
@@ -105,6 +116,7 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
     }
 
     private fun saveAction() {
+        Log.d("save", "fuckme")
         val title = binding.title.text.toString()
         val desc = binding.desc.text.toString()
         val dueDateString = if (dueDate == null) null else Reminder.dateFormatter.format(dueDate)
@@ -127,5 +139,65 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
         binding.title.setText("")
         binding.desc.setText("")
         dismiss()
+    }
+
+    private fun scheduleNotification() {
+        Log.d("notification", "fuck")
+        if (dueDate == null || dueTime == null) {
+            return
+        }
+        val applicationContext = requireActivity().applicationContext
+        val intent = Intent(applicationContext, Notification::class.java)
+        val title = binding.title.text.toString()
+        val message = binding.desc.text.toString()
+        Log.d("notification", title)
+        Log.d("notification", message)
+        intent.putExtra(titleExtra, title)
+        intent.putExtra(messageExtra, message)
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            notificationID,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val time = getTime()
+        // if app is closed, will wake up to send notification
+        alarmManager.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            time,
+            pendingIntent
+        )
+    }
+
+    private fun getTime(): Long {
+        val minute = dueTime!!.minute
+        val hour = dueTime!!.hour
+        val day = dueDate!!.dayOfMonth
+        val month = dueDate!!.monthValue - 1
+
+        Log.d("notification", "month")
+        Log.d("notification", month.toString())
+
+        val year = dueDate!!.year
+
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, day, hour, minute)
+        Log.d("notification", "getTime()")
+        Log.d("notification", calendar.timeInMillis.toString())
+        return calendar.timeInMillis
+    }
+
+    private fun createNotificationChannel() {
+        val name = "Reminder Channel"
+        val desc = "Send notifications for plant reminders"
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(channelID, name, importance)
+        channel.description = desc
+
+        val notificationManager = requireActivity().getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 }
