@@ -24,6 +24,10 @@ class ReminderViewModel(private val repository: ReminderRepository): ViewModel()
         repository.updateReminder(reminder)
     }
 
+    fun deleteReminder(reminder: Reminder) = viewModelScope.launch {
+        repository.deleteReminder(reminder)
+    }
+
     fun setCompleted(reminder: Reminder) = viewModelScope.launch {
         if (!reminder.isCompleted()) {
             reminder.completedDateString = Reminder.dateFormatter.format(LocalDate.now())

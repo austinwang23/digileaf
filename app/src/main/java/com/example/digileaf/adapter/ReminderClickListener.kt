@@ -5,4 +5,5 @@ import com.example.digileaf.entities.Reminder
 interface ReminderClickListener {
     fun editReminder(reminder: Reminder)
     fun completeReminder(reminder: Reminder)
+    fun deleteReminder(reminder: Reminder)
 }
