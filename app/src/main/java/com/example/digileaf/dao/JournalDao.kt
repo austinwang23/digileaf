@@ -30,4 +30,7 @@ interface JournalDao {
 
     @Query("SELECT * FROM journals WHERE date = :date")
     fun getAllByDate(date: String): Flow<List<Journal>>
+
+    @Query("SELECT COUNT(*) FROM journals")
+    suspend fun getJournalCount(): Int
 }

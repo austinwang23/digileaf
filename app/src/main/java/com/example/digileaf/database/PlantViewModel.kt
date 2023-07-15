@@ -38,15 +38,6 @@ class PlantViewModel(private val repository: PlantRepository) : ViewModel() {
         return result
     }
 
-    fun getJournalCount(): LiveData<Int> {
-        val result = MutableLiveData<Int>()
-
-        viewModelScope.launch {
-            result.postValue(repository.getJournalCount())
-        }
-        return result
-    }
-
     fun getWateredCount(): LiveData<Int> {
         val result = MutableLiveData<Int>()
 

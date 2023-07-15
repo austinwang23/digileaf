@@ -30,8 +30,6 @@ interface PlantDao {
     @Query("SELECT COUNT(*) FROM plants")
     suspend fun getPlantCount(): Int
 
-    @Query("SELECT COUNT(*) FROM journals")
-    suspend fun getJournalCount(): Int
 
     @Query("SELECT COUNT(*) FROM plants WHERE last_water <> ''")
     suspend fun getWateredCount(): Int
