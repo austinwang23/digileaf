@@ -40,7 +40,7 @@
 |         |             |            |            |              | 0.5 hour    | Jul 13 | UI fix for grooming badge                                                                                                                                 |
 |         |             |            |            | 2 hour       | 0.5 hour    | Jul 13 | D4: Architecture Style Examples                                                                                                                           |
 |         |             |            | 6 hour     |              |             | Jul 14 | Adding light meter activity to capture environment lux                                                                                                    |
-|         |             |            |            |              | 6 hours     | Jul 14 | Adding light meter activity to capture environment lux                                                                                                    |
+|         |             |            |            |              | 6 hours     | Jul 14 | Expanding weather component to detailed weather view                                                                                                      |
 
 |         |             |            |            |              |             | Jul 21  | D5: Design Pattern Examples                                                                                                                              |
 |         |             |            |            |              |             | Jul 24  | D6: Final Presentation                                                                                                                                   |
