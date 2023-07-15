@@ -5,6 +5,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.hardware.Sensor
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +18,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -55,6 +58,20 @@ class Home : Fragment() {
     private val plantViewModel: PlantViewModel by viewModels {
         PlantViewModelFactory((activity?.application as DigileafApplication).plantRepository)
     }
+
+    private var maxTempC: Float = 0f
+    private var weatherIcon: String? = null
+    private var weatherDescription: String? = null
+    private var weatherCode: Int = 0
+    private var weatherLocation: String? = null
+    private var weatherWindSpeed: Float = 0f
+    private var weatherAverageTemp: Float = 0f
+    private var weatherTotalPrecip: Float = 0f
+    private var weatherSunrise: String? = null
+    private var weatherSunset: String? = null
+    private var weatherMoonrise: String? = null
+
+    private lateinit var weatherCardView: CardView
     private lateinit var weatherTemperatureTextView: TextView
     private lateinit var weatherLocationTextView: TextView
     private lateinit var weatherIconImageView: ImageView
@@ -65,6 +82,9 @@ class Home : Fragment() {
     private lateinit var lightMeter: CardView // TO IMPLEMENT
 
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
+
+    private lateinit var sensorManager: SensorManager
+    private lateinit var lightSensor: Sensor
 
     private fun getWeatherData(latLong: String) {
         val call = weatherApiService.getWeatherData(
@@ -84,13 +104,22 @@ class Home : Fragment() {
                     if (response.isSuccessful) {
                         val weatherData = response.body()
                         val forecastDay = weatherData?.forecast?.forecastday?.get(0)
-                        val maxTempC = forecastDay?.day?.maxtemp_c
-                        val weatherIcon = forecastDay?.day?.condition?.icon
-                        val weatherDescription = forecastDay?.day?.condition?.text
-                        val weatherCode = forecastDay?.day?.condition?.code
+
+                        // Store the weather data in member variables
+                        maxTempC = forecastDay?.day?.maxtemp_c ?: 0f
+                        weatherIcon = forecastDay?.day?.condition?.icon
+                        weatherDescription = forecastDay?.day?.condition?.text
+                        weatherCode = forecastDay?.day?.condition?.code ?: 0
+                        weatherLocation = weatherData?.location?.name
+                        weatherWindSpeed = forecastDay?.day?.maxwind_kph ?: 0f
+                        weatherAverageTemp = forecastDay?.day?.avgtemp_c ?: 0f
+                        weatherTotalPrecip = forecastDay?.day?.totalprecip_mm ?: 0f
+                        weatherSunrise = forecastDay?.astro?.sunrise
+                        weatherSunset = forecastDay?.astro?.sunset
+                        weatherMoonrise = forecastDay?.astro?.moonrise
 
                         weatherTemperatureTextView.text = "${maxTempC?.toString()}°C"
-                        weatherLocationTextView.text = weatherData?.location?.name
+                        weatherLocationTextView.text = weatherLocation
                         Glide.with(requireContext())
                             .load("https:${weatherIcon}")
                             .into(weatherIconImageView)
@@ -103,7 +132,7 @@ class Home : Fragment() {
                                 R.drawable.bg_sunny
                             )
                         )
-//                    Log.d("Weather Data", weatherData.toString())
+                        registerWeatherClickListener()
                     } else {
                         Log.e("API", "Error: ${response.code()}")
                     }
@@ -158,6 +187,8 @@ class Home : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
+
+        weatherCardView = view.findViewById(R.id.weather_card)
 
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -214,30 +245,57 @@ class Home : Fragment() {
 
         plantQuiz = view.findViewById(R.id.plant_quiz_card)
         plantQuiz.setOnClickListener {
-            Log.e("plant quiz", "clicked on plant quiz")
             val intent = Intent(context, PlantQuizActivity::class.java)
             startActivity(intent)
         }
 
         lightMeter = view.findViewById(R.id.light_meter_card)
-        lightMeter.setOnClickListener {
-            Log.e("light meter", "clicked on light meter")
-        }
+        sensorManager = requireActivity().getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
 
+        if (lightSensor == null) {
+            lightMeter.visibility = View.GONE
+        } else {
+            lightMeter.setOnClickListener {
+                val intent = Intent(context, LightMeterActivity::class.java)
+                startActivity(intent)
+            }
+        }
         return view
+    }
+
+    private fun registerWeatherClickListener() {
+        weatherCardView.setOnClickListener {
+
+            Log.e("weather card", "clicked on weather card")
+            val intent = Intent(context, WeatherPageActivity::class.java)
+            intent.putExtra("maxTempC", maxTempC)
+            intent.putExtra("weatherIcon", weatherIcon)
+            intent.putExtra("weatherDescription", weatherDescription)
+            intent.putExtra("weatherCode", weatherCode)
+            intent.putExtra("weatherLocation", weatherLocation)
+            intent.putExtra("weatherWindSpeed", weatherWindSpeed)
+            intent.putExtra("weatherAverageTemp", weatherAverageTemp)
+            intent.putExtra("weatherTotalPrecip", weatherTotalPrecip)
+            intent.putExtra("weatherSunrise", weatherSunrise)
+            intent.putExtra("weatherSunset", weatherSunset)
+            intent.putExtra("weatherMoonrise", weatherMoonrise)
+            intent.putExtra("weatherTip", weatherTipTextView.text.toString())
+            startActivity(intent)
+
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(isAdded){
-            weatherTemperatureTextView = view.findViewById(R.id.weather_temperature)
-            weatherLocationTextView = view.findViewById(R.id.weather_location)
-            weatherIconImageView = view.findViewById(R.id.weather_icon)
-            weatherDescriptionTextView = view.findViewById(R.id.weather_description)
-            weatherTipTextView = view.findViewById(R.id.weather_tip)
-            weatherBackgroundImageView = view.findViewById(R.id.weather_background)
-        }
+        weatherTemperatureTextView = view.findViewById(R.id.weather_temperature)
+        weatherLocationTextView = view.findViewById(R.id.weather_location)
+        weatherIconImageView = view.findViewById(R.id.weather_icon)
+        weatherDescriptionTextView = view.findViewById(R.id.weather_description)
+        weatherTipTextView = view.findViewById(R.id.weather_tip)
+        weatherBackgroundImageView = view.findViewById(R.id.weather_background)
+
     }
 
     private fun launchAddPlantActivity() {
