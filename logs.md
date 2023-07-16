@@ -1,10 +1,11 @@
 
+
 # Time logs
 | Alan Hu | Austin Wang | Ernst Mach | Wendi Zhao | Yi Zhe Zhang | Zi Zhou Yin | Date   | Description                                                                                                                                               |
 |---------|-------------|------------|------------|--------------|-------------|--------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-|         |             | 5 hour     | 2 hour     | 1 hour       | 1 hour      | Jun 2  | D1: Proposal Document + Powerpoint                                                                                                                        |
+|         | 1.5 hours            | 5 hour     | 2 hour     | 1 hour       | 1 hour      | Jun 2  | D1: Proposal Document + Powerpoint                                                                                                                        |
 |         |             |            |            |              | 3 hour      | Jun 13 | Created initial projects and set up frontend for the home page as well as navbar                                                                          |
-|         |             | 3 hour     | 0.5 hour   | 0.5 hour     | 0.5 hour    | Jun 16 | D2: Buddy team's evaluation                                                                                                                               |
+|         | 0.5 hour             | 3 hour     | 0.5 hour   | 0.5 hour     | 0.5 hour    | Jun 16 | D2: Buddy team's evaluation                                                                                                                               |
 |         |             |            |            |              | 2 hour      | Jun 21 | Created the model for the Plant class as well as the recycler view for inventory                                                                          |
 |         |             |            |            |              | 8 hour      | Jun 22 | Finished mockups for home page, and set up mock data for recycler view. Added click functionality to plants for detailed page, and created calendar view. |
 |         |             | 4 hour     |            |              |             | Jun 22 | Created temp mockup pages for each page based on D1 design                                                                                                |
@@ -28,7 +29,7 @@
 |         |             |            |            |              | 3 hour      | Jun 25 | Updated detailed plant page to support plant actions, created weather widget on home page                                                                 |
 |         |             | 3 hour     |            |              |             | Jun 25 | Added camera feature for journal entry page                                                                                                               |
 |         |             |            | 4 hour     |              |             | Jun 25 | Added plant status dialog and ability to update and store plant status, UI updates, location based weather fetching with tip                              |
-|         |             | 3 hour     | 1 hour     | 1 hour       | 1 hour      | Jun 30 | D3: Prototype Document                                                                                                                                    |
+|         | 1hr            | 3 hour     | 1 hour     | 1 hour       | 1 hour      | Jun 30 | D3: Prototype Document                                                                                                                                    |
 |         |             |            | 3 hour     |              |             | Jul 3  | Added UI layouts for plant quiz                                                                                                                           |
 |         |             |            | 4 hour     |              |             | Jul 4  | Hooked plant quiz up to API, display plant quiz result within dismissible dialog                                                                          |
 |         |             |            |            |              | 3 hour      | Jul 4  | Complete re-do and overhaul of Homepage UI                                                                                                                |
@@ -38,9 +39,12 @@
 |         |             |            |            |              | 10 hour     | Jul 9  | Updated UI for every fragment and re did UI for multiple forms and created mockups for achievement badges                                                 |
 |         |             |            |            |              | 6 hour      | Jul 11 | Added remaining badge icons, replaced achievements with new card view and added mock UI for achievement progress tracking                                 |
 |         |             |            |            |              | 0.5 hour    | Jul 13 | UI fix for grooming badge                                                                                                                                 |
-|         |             |            |            | 2 hour       | 0.5 hour    | Jul 13 | D4: Architecture Style Examples                                                                                                                           |
+|         | 0.5 hour            |            |            | 2 hour       | 0.5 hour    | Jul 13 | D4: Architecture Style Examples                                                                                                                           |
 |         |             |            | 6 hour     |              |             | Jul 14 | Adding light meter activity to capture environment lux                                                                                                    |
 |         |             |            |            |              | 6 hours     | Jul 14 | Expanding weather component to detailed weather view                                                                                                      |
+|         |  2 hour     |            |            |              |             | Jul 13| Achievements page UI minimum and queries for achievements progress completed        
+|         |  2 hour     |            |            |              |             | Jul 13| Make achievements page dynamic
+|         |  5 hour     |            |            |              |             | Jul 13| Change achievements page to use RecyclerView and add Achievement class
 
 |         |             |            |            |              |             | Jul 21  | D5: Design Pattern Examples                                                                                                                              |
 |         |             |            |            |              |             | Jul 24  | D6: Final Presentation                                                                                                                                   |
