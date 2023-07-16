@@ -42,9 +42,9 @@
 |         | 0.5 hour            |            |            | 2 hour       | 0.5 hour    | Jul 13 | D4: Architecture Style Examples                                                                                                                           |
 |         |             |            | 6 hour     |              |             | Jul 14 | Adding light meter activity to capture environment lux                                                                                                    |
 |         |             |            |            |              | 6 hours     | Jul 14 | Expanding weather component to detailed weather view                                                                                                      |
-|         |  2 hour     |            |            |              |             | Jul 13| Achievements page UI minimum and queries for achievements progress completed        
+|         |  2 hour     |            |            |              |             | Jul 12| Achievements page UI minimum and queries for achievements progress completed        
 |         |  2 hour     |            |            |              |             | Jul 13| Make achievements page dynamic
-|         |  5 hour     |            |            |              |             | Jul 13| Change achievements page to use RecyclerView and add Achievement class
+|         |  5 hour     |            |            |              |             | Jul 14| Change achievements page to use RecyclerView and add Achievement class
 
 |         |             |            |            |              |             | Jul 21  | D5: Design Pattern Examples                                                                                                                              |
 |         |             |            |            |              |             | Jul 24  | D6: Final Presentation                                                                                                                                   |
