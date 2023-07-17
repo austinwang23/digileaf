@@ -46,6 +46,24 @@ class PlantViewModel(private val repository: PlantRepository) : ViewModel() {
         }
         return result
     }
+
+    fun getFertilizedCount(): LiveData<Int> {
+        val result = MutableLiveData<Int>()
+
+        viewModelScope.launch {
+            result.postValue(repository.getFertilizedCount())
+        }
+        return result
+    }
+
+    fun getGroomedCount(): LiveData<Int> {
+        val result = MutableLiveData<Int>()
+
+        viewModelScope.launch {
+            result.postValue(repository.getGroomedCount())
+        }
+        return result
+    }
 }
 
 class PlantViewModelFactory(private val repository: PlantRepository) : ViewModelProvider.Factory {

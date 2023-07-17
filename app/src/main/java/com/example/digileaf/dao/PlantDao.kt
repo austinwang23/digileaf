@@ -30,6 +30,13 @@ interface PlantDao {
     @Query("SELECT COUNT(*) FROM plants")
     suspend fun getPlantCount(): Int
 
+
     @Query("SELECT COUNT(*) FROM plants WHERE last_water <> ''")
     suspend fun getWateredCount(): Int
+
+    @Query("SELECT COUNT(*) FROM plants WHERE last_fertilize <> ''")
+    suspend fun getFertilizedCount(): Int
+
+    @Query("SELECT COUNT(*) FROM plants WHERE last_groom <> ''")
+    suspend fun getGroomedCount(): Int
 }

@@ -26,4 +26,10 @@ class JournalRepository(private val journalDao: JournalDao) {
     suspend fun insert(journal: Journal) {
         journalDao.insertJournal(journal)
     }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun getJournalCount(): Int {
+        return journalDao.getJournalCount()
+    }
 }

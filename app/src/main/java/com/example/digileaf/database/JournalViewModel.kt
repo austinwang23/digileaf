@@ -1,6 +1,7 @@
 package com.example.digileaf.database
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
@@ -28,6 +29,15 @@ class JournalViewModel(private val repository: JournalRepository) : ViewModel() 
     // Do through coroutine --> by default no database operations are allowed on main thread
     fun insert(journal: Journal) = viewModelScope.launch {
         repository.insert(journal)
+    }
+
+    fun getJournalCount(): LiveData<Int> {
+        val result = MutableLiveData<Int>()
+
+        viewModelScope.launch {
+            result.postValue(repository.getJournalCount())
+        }
+        return result
     }
 }
 
