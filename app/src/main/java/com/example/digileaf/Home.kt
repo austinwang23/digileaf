@@ -17,6 +17,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -30,6 +31,7 @@ import com.bumptech.glide.Glide
 import com.example.digileaf.adapter.PlantAdapter
 import com.example.digileaf.database.PlantViewModel
 import com.example.digileaf.database.PlantViewModelFactory
+import com.example.digileaf.entities.Journal
 import com.example.digileaf.entities.Plant
 import com.example.digileaf.helpers.WeatherBackgroundMappings
 import com.example.digileaf.helpers.WeatherCodeMappings
@@ -54,6 +56,7 @@ class Home : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var addPlantButton: CardView
+    private lateinit var addSelectLocationActivityLauncher : ActivityResultLauncher<Intent>
     private lateinit var addPlantActivityLauncher: ActivityResultLauncher<Intent>
     private val plantViewModel: PlantViewModel by viewModels {
         PlantViewModelFactory((activity?.application as DigileafApplication).plantRepository)
@@ -179,6 +182,20 @@ class Home : Fragment() {
                     }
                 }
             }
+
+        addSelectLocationActivityLauncher =
+            registerForActivityResult(StartActivityForResult()) { result: ActivityResult ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val intent = result.data
+                    if (intent != null && intent.hasExtra("plant")) {
+                        Log.e("insertion", "inserting new plant into db")
+                        val plant = intent.getParcelableExtra<Plant>("plant")
+                        if (plant != null) {
+                            plantViewModel.insert(plant)
+                        }
+                    }
+                }
+            }
     }
 
     override fun onCreateView(
@@ -291,6 +308,9 @@ class Home : Fragment() {
 
         weatherTemperatureTextView = view.findViewById(R.id.weather_temperature)
         weatherLocationTextView = view.findViewById(R.id.weather_location)
+        weatherLocationTextView.setOnClickListener {
+            launchAddPlantActivity()
+        }
         weatherIconImageView = view.findViewById(R.id.weather_icon)
         weatherDescriptionTextView = view.findViewById(R.id.weather_description)
         weatherTipTextView = view.findViewById(R.id.weather_tip)
@@ -301,6 +321,11 @@ class Home : Fragment() {
     private fun launchAddPlantActivity() {
         val intent = Intent(context, AddPlantActivity::class.java)
         addPlantActivityLauncher.launch(intent)
+    }
+
+    private fun launchSelectLocationActivity() {
+        val intent = Intent(context, SelectLocationActivity::class.java)
+        addSelectLocationActivityLauncher.launch(intent)
     }
 
     override fun onRequestPermissionsResult(

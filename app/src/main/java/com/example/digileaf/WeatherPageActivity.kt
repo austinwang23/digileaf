@@ -56,8 +56,8 @@ class WeatherPageActivity : AppCompatActivity() {
         weatherMoonriseTextView.text = weatherMoonrise
         weatherBackgroundImageView.setImageResource(
             WeatherBackgroundMappings.getOrDefault(
-                weatherCode as Int,
-                R.drawable.bg_sunny
+                weatherCode,
+                R.drawable.bg_sunny,
             )
         )
 
