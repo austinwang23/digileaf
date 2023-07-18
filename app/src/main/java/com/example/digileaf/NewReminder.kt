@@ -141,9 +141,17 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
     }
 
     private fun scheduleNotification() {
-        if (dueDate == null || dueTime == null) {
+        if (dueDate == null && dueTime == null) {
             return
         }
+        // defaults for date and time if not set
+        if (dueDate == null) {
+            dueDate = LocalDate.now()
+        }
+        else if (dueTime == null) {
+            dueTime = LocalTime.of(9, 0)
+        }
+
         val applicationContext = requireActivity().applicationContext
         val intent = Intent(applicationContext, Notification::class.java)
         val title = binding.title.text.toString()
@@ -161,6 +169,7 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
 
         val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val time = getTime()
+
         // if app is closed, will wake up to send notification
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
