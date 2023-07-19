@@ -17,6 +17,7 @@ class Reminder(
     @ColumnInfo(name = "dueTimeString") var dueTimeString: String?,
     @ColumnInfo(name = "dueDateString") var dueDateString: String?,
     @ColumnInfo(name = "completedDateString") var completedDateString: String?,
+    @ColumnInfo(name = "repetitionType") var repetitionType: RepetitionType = RepetitionType.NEVER,
     @PrimaryKey(autoGenerate = true) val id: Int = 0
 ) {
     fun completedDate(): LocalDate? {

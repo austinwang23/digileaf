@@ -21,7 +21,7 @@ class Notification : BroadcastReceiver() {
         val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, activityIntent, PendingIntent.FLAG_IMMUTABLE)
 
         val notification = NotificationCompat.Builder(context, channelID)
-            .setSmallIcon(R.drawable.ic_reminder)
+            .setSmallIcon(R.drawable.ic_fertilizer)
             .setContentTitle(intent.getStringExtra(titleExtra))
             .setContentText(intent.getStringExtra(messageExtra))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)

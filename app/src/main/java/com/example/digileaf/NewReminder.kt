@@ -1,5 +1,6 @@
 package com.example.digileaf
 
+import android.R
 import android.app.AlarmManager
 import android.app.DatePickerDialog
 import android.app.NotificationChannel
@@ -15,11 +16,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.fragment.app.viewModels
 import com.example.digileaf.database.ReminderModelFactory
 import com.example.digileaf.database.ReminderViewModel
 import com.example.digileaf.databinding.FragmentNewReminderBinding
 import com.example.digileaf.entities.Reminder
+import com.example.digileaf.entities.RepetitionType
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.time.LocalDate
 import java.time.LocalTime
@@ -27,6 +31,7 @@ import java.util.Calendar
 
 class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentNewReminderBinding
+    private lateinit var repetitionSpinner: Spinner
     private var dueTime: LocalTime? = null
     private var dueDate: LocalDate? = null
     private val reminderViewModel: ReminderViewModel by viewModels {
@@ -55,6 +60,13 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
         else {
             binding.reminderTitle.text = "New Reminder"
         }
+
+        // initialize repetition spinner
+        repetitionSpinner = binding.repetitionSpinner
+        val repetitionTypes = RepetitionType.values()
+        val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, repetitionTypes.map{ it.text })
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        repetitionSpinner.adapter = adapter
 
         createNotificationChannel()
 
@@ -145,6 +157,8 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
     }
 
     private fun scheduleNotification(id: Int) {
+        Log.d("reminder-notification", reminderItem!!.repetitionType.text)
+
         if (dueDate == null && dueTime == null) {
             return
         }
@@ -176,18 +190,23 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
         val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val time = getTime()
 
-        // if app is closed, will wake up to send notification
-        alarmManager.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
-            time,
-            alarmIntent
-        )
-//        alarmManager.setRepeating(
-//            AlarmManager.RTC_WAKEUP,
-//            time,
-//            AlarmManager.INTERVAL_HOUR,
-//            alarmIntent
-//        )
+        if (reminderItem!!.repetitionType == RepetitionType.NEVER) {
+            Log.d("reminder-notification", "non-repeating reminder")
+            alarmManager.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                time,
+                alarmIntent
+            )
+        }
+        else {
+            Log.d("reminder-notification", "repeating reminder")
+    //        alarmManager.setRepeating(
+    //            AlarmManager.RTC_WAKEUP,
+    //            time,
+    //            AlarmManager.INTERVAL_HOUR,
+    //            alarmIntent
+    //        )
+        }
     }
 
     private fun cancelNotification() {
