@@ -130,6 +130,8 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
         val desc = binding.desc.text.toString()
         val dueDateString = if (dueDate == null) null else Reminder.dateFormatter.format(dueDate)
         val dueTimeString = if (dueTime == null) null else Reminder.timeFormatter.format(dueTime)
+        val selectedRepetitionType = repetitionSpinner.selectedItem as String
+        val repetitionType = RepetitionType.values().firstOrNull { it.text == selectedRepetitionType } ?: RepetitionType.NEVER
 
         // editing a reminder
         if (reminderItem != null) {
@@ -137,6 +139,7 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
             reminderItem!!.desc = desc
             reminderItem!!.dueDateString = dueDateString
             reminderItem!!.dueTimeString = dueTimeString
+            reminderItem!!.repetitionType = repetitionType
             reminderViewModel.updateReminder(reminderItem!!)
 
             // cancel current notification and schedule a new one
@@ -145,7 +148,7 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
         }
         // creating a new reminder
         else {
-            reminderItem = Reminder(title, desc, dueTimeString, dueDateString, null)
+            reminderItem = Reminder(title, desc, dueTimeString, dueDateString, null, repetitionType)
             reminderViewModel.addReminder(reminderItem!!) { id ->
                 scheduleNotification(id.toInt())
             }
@@ -158,6 +161,7 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
 
     private fun scheduleNotification(id: Int) {
         Log.d("reminder-notification", reminderItem!!.repetitionType.text)
+        Log.d("reminder-notification", id.toString())
 
         if (dueDate == null && dueTime == null) {
             return
@@ -200,12 +204,12 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
         }
         else {
             Log.d("reminder-notification", "repeating reminder")
-    //        alarmManager.setRepeating(
-    //            AlarmManager.RTC_WAKEUP,
-    //            time,
-    //            AlarmManager.INTERVAL_HOUR,
-    //            alarmIntent
-    //        )
+            alarmManager.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                time,
+                reminderItem!!.repetitionType.interval,
+                alarmIntent
+            )
         }
     }
 

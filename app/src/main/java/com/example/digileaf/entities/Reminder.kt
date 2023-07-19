@@ -20,7 +20,7 @@ class Reminder(
     @ColumnInfo(name = "repetitionType") var repetitionType: RepetitionType = RepetitionType.NEVER,
     @PrimaryKey(autoGenerate = true) val id: Int = 0
 ) {
-    fun completedDate(): LocalDate? {
+    private fun completedDate(): LocalDate? {
         if (completedDateString == null) {
             return null
         }
