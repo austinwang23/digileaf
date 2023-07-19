@@ -17,6 +17,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Spinner
 import androidx.fragment.app.viewModels
 import com.example.digileaf.database.ReminderModelFactory
@@ -31,7 +32,7 @@ import java.util.Calendar
 
 class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentNewReminderBinding
-    private lateinit var repetitionSpinner: Spinner
+    private lateinit var repetitionDropdown: AutoCompleteTextView
     private var dueTime: LocalTime? = null
     private var dueDate: LocalDate? = null
     private val reminderViewModel: ReminderViewModel by viewModels {
@@ -62,11 +63,10 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
         }
 
         // initialize repetition spinner
-        repetitionSpinner = binding.repetitionSpinner
+        repetitionDropdown = binding.repetitionDropdown
         val repetitionTypes = RepetitionType.values()
-        val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, repetitionTypes.map{ it.text })
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        repetitionSpinner.adapter = adapter
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, repetitionTypes.map { it.text })
+        repetitionDropdown.setAdapter(adapter)
 
         createNotificationChannel()
 
@@ -130,7 +130,7 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
         val desc = binding.desc.text.toString()
         val dueDateString = if (dueDate == null) null else Reminder.dateFormatter.format(dueDate)
         val dueTimeString = if (dueTime == null) null else Reminder.timeFormatter.format(dueTime)
-        val selectedRepetitionType = repetitionSpinner.selectedItem as String
+        val selectedRepetitionType = repetitionDropdown.text.toString()
         val repetitionType = RepetitionType.values().firstOrNull { it.text == selectedRepetitionType } ?: RepetitionType.NEVER
 
         // editing a reminder
