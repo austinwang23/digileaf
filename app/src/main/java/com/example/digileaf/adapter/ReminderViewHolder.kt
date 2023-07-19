@@ -2,6 +2,7 @@ package com.example.digileaf.adapter
 
 import android.content.Context
 import android.graphics.Paint
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digileaf.databinding.ReminderCellBinding
 import com.example.digileaf.entities.Reminder
@@ -33,14 +34,8 @@ class ReminderViewHolder(
         binding.completeButton.setColorFilter(reminder.imageColor(context))
         binding.completeButton.setOnClickListener{
             clickListener.completeReminder(reminder)
-            // Start a coroutine on the GlobalScope
-            GlobalScope.launch(Dispatchers.Main) {
-                // Delay the execution of deleteReminder by 5 seconds
-                delay(2000)
+            clickListener.deleteReminder(reminder)
 
-                // Call deleteReminder after the delay
-                clickListener.deleteReminder(reminder)
-            }
         }
         binding.reminderCellContainer.setOnClickListener{
             clickListener.editReminder(reminder)

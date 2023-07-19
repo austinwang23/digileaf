@@ -30,7 +30,7 @@ class Notification : BroadcastReceiver() {
 
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         manager.notify(notificationID, notification)
-        Log.d("notification", "BROADCAST")
+        Log.d("reminder-notification", "BROADCAST")
     }
 
 }

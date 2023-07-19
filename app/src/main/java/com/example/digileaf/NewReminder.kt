@@ -26,7 +26,6 @@ import java.time.LocalTime
 import java.util.Calendar
 
 class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
-
     private lateinit var binding: FragmentNewReminderBinding
     private var dueTime: LocalTime? = null
     private var dueDate: LocalDate? = null
@@ -66,7 +65,6 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
             openTimePicker()
         }
         binding.saveButton.setOnClickListener{
-            scheduleNotification()
             saveAction()
         }
     }
@@ -128,11 +126,17 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
             reminderItem!!.dueDateString = dueDateString
             reminderItem!!.dueTimeString = dueTimeString
             reminderViewModel.updateReminder(reminderItem!!)
+
+            // cancel current notification and schedule a new one
+            cancelNotification()
+            scheduleNotification(reminderItem!!.id)
         }
         // creating a new reminder
         else {
-            val newReminder = Reminder(title, desc, dueTimeString, dueDateString, null)
-            reminderViewModel.addReminder(newReminder)
+            reminderItem = Reminder(title, desc, dueTimeString, dueDateString, null)
+            reminderViewModel.addReminder(reminderItem!!) { id ->
+                scheduleNotification(id.toInt())
+            }
         }
 
         binding.title.setText("")
@@ -140,10 +144,11 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
         dismiss()
     }
 
-    private fun scheduleNotification() {
+    private fun scheduleNotification(id: Int) {
         if (dueDate == null && dueTime == null) {
             return
         }
+
         // defaults for date and time if not set
         if (dueDate == null) {
             dueDate = LocalDate.now()
@@ -154,15 +159,16 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
 
         val applicationContext = requireActivity().applicationContext
         val intent = Intent(applicationContext, Notification::class.java)
-        val title = binding.title.text.toString()
-        val message = binding.desc.text.toString()
+        val title = reminderItem?.title.toString()
+        val message = reminderItem?.desc.toString()
 
         intent.putExtra(titleExtra, title)
         intent.putExtra(messageExtra, message)
 
-        val pendingIntent = PendingIntent.getBroadcast(
+        // define intent to send a notification
+        val alarmIntent = PendingIntent.getBroadcast(
             applicationContext,
-            notificationID,
+            id,
             intent,
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
@@ -174,7 +180,30 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
             time,
-            pendingIntent
+            alarmIntent
+        )
+//        alarmManager.setRepeating(
+//            AlarmManager.RTC_WAKEUP,
+//            time,
+//            AlarmManager.INTERVAL_HOUR,
+//            alarmIntent
+//        )
+    }
+
+    private fun cancelNotification() {
+        val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val applicationContext = requireActivity().applicationContext
+
+        // get previous alarmIntent by reminder id
+        val alarmIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            reminderItem!!.id,
+            Intent(applicationContext, Notification::class.java),
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        alarmManager.cancel(
+            alarmIntent
         )
     }
 

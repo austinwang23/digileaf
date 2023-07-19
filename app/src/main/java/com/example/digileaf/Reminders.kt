@@ -1,6 +1,11 @@
 package com.example.digileaf
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -62,5 +67,23 @@ class Reminders : Fragment(), ReminderClickListener {
 
     override fun deleteReminder(reminder: Reminder) {
         reminderViewModel.deleteReminder(reminder)
+        cancelNotification(reminder)
+    }
+
+    private fun cancelNotification(reminder: Reminder) {
+        val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val applicationContext = requireActivity().applicationContext
+
+        // get previous alarmIntent by reminder id
+        val alarmIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            reminder.id,
+            Intent(applicationContext, Notification::class.java),
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        alarmManager.cancel(
+            alarmIntent
+        )
     }
 }
