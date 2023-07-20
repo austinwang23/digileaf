@@ -14,12 +14,6 @@
         android:background="@android:color/transparent"
         android:src="@drawable/ic_arrow_back" />
 
-<!--    <com.google.android.gms.maps.MapView-->
-<!--        android:id="@+id/mapView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        />-->
-
     <androidx.cardview.widget.CardView
         android:id="@+id/main_weather_card"
         android:layout_width="match_parent"
@@ -32,11 +26,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/autocomplete_fragment"/>
+
             <fragment android:id="@+id/autocomplete_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-                />
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="6dp"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

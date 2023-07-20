@@ -43,6 +43,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.properties.Delegates
 
 
 private const val BASE_URL = "http://api.weatherapi.com/v1/"
@@ -83,6 +84,9 @@ class Home : Fragment() {
     private lateinit var weatherBackgroundImageView: ImageView
     private lateinit var plantQuiz: CardView
     private lateinit var lightMeter: CardView // TO IMPLEMENT
+
+    private var mapLat: Double = 37.3861
+    private var mapLog: Double = -122.0839
 
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
 
@@ -188,8 +192,10 @@ class Home : Fragment() {
                 if (result.resultCode == Activity.RESULT_OK) {
                     val intent = result.data
                     if (intent != null && intent.hasExtra("coordinates")) {
-                        Log.e("insertion", "inserting new plant into db")
+                        Log.e("changing", "changing app location")
                         val latLong = intent.getStringExtra("coordinates")
+                        mapLat = intent.getDoubleExtra("lat", 0.0)
+                        mapLog = intent.getDoubleExtra("long", 0.0)
                         if (latLong != null) {
                             getWeatherData(latLong)
                         }
@@ -325,6 +331,8 @@ class Home : Fragment() {
 
     private fun launchSelectLocationActivity() {
         val intent = Intent(context, SelectLocationActivity::class.java)
+        intent.putExtra("lat", mapLat)
+        intent.putExtra("long", mapLog)
         addSelectLocationActivityLauncher.launch(intent)
     }
 

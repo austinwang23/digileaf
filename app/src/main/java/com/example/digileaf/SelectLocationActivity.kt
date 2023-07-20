@@ -8,6 +8,7 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.common.api.Status
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.LatLng
@@ -29,15 +30,18 @@ class SelectLocationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_google_location)
 
-//        mapView = findViewById(R.id.mapView)
-//        mapView.onCreate(savedInstanceState)
-//        mapView.getMapAsync { googleMap ->
-//            this.googleMap = googleMap
-//
-//            val latLng = LatLng(37.4219999, -122.0862462)
-//            val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10f)
-//            googleMap.moveCamera(cameraUpdate)
-//        }
+        mapView = findViewById(R.id.mapView)
+        mapView.onCreate(savedInstanceState)
+        mapView.getMapAsync { googleMap ->
+            this.googleMap = googleMap
+
+            val latitude = intent.getDoubleExtra("lat", 37.3861)
+            val longitude = intent.getDoubleExtra("long", -122.0839)
+
+            val latLng = LatLng(latitude, longitude)
+            val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10f)
+            googleMap.moveCamera(cameraUpdate)
+        }
 
         Places.initialize(this, resources.getString(R.string.googlemap_key))
         placesClient = Places.createClient(this)
@@ -64,6 +68,8 @@ class SelectLocationActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Set Location to ${place.name}", Toast.LENGTH_SHORT).show()
                 val intent = Intent()
                 intent.putExtra("coordinates",latLong)
+                intent.putExtra("lat", place.latLng?.latitude)
+                intent.putExtra("long", place.latLng?.longitude)
                 setResult(Activity.RESULT_OK, intent)
                 finish()
             }
@@ -78,5 +84,25 @@ class SelectLocationActivity : AppCompatActivity() {
         backButton.setOnClickListener{
             finish()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView.onLowMemory()
     }
 }

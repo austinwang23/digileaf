@@ -17,6 +17,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [google_maps_api_key: "AIzaSyBLdkHYKortFRX2UVJOWFatHM5f3_owJhA"]
     }
 
     buildTypes {
