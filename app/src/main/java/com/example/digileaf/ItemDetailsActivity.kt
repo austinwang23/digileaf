@@ -158,9 +158,7 @@ class ItemDetailsActivity : AppCompatActivity(), UpdatePlantStatus.UpdatePlantSt
 
         val addJournalButton: CardView = findViewById(R.id.add_journal_button)
         addJournalButton.setOnClickListener {
-            if (plant != null) {
-                launchAddJournalActivity(plant.id, plant.name)
-            }
+            launchAddJournalActivity(plant.id, plant.name)
         }
 
         updatePlantStatusButton = findViewById(R.id.update_plant_status_button)

@@ -17,6 +17,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [google_maps_api_key: "AIzaSyBLdkHYKortFRX2UVJOWFatHM5f3_owJhA"]
     }
 
     buildTypes {
@@ -75,4 +76,9 @@ dependencies {
     // for map
     implementation 'com.github.MKergall:osmbonuspack:6.9.0'
     implementation 'org.osmdroid:osmdroid-android:6.1.13'
+
+    // for location searching
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.gms:play-services-places:17.0.0'
+    implementation 'com.google.android.libraries.places:places:3.2.0'
 }

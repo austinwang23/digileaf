@@ -12,11 +12,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -30,6 +32,7 @@ import com.bumptech.glide.Glide
 import com.example.digileaf.adapter.PlantAdapter
 import com.example.digileaf.database.PlantViewModel
 import com.example.digileaf.database.PlantViewModelFactory
+import com.example.digileaf.entities.Journal
 import com.example.digileaf.entities.Plant
 import com.example.digileaf.helpers.WeatherBackgroundMappings
 import com.example.digileaf.helpers.WeatherCodeMappings
@@ -41,6 +44,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.properties.Delegates
 
 
 private const val BASE_URL = "http://api.weatherapi.com/v1/"
@@ -54,6 +58,7 @@ class Home : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var addPlantButton: CardView
+    private lateinit var addSelectLocationActivityLauncher : ActivityResultLauncher<Intent>
     private lateinit var addPlantActivityLauncher: ActivityResultLauncher<Intent>
     private val plantViewModel: PlantViewModel by viewModels {
         PlantViewModelFactory((activity?.application as DigileafApplication).plantRepository)
@@ -71,6 +76,7 @@ class Home : Fragment() {
     private var weatherSunset: String? = null
     private var weatherMoonrise: String? = null
 
+    private lateinit var weatherChangeLocation: ImageButton
     private lateinit var weatherCardView: CardView
     private lateinit var weatherTemperatureTextView: TextView
     private lateinit var weatherLocationTextView: TextView
@@ -80,6 +86,9 @@ class Home : Fragment() {
     private lateinit var weatherBackgroundImageView: ImageView
     private lateinit var plantQuiz: CardView
     private lateinit var lightMeter: CardView // TO IMPLEMENT
+
+    private var mapLat: Double = 37.3861
+    private var mapLog: Double = -122.0839
 
     private val PERMISSION_REQUEST_CODE = 1
 
@@ -175,6 +184,22 @@ class Home : Fragment() {
                         val plant = intent.getParcelableExtra<Plant>("plant")
                         if (plant != null) {
                             plantViewModel.insert(plant)
+                        }
+                    }
+                }
+            }
+
+        addSelectLocationActivityLauncher =
+            registerForActivityResult(StartActivityForResult()) { result: ActivityResult ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val intent = result.data
+                    if (intent != null && intent.hasExtra("coordinates")) {
+                        Log.e("changing", "changing app location")
+                        val latLong = intent.getStringExtra("coordinates")
+                        mapLat = intent.getDoubleExtra("lat", 0.0)
+                        mapLog = intent.getDoubleExtra("long", 0.0)
+                        if (latLong != null) {
+                            getWeatherData(latLong)
                         }
                     }
                 }
@@ -294,6 +319,10 @@ class Home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        weatherChangeLocation = view.findViewById(R.id.weather_change)
+        weatherChangeLocation.setOnClickListener {
+            launchSelectLocationActivity()
+        }
         weatherTemperatureTextView = view.findViewById(R.id.weather_temperature)
         weatherLocationTextView = view.findViewById(R.id.weather_location)
         weatherIconImageView = view.findViewById(R.id.weather_icon)
@@ -306,6 +335,13 @@ class Home : Fragment() {
     private fun launchAddPlantActivity() {
         val intent = Intent(context, AddPlantActivity::class.java)
         addPlantActivityLauncher.launch(intent)
+    }
+
+    private fun launchSelectLocationActivity() {
+        val intent = Intent(context, SelectLocationActivity::class.java)
+        intent.putExtra("lat", mapLat)
+        intent.putExtra("long", mapLog)
+        addSelectLocationActivityLauncher.launch(intent)
     }
 
     override fun onRequestPermissionsResult(
