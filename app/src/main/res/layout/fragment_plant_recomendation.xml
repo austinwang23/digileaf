@@ -21,7 +21,7 @@
             android:layout_marginTop="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+        />
         <TextView
             android:layout_marginTop="20dp"
             android:layout_marginBottom="40dp"
@@ -30,9 +30,8 @@
             android:layout_height="wrap_content"
             android:text="Finding your next plant..."
             android:textSize="20sp"
-            style="@style/TextAppearance.AppCompat.Title"/>
+            style="@style/TextAppearance.AppCompat.Title" />
     </LinearLayout>
-
 
 
     <LinearLayout
@@ -41,7 +40,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
-       >
+    >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,11 +52,11 @@
                 android:text="Your next plant"
                 android:textSize="30sp"
                 android:layout_marginStart="20dp"
-                style="@style/TextAppearance.AppCompat.Title"/>
+                style="@style/TextAppearance.AppCompat.Title" />
             <Space
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <ImageButton
                 android:id="@+id/plant_recommendation_dismiss"
@@ -101,29 +100,31 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/teal"
-            />
+        />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/plant_quiz_nearby_vendors_button"
-            android:backgroundTint="@color/teal"
-            android:textColor="@color/white"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="20dp"
-            android:text="See nearby vendors" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/show_another_plant"
-            android:backgroundTint="@color/gray"
-            android:textColor="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="20dp"
-            android:text="See another plant" />
+            android:orientation="vertical"
+            android:layout_margin="20dp">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/plant_quiz_nearby_vendors_button"
+                android:backgroundTint="@color/teal"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="See nearby vendors"
+                android:visibility="gone" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/show_another_plant"
+                android:backgroundTint="@color/teal"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="See another plant" />
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -1,5 +1,7 @@
 package com.example.digileaf
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.example.digileaf.databinding.FragmentPlantRecomendationBinding
@@ -141,7 +144,7 @@ class PlantRecommendation(params: PlantRecommendationParams, listener: PlantReco
 
     private fun showPlantResults() {
         if (plants.isEmpty()) {
-            // TODO - add some handling here (no plant matches ur requirements??)
+            // TODO - add some handling here (no plant matches ur requirements??
             dismiss()
             return
         }
@@ -149,7 +152,7 @@ class PlantRecommendation(params: PlantRecommendationParams, listener: PlantReco
             seeAnotherPlant.visibility = View.GONE
         }
         Log.e("PLANT", "showing another plant")
-        val randomIndex = Random.nextInt(plants.size);
+        val randomIndex = Random.nextInt(plants.size)
         val plant = plants[randomIndex]
         if(plant.default_image == null || plant.default_image.original_url.contains("upgrade_access")) {
             plantImage.setImageResource(R.drawable.`default_plant`)
@@ -158,8 +161,24 @@ class PlantRecommendation(params: PlantRecommendationParams, listener: PlantReco
                 .load(plant.default_image.thumbnail)
                 .into(plantImage)
         }
+
+        // Check if location permission is granted and adjust the visibility of the nearby vendors button
+        val nearbyVendorsButton = binding.plantQuizNearbyVendorsButton
+        val showAnotherPlantButton = binding.showAnotherPlant
+        if (isLocationPermissionGranted()) {
+            nearbyVendorsButton.visibility = View.VISIBLE
+            showAnotherPlantButton.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.gray)
+        }
+
         plantSpecies.text = plant.common_name
         progressView.visibility = View.GONE
         resultView.visibility = View.VISIBLE
+    }
+
+    private fun isLocationPermissionGranted(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
     }
 }
