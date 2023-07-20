@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -75,6 +76,7 @@ class Home : Fragment() {
     private var weatherSunset: String? = null
     private var weatherMoonrise: String? = null
 
+    private lateinit var weatherChangeLocation: ImageButton
     private lateinit var weatherCardView: CardView
     private lateinit var weatherTemperatureTextView: TextView
     private lateinit var weatherLocationTextView: TextView
@@ -312,11 +314,12 @@ class Home : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        weatherTemperatureTextView = view.findViewById(R.id.weather_temperature)
-        weatherLocationTextView = view.findViewById(R.id.weather_location)
-        weatherLocationTextView.setOnClickListener {
+        weatherChangeLocation = view.findViewById(R.id.weather_change)
+        weatherChangeLocation.setOnClickListener {
             launchSelectLocationActivity()
         }
+        weatherTemperatureTextView = view.findViewById(R.id.weather_temperature)
+        weatherLocationTextView = view.findViewById(R.id.weather_location)
         weatherIconImageView = view.findViewById(R.id.weather_icon)
         weatherDescriptionTextView = view.findViewById(R.id.weather_description)
         weatherTipTextView = view.findViewById(R.id.weather_tip)
