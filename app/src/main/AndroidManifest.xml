@@ -37,6 +37,9 @@
             android:name=".AddPlantActivity"
             android:exported="false" />
         <activity
+            android:name=".SelectLocationActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddJournalEntryActivity"
             android:exported="false" />
         <activity

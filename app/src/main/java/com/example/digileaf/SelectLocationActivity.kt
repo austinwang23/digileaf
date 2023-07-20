@@ -1,94 +1,82 @@
 package com.example.digileaf
 
-import android.Manifest
-import android.content.pm.PackageManager
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.ArrayAdapter
+import android.util.Log
 import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.ListView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import android.widget.SearchView
+import com.google.android.gms.common.api.Status
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.model.RectangularBounds
+import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+
 class SelectLocationActivity : AppCompatActivity() {
 
-    private val LOCATION_PERMISSION_REQUEST_CODE = 1
-
-    private lateinit var searchView: SearchView
-    private lateinit var listView: ListView
-
-    private lateinit var arrayList: ArrayList<String>
-    private lateinit var adapter: ArrayAdapter<String>
+    private var TAG = "Info :"
+    private lateinit var placesClient: PlacesClient
+    private lateinit var mapView: MapView
+    private lateinit var googleMap: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_switch_location)
+        setContentView(R.layout.activity_google_location)
 
-        searchView = findViewById(R.id.location_search)
-        listView = findViewById(R.id.location_list_view)
+//        mapView = findViewById(R.id.mapView)
+//        mapView.onCreate(savedInstanceState)
+//        mapView.getMapAsync { googleMap ->
+//            this.googleMap = googleMap
+//
+//            val latLng = LatLng(37.4219999, -122.0862462)
+//            val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10f)
+//            googleMap.moveCamera(cameraUpdate)
+//        }
 
-        listView.visibility = View.GONE
+        Places.initialize(this, resources.getString(R.string.googlemap_key))
+        placesClient = Places.createClient(this)
 
-        arrayList = ArrayList()
-        arrayList.add("Toronto")
-        arrayList.add("Kitchener")
-        arrayList.add("Waterloo")
-        arrayList.add("Mountain View")
+        // Initialize the AutocompleteSupportFragment.
+        val autocompleteFragment = supportFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment
 
-        adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayList)
-        listView.adapter = adapter
+        autocompleteFragment.setLocationBias(
+            RectangularBounds.newInstance(
+                LatLng(-33.880490, 151.184363),
+                LatLng(-33.858754, 151.229596)
+            )
+        )
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
+        // Specify the types of place data to return.
+        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
+
+        // Set up a PlaceSelectionListener to handle the response.
+        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
+            override fun onPlaceSelected(place: Place) {
+                // TODO: Get info about the selected place.
+                Log.i(TAG, "Place: ${place.name}, ${place.id}")
+                val latLong = place.latLng?.latitude.toString() + "," + place.latLng?.longitude.toString()
+                Toast.makeText(applicationContext, "Set Location to ${place.name}", Toast.LENGTH_SHORT).show()
+                val intent = Intent()
+                intent.putExtra("coordinates",latLong)
+                setResult(Activity.RESULT_OK, intent)
+                finish()
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                listView.visibility = View.VISIBLE
-                adapter.filter.filter(newText)
-                return false
+            override fun onError(status: Status) {
+                // TODO: Handle the error.
+                Log.i(TAG, "An error occurred: $status")
             }
         })
-
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED &&
-            ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // Request the camera permission if it is not granted
-            requestPermissions(
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ),
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
-        } else {
-
-        }
 
         val backButton : ImageButton = findViewById(R.id.back_button)
         backButton.setOnClickListener{
             finish()
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && (grantResults[0] == PackageManager.PERMISSION_GRANTED || grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
-
-            }
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
     }
 }

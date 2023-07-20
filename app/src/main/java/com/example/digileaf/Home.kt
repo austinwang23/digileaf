@@ -187,11 +187,11 @@ class Home : Fragment() {
             registerForActivityResult(StartActivityForResult()) { result: ActivityResult ->
                 if (result.resultCode == Activity.RESULT_OK) {
                     val intent = result.data
-                    if (intent != null && intent.hasExtra("plant")) {
+                    if (intent != null && intent.hasExtra("coordinates")) {
                         Log.e("insertion", "inserting new plant into db")
-                        val plant = intent.getParcelableExtra<Plant>("plant")
-                        if (plant != null) {
-                            plantViewModel.insert(plant)
+                        val latLong = intent.getStringExtra("coordinates")
+                        if (latLong != null) {
+                            getWeatherData(latLong)
                         }
                     }
                 }
@@ -309,7 +309,7 @@ class Home : Fragment() {
         weatherTemperatureTextView = view.findViewById(R.id.weather_temperature)
         weatherLocationTextView = view.findViewById(R.id.weather_location)
         weatherLocationTextView.setOnClickListener {
-            launchAddPlantActivity()
+            launchSelectLocationActivity()
         }
         weatherIconImageView = view.findViewById(R.id.weather_icon)
         weatherDescriptionTextView = view.findViewById(R.id.weather_description)
