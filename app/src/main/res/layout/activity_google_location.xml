@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/back_button"
-        android:layout_margin="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="10dp"
         app:cardCornerRadius="25dp">
 
         <RelativeLayout
@@ -35,8 +36,6 @@
             <fragment android:id="@+id/autocomplete_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="6dp"
                 android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment" />
 
         </RelativeLayout>
