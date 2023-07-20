@@ -103,29 +103,27 @@
             android:textColor="@color/teal"
             />
 
-        <LinearLayout
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/plant_quiz_nearby_vendors_button"
+            android:backgroundTint="@color/teal"
+            android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="20dp">
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/plant_quiz_nearby_vendors_button"
-                android:backgroundTint="@color/teal"
-                android:textColor="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="See nearby vendors"
-                android:visibility="gone" />
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/show_another_plant"
-                android:backgroundTint="@color/teal"
-                android:textColor="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="See another plant" />
-        </LinearLayout>
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:text="See nearby vendors" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/show_another_plant"
+            android:backgroundTint="@color/gray"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="See another plant" />
 
     </LinearLayout>
 
