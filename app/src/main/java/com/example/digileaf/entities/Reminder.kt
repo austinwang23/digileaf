@@ -15,10 +15,12 @@ class Reminder(
     @ColumnInfo(name = "title") var title: String,
     @ColumnInfo(name = "desc") var desc : String,
     @ColumnInfo(name = "dueTimeString") var dueTimeString: String?,
+    @ColumnInfo(name = "dueDateString") var dueDateString: String?,
     @ColumnInfo(name = "completedDateString") var completedDateString: String?,
+    @ColumnInfo(name = "repetitionType") var repetitionType: RepetitionType = RepetitionType.NEVER,
     @PrimaryKey(autoGenerate = true) val id: Int = 0
 ) {
-    fun completedDate(): LocalDate? {
+    private fun completedDate(): LocalDate? {
         if (completedDateString == null) {
             return null
         }
@@ -30,6 +32,13 @@ class Reminder(
             return null
         }
         return LocalTime.parse(dueTimeString, timeFormatter)
+    }
+
+    fun dueDate(): LocalDate? {
+        if (dueDateString == null) {
+            return null
+        }
+        return LocalDate.parse(dueDateString, dateFormatter)
     }
 
     fun isCompleted(): Boolean {

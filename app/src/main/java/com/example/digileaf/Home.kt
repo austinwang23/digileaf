@@ -81,7 +81,7 @@ class Home : Fragment() {
     private lateinit var plantQuiz: CardView
     private lateinit var lightMeter: CardView // TO IMPLEMENT
 
-    private val LOCATION_PERMISSION_REQUEST_CODE = 1
+    private val PERMISSION_REQUEST_CODE = 1
 
     private lateinit var sensorManager: SensorManager
     private lateinit var lightSensor: Sensor
@@ -197,15 +197,20 @@ class Home : Fragment() {
             ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.POST_NOTIFICATIONS
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             // Request the camera permission if it is not granted
             requestPermissions(
                 arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.POST_NOTIFICATIONS
                 ),
-                LOCATION_PERMISSION_REQUEST_CODE
+                PERMISSION_REQUEST_CODE
             )
         } else {
             getLocation()
@@ -308,7 +313,7 @@ class Home : Fragment() {
         permissions: Array<String>,
         grantResults: IntArray
     ) {
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && (grantResults[0] == PackageManager.PERMISSION_GRANTED || grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
                 getLocation()
             }
