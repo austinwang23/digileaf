@@ -16,12 +16,19 @@ import java.util.UUID
 class ReminderViewModel(private val repository: ReminderRepository): ViewModel() {
     var reminderItems: LiveData<List<Reminder>> =repository.allReminders.asLiveData()
 
-    fun addReminder(newReminder: Reminder) = viewModelScope.launch {
-        repository.insertReminder(newReminder)
+    fun addReminder(newReminder: Reminder, callback: (Long) -> Unit) {
+        viewModelScope.launch {
+            val id = repository.insertReminder(newReminder)
+            callback(id)
+        }
     }
 
     fun updateReminder(reminder: Reminder) = viewModelScope.launch {
         repository.updateReminder(reminder)
+    }
+
+    fun deleteReminder(reminder: Reminder) = viewModelScope.launch {
+        repository.deleteReminder(reminder)
     }
 
     fun setCompleted(reminder: Reminder) = viewModelScope.launch {

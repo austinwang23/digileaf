@@ -9,8 +9,8 @@ class ReminderRepository(private val reminderDao: ReminderDao) {
     val allReminders: Flow<List<Reminder>> = reminderDao.allReminders()
 
     @WorkerThread
-    suspend fun insertReminder(reminder: Reminder) {
-        reminderDao.insertReminder(reminder)
+    suspend fun insertReminder(reminder: Reminder): Long {
+        return reminderDao.insertReminder(reminder)
     }
 
     @WorkerThread
