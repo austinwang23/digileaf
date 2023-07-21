@@ -41,7 +41,7 @@
 | 5 hour  |             |            |            |              |             | Jul 12 | Add delete functionality for reminders and update reminder page UI                                                                                        |
 | 3 hour  |             |            |            |              |             | Jul 13 | Add date selector in addition to time selector for reminders + small UI updates                                                                           |
 |         |             |            |            |              | 0.5 hour    | Jul 13 | UI fix for grooming badge                                                                                                                                 |
-|         | 0.5 hour    |            |            | 2 hour       | 0.5 hour    | Jul 13 | D4: Architecture Style Examples                                                                                                                           |
+|         | 0.5 hour    | 4 hour     |            | 2 hour       | 0.5 hour    | Jul 13 | D4: Architecture Style Examples                                                                                                                           |
 |         |             |            | 6 hour     |              |             | Jul 14 | Adding light meter activity to capture environment lux                                                                                                    |
 | 3 hour  |             |            |            |              |             | Jul 14 | Create notification service using BroadcastReceiver() to send notifications to users                                                                      |
 | 7 hour  |             |            |            |              |             | Jul 14 | Integrate reminders with AlarmManager and notification service to send notifications to users at specified times regardless if app is closed              |
@@ -55,7 +55,7 @@
 |         |             |            |            | 6 hour       |             | Jul 20 | Add google maps integration with user switch location  
 |
 
-|         |             |            |            |              |             | Jul 21  | D5: Design Pattern Examples                                                                                                                              |
+|         |             | 5 hour     |            | 3 hour       |             | Jul 21  | D5: Design Pattern Examples                                                                                                                              |
 |         |             |            |            |              |             | Jul 24  | D6: Final Presentation                                                                                                                                   |
 |         |             |            |            |              |             | Jul 28  | D6: Arch + Design Document                                                                                                                               |
 |         |             |            |            |              |             | Aug 1   | D7: Final Status Report                                                                                                                                  |
