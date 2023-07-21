@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.example.digileaf.databinding.FragmentPlantRecomendationBinding
+import com.example.digileaf.util.isLocationPermissionGranted
 import com.google.android.material.button.MaterialButton
 import retrofit2.Call
 import retrofit2.Callback
@@ -165,7 +166,7 @@ class PlantRecommendation(params: PlantRecommendationParams, listener: PlantReco
         // Check if location permission is granted and adjust the visibility of the nearby vendors button
         val nearbyVendorsButton = binding.plantQuizNearbyVendorsButton
         val showAnotherPlantButton = binding.showAnotherPlant
-        if (isLocationPermissionGranted()) {
+        if (isLocationPermissionGranted(requireContext())) {
             nearbyVendorsButton.visibility = View.VISIBLE
             showAnotherPlantButton.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.gray)
         }
@@ -175,10 +176,4 @@ class PlantRecommendation(params: PlantRecommendationParams, listener: PlantReco
         resultView.visibility = View.VISIBLE
     }
 
-    private fun isLocationPermissionGranted(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-    }
 }
