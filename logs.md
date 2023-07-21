@@ -53,7 +53,6 @@
 | 5 hour  |             |            |            |              |             | Jul 19 | Add UI and logic to allow for repeating reminder notifications           
 |         |             |            |            | 4 hour       |             | Jul 20 | Add option to switch user location within the app  
 |         |             |            |            | 6 hour       |             | Jul 20 | Add google maps integration with user switch location  
-|
 
 |         |             | 5 hour     |            | 3 hour       |             | Jul 21  | D5: Design Pattern Examples                                                                                                                              |
 |         |             |            |            |              |             | Jul 24  | D6: Final Presentation                                                                                                                                   |
