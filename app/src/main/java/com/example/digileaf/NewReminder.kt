@@ -1,24 +1,17 @@
 package com.example.digileaf
 
-import android.R
-import android.app.AlarmManager
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.app.TimePickerDialog
 import android.content.Context
-import android.content.Context.NOTIFICATION_SERVICE
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.Spinner
 import androidx.fragment.app.viewModels
 import com.example.digileaf.database.ReminderModelFactory
 import com.example.digileaf.database.ReminderViewModel
@@ -28,9 +21,10 @@ import com.example.digileaf.entities.RepetitionType
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.time.LocalDate
 import java.time.LocalTime
-import java.util.Calendar
+import com.example.digileaf.helpers.NotificationHelper
 
-class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
+
+class NewReminder(private var reminderItem: Reminder?) : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentNewReminderBinding
     private lateinit var repetitionDropdown: AutoCompleteTextView
     private var dueTime: LocalTime? = null
@@ -39,11 +33,20 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
         ReminderModelFactory((activity?.application as DigileafApplication).reminderRepository)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // editing a reminder
+        // Initialize repetition spinner
+        repetitionDropdown = binding.repetitionDropdown
+        val repetitionTypes = RepetitionType.values()
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, repetitionTypes.map { it.text })
+        repetitionDropdown.setAdapter(adapter)
+
+        createNotificationChannel()
+
         if (reminderItem != null) {
+            // Editing a reminder
             binding.reminderTitle.text = "Edit Reminder"
             val editable = Editable.Factory.getInstance()
             binding.title.text = editable.newEditable(reminderItem!!.title)
@@ -56,41 +59,35 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
                 dueDate = reminderItem!!.dueDate()
                 updateDateButtonText()
             }
-        }
-        // creating a new reminder
-        else {
+            val selectedRepetitionType = reminderItem!!.repetitionType.text
+            repetitionDropdown.setText(selectedRepetitionType, false)
+        } else {
+            // Creating a new reminder
             binding.reminderTitle.text = "New Reminder"
         }
 
-        // initialize repetition spinner
-        repetitionDropdown = binding.repetitionDropdown
-        val repetitionTypes = RepetitionType.values()
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, repetitionTypes.map { it.text })
-        repetitionDropdown.setAdapter(adapter)
-
-        createNotificationChannel()
-
-        binding.datePickerButton.setOnClickListener{
+        binding.datePickerButton.setOnClickListener {
             openDatePicker()
         }
-        binding.timePickerButton.setOnClickListener{
+        binding.timePickerButton.setOnClickListener {
             openTimePicker()
         }
-        binding.saveButton.setOnClickListener{
+        binding.saveButton.setOnClickListener {
             saveAction()
         }
     }
+
 
     private fun openDatePicker() {
         if (dueDate == null) {
             dueDate = LocalDate.now()
         }
-        val listener = DatePickerDialog.OnDateSetListener{ _, selectedYear, selectedMonth, selectedDay ->
+        val listener = DatePickerDialog.OnDateSetListener { _, selectedYear, selectedMonth, selectedDay ->
             dueDate = LocalDate.of(selectedYear, selectedMonth + 1, selectedDay)
             updateDateButtonText()
         }
 
-        //set up date picker dialog
+        // Set up date picker dialog
         val dialog = DatePickerDialog(requireContext(), listener, dueDate!!.year, dueDate!!.monthValue - 1, dueDate!!.dayOfMonth)
         dialog.show()
     }
@@ -98,12 +95,12 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
         if (dueTime == null) {
             dueTime = LocalTime.now()
         }
-        val listener = TimePickerDialog.OnTimeSetListener{ _, selectedHour, selectedMinute ->
+        val listener = TimePickerDialog.OnTimeSetListener { _, selectedHour, selectedMinute ->
             dueTime = LocalTime.of(selectedHour, selectedMinute)
             updateTimeButtonText()
         }
 
-        //set up time picker dialog
+        // Set up time picker dialog
         val dialog = TimePickerDialog(activity, listener, dueTime!!.hour, dueTime!!.minute, true)
         dialog.show()
     }
@@ -119,10 +116,9 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentNewReminderBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     private fun saveAction() {
@@ -131,9 +127,10 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
         val dueDateString = if (dueDate == null) null else Reminder.dateFormatter.format(dueDate)
         val dueTimeString = if (dueTime == null) null else Reminder.timeFormatter.format(dueTime)
         val selectedRepetitionType = repetitionDropdown.text.toString()
-        val repetitionType = RepetitionType.values().firstOrNull { it.text == selectedRepetitionType } ?: RepetitionType.NEVER
+        val repetitionType =
+            RepetitionType.values().firstOrNull { it.text == selectedRepetitionType } ?: RepetitionType.NEVER
 
-        // editing a reminder
+        // Editing a reminder
         if (reminderItem != null) {
             reminderItem!!.title = title
             reminderItem!!.desc = desc
@@ -142,15 +139,15 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
             reminderItem!!.repetitionType = repetitionType
             reminderViewModel.updateReminder(reminderItem!!)
 
-            // cancel current notification and schedule a new one
+            // Cancel current notification and schedule a new one
             cancelNotification()
-            scheduleNotification(reminderItem!!.id)
+            NotificationHelper.scheduleNotification(requireContext(), reminderItem!!)
         }
-        // creating a new reminder
+        // Creating a new reminder
         else {
             reminderItem = Reminder(title, desc, dueTimeString, dueDateString, null, repetitionType)
-            reminderViewModel.addReminder(reminderItem!!) { id ->
-                scheduleNotification(id.toInt())
+            reminderViewModel.addReminder(reminderItem!!) {
+                NotificationHelper.scheduleNotification(requireContext(), reminderItem!!)
             }
         }
 
@@ -159,97 +156,22 @@ class NewReminder(var reminderItem: Reminder?) : BottomSheetDialogFragment() {
         dismiss()
     }
 
-    private fun scheduleNotification(id: Int) {
-        Log.d("reminder-notification", reminderItem!!.repetitionType.text)
-        Log.d("reminder-notification", id.toString())
 
-        if (dueDate == null && dueTime == null) {
-            return
-        }
-
-        // defaults for date and time if not set
-        if (dueDate == null) {
-            dueDate = LocalDate.now()
-        }
-        else if (dueTime == null) {
-            dueTime = LocalTime.of(9, 0)
-        }
-
-        val applicationContext = requireActivity().applicationContext
-        val intent = Intent(applicationContext, Notification::class.java)
-        val title = reminderItem?.title.toString()
-        val message = reminderItem?.desc.toString()
-
-        intent.putExtra(titleExtra, title)
-        intent.putExtra(messageExtra, message)
-
-        // define intent to send a notification
-        val alarmIntent = PendingIntent.getBroadcast(
-            applicationContext,
-            id,
-            intent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
-        val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val time = getTime()
-
-        if (reminderItem!!.repetitionType == RepetitionType.NEVER) {
-            Log.d("reminder-notification", "non-repeating reminder")
-            alarmManager.setExactAndAllowWhileIdle(
-                AlarmManager.RTC_WAKEUP,
-                time,
-                alarmIntent
-            )
-        }
-        else {
-            Log.d("reminder-notification", "repeating reminder")
-            alarmManager.setRepeating(
-                AlarmManager.RTC_WAKEUP,
-                time,
-                reminderItem!!.repetitionType.interval,
-                alarmIntent
-            )
-        }
-    }
 
     private fun cancelNotification() {
-        val alarmManager = requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val applicationContext = requireActivity().applicationContext
-
-        // get previous alarmIntent by reminder id
-        val alarmIntent = PendingIntent.getBroadcast(
-            applicationContext,
-            reminderItem!!.id,
-            Intent(applicationContext, Notification::class.java),
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
-        alarmManager.cancel(
-            alarmIntent
-        )
-    }
-
-    private fun getTime(): Long {
-        val minute = dueTime!!.minute
-        val hour = dueTime!!.hour
-        val day = dueDate!!.dayOfMonth
-        val month = dueDate!!.monthValue - 1
-        val year = dueDate!!.year
-
-        val calendar = Calendar.getInstance()
-        calendar.set(year, month, day, hour, minute)
-        return calendar.timeInMillis
+        val context: Context = requireContext()
+        val notificationId = reminderItem!!.id
+        NotificationHelper.cancelNotification(context, notificationId)
     }
 
     private fun createNotificationChannel() {
-        val name = "Reminder Channel"
-        val desc = "Send notifications for plant reminders"
-        val importance = NotificationManager.IMPORTANCE_DEFAULT
-        val channel = NotificationChannel(channelID, name, importance)
-        channel.description = desc
-
-        val notificationManager = requireActivity().getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
+        val context: Context = requireContext()
+        NotificationHelper.createNotificationChannel(
+            context,
+            channelID,
+            "Reminder Channel",
+            "Send notifications for plant reminders",
+            NotificationManager.IMPORTANCE_DEFAULT
+        )
     }
 }
