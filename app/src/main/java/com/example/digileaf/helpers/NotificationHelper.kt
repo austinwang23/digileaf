@@ -13,6 +13,7 @@ import com.example.digileaf.entities.Reminder
 import com.example.digileaf.entities.RepetitionType
 import com.example.digileaf.messageExtra
 import com.example.digileaf.notificationID
+import com.example.digileaf.R
 import com.example.digileaf.titleExtra
 import java.time.LocalDate
 import java.time.LocalTime
@@ -120,5 +121,25 @@ object NotificationHelper {
         val calendar = Calendar.getInstance()
         calendar.set(year, month, day, hour, minute)
         return calendar.timeInMillis
+    }
+
+    fun sendAchievementsNotification(context: Context) {
+        createNotificationChannel(
+            context,
+            "Achievements-Channel",
+            "Achievements Channel",
+            "Send notifications for achievements",
+            NotificationManager.IMPORTANCE_DEFAULT
+        )
+
+        val notificationBuilder = NotificationCompat.Builder(context, "Achievements-Channel")
+
+        notificationBuilder.setSmallIcon(R.drawable.ic_achievement)
+        notificationBuilder.setContentTitle("New Achievement")
+        notificationBuilder.setContentText("You've unlocked a new achievement!")
+
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        notificationManager.notify(0, notificationBuilder.build())
     }
 }

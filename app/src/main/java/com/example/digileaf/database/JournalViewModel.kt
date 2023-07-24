@@ -1,12 +1,15 @@
 package com.example.digileaf.database
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.digileaf.entities.Journal
+import com.example.digileaf.helpers.NotificationHelper
 import kotlinx.coroutines.launch
 
 class JournalViewModel(private val repository: JournalRepository) : ViewModel() {
@@ -27,8 +30,15 @@ class JournalViewModel(private val repository: JournalRepository) : ViewModel() 
     }
 
     // Do through coroutine --> by default no database operations are allowed on main thread
-    fun insert(journal: Journal) = viewModelScope.launch {
-        repository.insert(journal)
+    fun insert(journal: Journal, context: Context) {
+        viewModelScope.launch {
+            repository.insert(journal)
+            getJournalCount().asFlow().collect {
+                if (it == 10 || it == 50 || it == 100) {
+                    NotificationHelper.sendAchievementsNotification(context)
+                }
+            }
+        }
     }
 
     fun getJournalCount(): LiveData<Int> {
