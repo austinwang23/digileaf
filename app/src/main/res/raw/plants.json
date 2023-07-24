@@ -2,22 +2,22 @@
   {
     "name": "Jack",
     "species": "Potato",
-    "description": "Jack is green and loves sunlight! IDK",
+    "description": "Jack is a potted potato. Currently 4 months old. He'll need to be re-potted soon and moved outdoors. He likes to have a lot of sunlight.",
     "imagePath": "",
-    "lastWatered": ""
+    "lastWatered": "July 23 2023"
   },
   {
     "name": "Apple",
     "species": "Daisy",
-    "description": "This is apple, This is the description. yadah yadah yadah",
+    "description": "This is apple. She's an indoor perennial daisy. She needs to be watered weekly in the summer!",
     "imagePath": "",
-    "lastWatered": "June 21 2023"
+    "lastWatered": "July 21 2023"
   },
   {
-    "name": "Dumb Plant",
+    "name": "Ivor",
     "species": "Cactus",
-    "description": "Dumb cactus. No water. It ok",
+    "description": "Ivor is a cactus. Don't water Ivor, he'll be ok.",
     "imagePath": "",
-    "lastWatered": "June 22 2023"
+    "lastWatered": "July 22 2023"
   }
 ]

@@ -15,7 +15,7 @@
         android:src="@drawable/ic_arrow_back" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/main_weather_card"
+        android:id="@+id/map_view_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/back_button"
@@ -41,5 +41,14 @@
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
+    <Button
+        android:layout_alignParentEnd="true"
+        android:id="@+id/confirm_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:text="Confirm"
+        android:enabled="false"/>
 
 </RelativeLayout>

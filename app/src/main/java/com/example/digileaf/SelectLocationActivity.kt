@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -25,10 +26,15 @@ class SelectLocationActivity : AppCompatActivity() {
     private lateinit var placesClient: PlacesClient
     private lateinit var mapView: MapView
     private lateinit var googleMap: GoogleMap
+    private lateinit var latLong: String
+    private var latitude = -1.0 as Double
+    private var longitude = -1.0 as Double
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_google_location)
+        val confirmLocationButton: Button = findViewById(R.id.confirm_location)
 
         mapView = findViewById(R.id.mapView)
         mapView.onCreate(savedInstanceState)
@@ -64,14 +70,17 @@ class SelectLocationActivity : AppCompatActivity() {
             override fun onPlaceSelected(place: Place) {
                 // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: ${place.name}, ${place.id}")
-                val latLong = place.latLng?.latitude.toString() + "," + place.latLng?.longitude.toString()
+                latLong = place.latLng?.latitude.toString() + "," + place.latLng?.longitude.toString()
+                if (googleMap != null) {
+                    val cameraUpdate = CameraUpdateFactory.newLatLngZoom(place.latLng, 10f)
+                    googleMap.moveCamera(cameraUpdate)
+                }
                 Toast.makeText(applicationContext, "Set Location to ${place.name}", Toast.LENGTH_SHORT).show()
-                val intent = Intent()
-                intent.putExtra("coordinates",latLong)
-                intent.putExtra("lat", place.latLng?.latitude)
-                intent.putExtra("long", place.latLng?.longitude)
-                setResult(Activity.RESULT_OK, intent)
-                finish()
+                confirmLocationButton.isEnabled = true
+                if (place.latLng != null) {
+                    latitude =  place.latLng!!.latitude
+                    longitude = place.latLng!!.longitude
+                }
             }
 
             override fun onError(status: Status) {
@@ -84,6 +93,16 @@ class SelectLocationActivity : AppCompatActivity() {
         backButton.setOnClickListener{
             finish()
         }
+
+        confirmLocationButton.setOnClickListener{
+            val intent = Intent()
+            intent.putExtra("coordinates",latLong)
+            intent.putExtra("lat", latitude)
+            intent.putExtra("long", longitude)
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+        }
+
     }
 
     override fun onResume() {
