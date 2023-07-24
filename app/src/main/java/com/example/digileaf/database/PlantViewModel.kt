@@ -10,8 +10,10 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.digileaf.entities.Plant
 import com.example.digileaf.entities.PlantStatus
+import com.example.digileaf.enums.PlantStatusType
 import com.example.digileaf.helpers.NotificationHelper
 import kotlinx.coroutines.launch
+
 
 class PlantViewModel(private val repository: PlantRepository) : ViewModel() {
 
@@ -35,8 +37,33 @@ class PlantViewModel(private val repository: PlantRepository) : ViewModel() {
         repository.delete(plant)
     }
 
-    fun updatePlantStatus(plantStatus: PlantStatus) = viewModelScope.launch {
+    fun updatePlantStatus(plantStatus: PlantStatus, statusType: PlantStatusType, context: Context) = viewModelScope.launch {
         repository.updatePlantStatus(plantStatus)
+
+        when (statusType) {
+            PlantStatusType.WATER -> {
+                getWateredCount().asFlow().collect {
+                    if (it == 1 || it == 5 || it == 10) {
+                        NotificationHelper.sendAchievementsNotification(context)
+                    }
+                }
+            }
+            PlantStatusType.FERTILIZE -> {
+                getFertilizedCount().asFlow().collect {
+                    if (it == 1 || it == 3 || it == 5) {
+                        NotificationHelper.sendAchievementsNotification(context)
+                    }
+                }
+            }
+            PlantStatusType.GROOM -> {
+                getGroomedCount().asFlow().collect {
+                    if (it == 1 || it == 5 || it == 10) {
+                        NotificationHelper.sendAchievementsNotification(context)
+                    }
+                }
+            }
+            else -> throw IllegalArgumentException("Invalid PlantStatusType: $statusType")
+        }
     }
 
     fun getPlantCount(): LiveData<Int> {

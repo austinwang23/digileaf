@@ -135,8 +135,8 @@ object NotificationHelper {
         val notificationBuilder = NotificationCompat.Builder(context, "Achievements-Channel")
 
         notificationBuilder.setSmallIcon(R.drawable.ic_achievement)
-        notificationBuilder.setContentTitle("New Achievement");
-        notificationBuilder.setContentText("You've unlocked a new achievement!");
+        notificationBuilder.setContentTitle("New Achievement")
+        notificationBuilder.setContentText("You've unlocked a new achievement!")
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 

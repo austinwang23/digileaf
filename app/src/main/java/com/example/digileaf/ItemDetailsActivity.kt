@@ -1,5 +1,6 @@
 package com.example.digileaf
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -26,6 +27,7 @@ import com.example.digileaf.database.PlantViewModelFactory
 import com.example.digileaf.entities.Journal
 import com.example.digileaf.entities.Plant
 import com.example.digileaf.entities.PlantStatus
+import com.example.digileaf.enums.PlantStatusType
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
@@ -54,6 +56,7 @@ class ItemDetailsActivity : AppCompatActivity(), UpdatePlantStatus.UpdatePlantSt
     private lateinit var emptyJournal: TextView
 
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_details)
@@ -145,7 +148,7 @@ class ItemDetailsActivity : AppCompatActivity(), UpdatePlantStatus.UpdatePlantSt
                     Log.e("insertion", "inserting new journal into db")
                     val journal = intent.getParcelableExtra<Journal>("journal")
                     if (plant != null && journal != null) {
-                        journalViewModel.insert(journal)
+                        journalViewModel.insert(journal, this)
                     }
                 }
             }
@@ -172,26 +175,35 @@ class ItemDetailsActivity : AppCompatActivity(), UpdatePlantStatus.UpdatePlantSt
         finish()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun updatePlantStatus(watered: Boolean, fertilized: Boolean, groomed: Boolean) {
         // Do plant status update here
         val currentDate = LocalDate.now()
         val dateFormat = DateTimeFormatter.ofPattern("MMMM d yyyy", Locale.getDefault())
         val formattedDate = dateFormat.format(currentDate)
         val plantStatus = PlantStatus(plant.id, plant.lastWater, plant.lastFertilize, plant.lastGroom)
+        var statusType: PlantStatusType = PlantStatusType.UNKNOWN
         if (watered) {
             plantStatusWater.text = "Watered today"
             plantStatus.lastWater = formattedDate
+            statusType = PlantStatusType.WATER
         }
         if (fertilized) {
             plantStatusFertilize.text = "Fertilized today"
             plantStatus.lastFertilize = formattedDate
+            statusType = PlantStatusType.FERTILIZE
         }
         if (groomed) {
             plantStatusGroom.text = "Groomed today"
             plantStatus.lastGroom = formattedDate
+            statusType = PlantStatusType.GROOM
         }
 
-        plantViewModel.updatePlantStatus(plantStatus)
+        if (statusType == PlantStatusType.UNKNOWN) {
+            throw IllegalStateException("Invalid status type: UNKNOWN")
+        }
+
+        plantViewModel.updatePlantStatus(plantStatus, statusType, this)
     }
 
     private fun launchAddJournalActivity(plantId: Int, plantName: String) {
