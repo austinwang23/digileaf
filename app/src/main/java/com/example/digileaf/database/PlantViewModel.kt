@@ -1,13 +1,16 @@
 package com.example.digileaf.database
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.digileaf.entities.Plant
 import com.example.digileaf.entities.PlantStatus
+import com.example.digileaf.helpers.NotificationHelper
 import kotlinx.coroutines.launch
 
 class PlantViewModel(private val repository: PlantRepository) : ViewModel() {
@@ -17,8 +20,15 @@ class PlantViewModel(private val repository: PlantRepository) : ViewModel() {
     val allPlants: LiveData<List<Plant>> = repository.allPlants.asLiveData()
 
     // Do through coroutine --> by default no database operations are allowed on main thread
-    fun insert(plant: Plant) = viewModelScope.launch {
-        repository.insert(plant)
+    fun insert(plant: Plant, context: Context) {
+        viewModelScope.launch {
+            repository.insert(plant)
+            getPlantCount().asFlow().collect {
+                if (it == 3 || it == 5 || it == 10) {
+                    NotificationHelper.sendAchievementsNotification(context)
+                }
+            }
+        }
     }
 
     fun delete(plant: Plant) = viewModelScope.launch {

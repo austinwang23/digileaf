@@ -183,7 +183,7 @@ class Home : Fragment() {
                         Log.e("insertion", "inserting new plant into db")
                         val plant = intent.getParcelableExtra<Plant>("plant")
                         if (plant != null) {
-                            plantViewModel.insert(plant)
+                            plantViewModel.insert(plant, this.requireContext())
                         }
                     }
                 }
