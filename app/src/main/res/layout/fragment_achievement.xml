@@ -24,7 +24,10 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_below="@id/achievements_title"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="@color/teal"
         app:cardCornerRadius="10dp">
 
@@ -42,9 +45,9 @@
                 android:textSize="16sp" />
             <LinearLayout
                 android:id="@+id/achievements_container"
-                android:layout_below="@id/achievements_total_tip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/achievements_total_tip"
                 android:orientation="horizontal">
                 <!-- Add ic_achievement ImageViews dynamically here -->
             </LinearLayout>
