@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digileaf.adapter.AchievementAdapter
@@ -18,6 +19,9 @@ import com.example.digileaf.database.JournalViewModelFactory
 import com.example.digileaf.database.PlantViewModel
 import com.example.digileaf.database.PlantViewModelFactory
 import com.example.digileaf.entities.Achievement
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class Achievements: Fragment() {
     private lateinit var recyclerView: RecyclerView
@@ -126,48 +130,43 @@ class Achievements: Fragment() {
             updateAchievementsNumber()
         }
 
-        plantViewModel.getWateredCount().observe(viewLifecycleOwner) { count ->
-            wateredCount = count
+        lifecycleScope.launch {
+            // Fetch the counts using suspend functions in the IO dispatcher
+            wateredCount = withContext(Dispatchers.IO) { plantViewModel.getWateredCount() }
+            fertilizedCount = withContext(Dispatchers.IO) { plantViewModel.getFertilizedCount() }
+            groomedCount = withContext(Dispatchers.IO) { plantViewModel.getGroomedCount() }
+
+            // Now that we have the counts, we can update the achievements
             updateAchievements()
-            if (count >= 1) {
+
+            // Update the achievements text and display the achievements images
+            if (wateredCount >= 1) {
                 unlockedAchievements++
             }
-            if (count >= 5) {
+            if (wateredCount >= 5) {
                 unlockedAchievements++
             }
-            if (count >= 10) {
+            if (wateredCount >= 10) {
                 unlockedAchievements++
             }
 
-            updateAchievementsNumber()
-        }
-
-        plantViewModel.getFertilizedCount().observe(viewLifecycleOwner) { count ->
-            fertilizedCount = count
-            updateAchievements()
-            if (count >= 1) {
+            if (fertilizedCount >= 1) {
                 unlockedAchievements++
             }
-            if (count >= 3) {
+            if (fertilizedCount >= 3) {
                 unlockedAchievements++
             }
-            if (count >= 5) {
+            if (fertilizedCount >= 5) {
                 unlockedAchievements++
             }
 
-            updateAchievementsNumber()
-        }
-
-        plantViewModel.getGroomedCount().observe(viewLifecycleOwner) { count ->
-            groomedCount = count
-            updateAchievements()
-            if (count >= 1) {
+            if (groomedCount >= 1) {
                 unlockedAchievements++
             }
-            if (count >= 5) {
+            if (groomedCount >= 5) {
                 unlockedAchievements++
             }
-            if (count >= 10) {
+            if (groomedCount >= 10) {
                 unlockedAchievements++
             }
 

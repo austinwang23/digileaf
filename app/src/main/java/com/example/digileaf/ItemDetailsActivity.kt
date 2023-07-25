@@ -203,7 +203,7 @@ class ItemDetailsActivity : AppCompatActivity(), UpdatePlantStatus.UpdatePlantSt
             throw IllegalStateException("Invalid status type: UNKNOWN")
         }
 
-        plantViewModel.updatePlantStatus(plantStatus, statusType, this)
+        plantViewModel.updatePlantStatus(plantStatus, this)
     }
 
     private fun launchAddJournalActivity(plantId: Int, plantName: String) {

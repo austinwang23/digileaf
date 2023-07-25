@@ -37,32 +37,34 @@ class PlantViewModel(private val repository: PlantRepository) : ViewModel() {
         repository.delete(plant)
     }
 
-    fun updatePlantStatus(plantStatus: PlantStatus, statusType: PlantStatusType, context: Context) = viewModelScope.launch {
+    fun updatePlantStatus(plantStatus: PlantStatus, context: Context) = viewModelScope.launch {
+        val wateredBefore: Int?
+        val fertilizedBefore: Int?
+        val groomedBefore: Int?
+        wateredBefore = getWateredCount()
+        fertilizedBefore = getFertilizedCount()
+        groomedBefore = getGroomedCount()
+
         repository.updatePlantStatus(plantStatus)
 
-        when (statusType) {
-            PlantStatusType.WATER -> {
-                getWateredCount().asFlow().collect {
-                    if (it == 1 || it == 5 || it == 10) {
-                        NotificationHelper.sendAchievementsNotification(context)
-                    }
-                }
-            }
-            PlantStatusType.FERTILIZE -> {
-                getFertilizedCount().asFlow().collect {
-                    if (it == 1 || it == 3 || it == 5) {
-                        NotificationHelper.sendAchievementsNotification(context)
-                    }
-                }
-            }
-            PlantStatusType.GROOM -> {
-                getGroomedCount().asFlow().collect {
-                    if (it == 1 || it == 5 || it == 10) {
-                        NotificationHelper.sendAchievementsNotification(context)
-                    }
-                }
-            }
-            else -> throw IllegalArgumentException("Invalid PlantStatusType: $statusType")
+        val wateredAfter: Int?
+        val fertilizedAfter: Int?
+        val groomedAfter: Int?
+
+        wateredAfter = getWateredCount()
+        fertilizedAfter = getFertilizedCount()
+        groomedAfter = getGroomedCount()
+
+        if (wateredAfter != wateredBefore) {
+            checkAndSendAchievementNotification(wateredAfter, PlantStatusType.WATER, context)
+        }
+
+        if (fertilizedAfter != fertilizedBefore) {
+            checkAndSendAchievementNotification(fertilizedAfter, PlantStatusType.FERTILIZE, context)
+        }
+
+        if (groomedAfter != groomedBefore) {
+            checkAndSendAchievementNotification(groomedAfter, PlantStatusType.GROOM, context)
         }
     }
 
@@ -75,31 +77,38 @@ class PlantViewModel(private val repository: PlantRepository) : ViewModel() {
         return result
     }
 
-    fun getWateredCount(): LiveData<Int> {
-        val result = MutableLiveData<Int>()
-
-        viewModelScope.launch {
-            result.postValue(repository.getWateredCount())
-        }
-        return result
+    suspend fun getWateredCount(): Int {
+        // Use viewModelScope to call the suspend function from the repository
+        return repository.getWateredCount()
     }
 
-    fun getFertilizedCount(): LiveData<Int> {
-        val result = MutableLiveData<Int>()
-
-        viewModelScope.launch {
-            result.postValue(repository.getFertilizedCount())
-        }
-        return result
+    suspend fun getFertilizedCount(): Int {
+        return repository.getFertilizedCount()
     }
 
-    fun getGroomedCount(): LiveData<Int> {
-        val result = MutableLiveData<Int>()
+    suspend fun getGroomedCount(): Int {
+        return repository.getGroomedCount()
+    }
 
-        viewModelScope.launch {
-            result.postValue(repository.getGroomedCount())
+    private fun checkAndSendAchievementNotification(count: Int, statusType: PlantStatusType, context: Context) {
+        when (statusType) {
+            PlantStatusType.WATER -> {
+                if (count == 1 || count == 5 || count == 10) {
+                    NotificationHelper.sendAchievementsNotification(context)
+                }
+            }
+            PlantStatusType.FERTILIZE -> {
+                if (count == 1 || count == 3 || count == 5) {
+                    NotificationHelper.sendAchievementsNotification(context)
+                }
+            }
+            PlantStatusType.GROOM -> {
+                if (count == 1 || count == 5 || count == 10) {
+                    NotificationHelper.sendAchievementsNotification(context)
+                }
+            }
+            else -> throw IllegalArgumentException("Invalid PlantStatusType: $statusType")
         }
-        return result
     }
 }
 
