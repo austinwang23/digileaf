@@ -22,6 +22,7 @@ import com.example.digileaf.entities.Achievement
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Integer.min
 
 class Achievements: Fragment() {
     private lateinit var recyclerView: RecyclerView
@@ -77,24 +78,36 @@ class Achievements: Fragment() {
 
             achievementsContainer.removeAllViews()
 
-            for (i in 1..unlockedAchievements) {
+            // Calculate the card's width
+            val cardWidth = achievementsContainer.width
+
+            // Calculate the maximum image width based on card's width and number of achievements
+            val maxAchievementImageWidth = cardWidth / totalAchievements
+
+            // Use a constant aspect ratio for the trophy images (e.g., 1:1, width:height)
+            val aspectRatio = 1f
+
+            for (i in 1..totalAchievements) {
                 val achievementImageView = ImageView(requireContext())
+
+                // Calculate the width and height for each trophy image while maintaining the aspect ratio
+                val trophyWidth = min(maxAchievementImageWidth, (maxAchievementImageWidth / aspectRatio).toInt())
+                val trophyHeight = (trophyWidth * aspectRatio).toInt()
+
                 achievementImageView.layoutParams = LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
+                    trophyWidth,
+                    trophyHeight
                 )
-                achievementImageView.setImageResource(R.drawable.ic_achievement)
-                achievementImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gold))
-                achievementsContainer.addView(achievementImageView)
-            }
-            for (i in 1..totalAchievements - unlockedAchievements) {
-                val achievementImageView = ImageView(requireContext())
-                achievementImageView.layoutParams = LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-                achievementImageView.setImageResource(R.drawable.ic_achievement)
-                achievementImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gray))
+
+                // Set the image resource and color filter for locked/unlocked achievements
+                if (i <= unlockedAchievements) {
+                    achievementImageView.setImageResource(R.drawable.ic_achievement)
+                    achievementImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gold))
+                } else {
+                    achievementImageView.setImageResource(R.drawable.ic_achievement)
+                    achievementImageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gray))
+                }
+
                 achievementsContainer.addView(achievementImageView)
             }
         }
