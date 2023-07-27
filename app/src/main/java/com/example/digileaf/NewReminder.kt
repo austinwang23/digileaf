@@ -139,6 +139,12 @@ class NewReminder(private var reminderItem: Reminder?) : BottomSheetDialogFragme
 
     private fun saveAction() {
         val title = binding.title.text.toString()
+
+        if (title.isEmpty()) {
+            Toast.makeText(requireContext(), "Please enter a title.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val desc = binding.desc.text.toString()
         val dueDateString = if (dueDate == null) null else Reminder.dateFormatter.format(dueDate)
         val dueTimeString = if (dueTime == null) null else Reminder.timeFormatter.format(dueTime)
