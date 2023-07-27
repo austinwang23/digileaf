@@ -122,11 +122,11 @@ class NewReminder(private var reminderItem: Reminder?) : BottomSheetDialogFragme
     }
 
     private fun updateDateButtonText() {
-        binding.datePickerButton.text = String.format("%02d-%02d-%04d", dueDate!!.monthValue, dueDate!!.dayOfMonth, dueDate!!.year)
+        binding.datePickerButtonText.text = String.format("%02d-%02d-%04d", dueDate!!.monthValue, dueDate!!.dayOfMonth, dueDate!!.year)
     }
 
     private fun updateTimeButtonText() {
-        binding.timePickerButton.text = String.format("%02d:%02d", dueTime!!.hour, dueTime!!.minute)
+        binding.timePickerButtonText.text = String.format("%02d:%02d", dueTime!!.hour, dueTime!!.minute)
     }
 
     override fun onCreateView(
