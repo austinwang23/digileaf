@@ -1,5 +1,6 @@
 
 
+
 # Time logs
 | Alan Hu  | Austin Wang | Ernst Mach | Wendi Zhao | Yi Zhe Zhang | Zi Zhou Yin | Date   | Description                                                                                                                                               |
 |----------|-------------|------------|------------|--------------|-------------|--------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -57,12 +58,17 @@
 |          |             |            |            | 6 hour       |             | Jul 20 | Add google maps integration with user switch location                                                                                                     |
 | 1 hour   | 1 hour      | 5 hour     |            | 3 hour       |             | Jul 21 | D5: Design Pattern Examples                                                                                                                               |
 |          |             |            | 0.5 hour   |              |             | Jul 21 | PR reviews                                                                                                                                                |
+|          | 3 hour      |            |            |              |             | Jul 22 | Refactor NotificationsManager and notifications for reminders                                                                                  |
 | 3 hour   | 3 hour      | 3 hour     | 3 hour     | 3 hour       | 3 hour      | Jul 23 | group app QA                                                                                                                                              |
+|          | 3 hour      |            |            |              |             | Jul 24 | Add mist to weather mappings and fix security issue disabling maps                                                                                |
 |          |             |            | 2 hour     |              |             | Jul 24 | Pre-demo fixes based off of group QA (add submit button to location change & reseeded database                                                            |
 | 2 hour   | 2 hour      | 2 hour     | 2 hour     | 2 hour       | 2 hour      | Jul 24 | D6: Final Presentation / Demo recording                                                                                                                   |
-|          |             |            | 5 hour     |              |             | Jul 26 | D6: Arch + Design Document -> Architecture component                                                                                                      |
-|          |             |            | 5 hour     |              | 1 hour      | Jul 27 | D6: Arch + Design Document -> Design component                                                                                                            |
+|          | 4 hour      |            |            |              |             | Jul 24 | Change achievement page and queries to allow for updating multi fields at once                                                                                |
+|          | 2 hour      |            |            |              |             | Jul 25 | Make achievements page scale dynamically                                                                                |
+|          |         0.5    |            | 5 hour     |              |             | Jul 26 | D6: Arch + Design Document -> Architecture component                                                                                                      |
+|          |    0.5         |            | 5 hour     |              | 1 hour      | Jul 27 | D6: Arch + Design Document -> Design component                                                                                                            |
 | 2 hour   |             |            |            |              |             | Jul 27 | Error validation for adding reminders                                                                                                                     |
 | 1 hour   |             |            |            |              |             | Jul 27 | Update add reminders UI to match rest of app                                                                                                              |
+
 
 |         |             |            |            |              |             | Aug 1   | D7: Final Status Report                                                                                                                                  |
