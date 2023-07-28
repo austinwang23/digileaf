@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.example.digileaf.database.ReminderModelFactory
 import com.example.digileaf.database.ReminderViewModel
@@ -83,12 +84,20 @@ class NewReminder(private var reminderItem: Reminder?) : BottomSheetDialogFragme
             dueDate = LocalDate.now()
         }
         val listener = DatePickerDialog.OnDateSetListener { _, selectedYear, selectedMonth, selectedDay ->
-            dueDate = LocalDate.of(selectedYear, selectedMonth + 1, selectedDay)
-            updateDateButtonText()
+            val selectedDate = LocalDate.of(selectedYear, selectedMonth + 1, selectedDay)
+            val currentTime = LocalTime.of(LocalTime.now().hour, LocalTime.now().minute)
+
+            if (dueTime != null && dueTime!!.isBefore(currentTime) && selectedDate.isEqual(LocalDate.now())) {
+                Toast.makeText(requireContext(), "Please select a future time.", Toast.LENGTH_SHORT).show()
+            } else {
+                dueDate = selectedDate
+                updateDateButtonText()
+            }
         }
 
         // Set up date picker dialog
         val dialog = DatePickerDialog(requireContext(), listener, dueDate!!.year, dueDate!!.monthValue - 1, dueDate!!.dayOfMonth)
+        dialog.datePicker.minDate = System.currentTimeMillis() - 1000;
         dialog.show()
     }
     private fun openTimePicker() {
@@ -96,21 +105,28 @@ class NewReminder(private var reminderItem: Reminder?) : BottomSheetDialogFragme
             dueTime = LocalTime.now()
         }
         val listener = TimePickerDialog.OnTimeSetListener { _, selectedHour, selectedMinute ->
-            dueTime = LocalTime.of(selectedHour, selectedMinute)
-            updateTimeButtonText()
+            val selectedTime = LocalTime.of(selectedHour, selectedMinute)
+            val currentTime = LocalTime.of(LocalTime.now().hour, LocalTime.now().minute)
+
+            if (dueDate != null && dueDate!!.isEqual(LocalDate.now()) && selectedTime.isBefore(currentTime)) {
+                Toast.makeText(requireContext(), "Please select a future time.", Toast.LENGTH_SHORT).show()
+            } else {
+                dueTime = selectedTime
+                updateTimeButtonText()
+            }
         }
 
         // Set up time picker dialog
-        val dialog = TimePickerDialog(activity, listener, dueTime!!.hour, dueTime!!.minute, true)
+        val dialog = TimePickerDialog(requireContext(), listener, dueTime!!.hour, dueTime!!.minute, true)
         dialog.show()
     }
 
     private fun updateDateButtonText() {
-        binding.datePickerButton.text = String.format("%02d-%02d-%04d", dueDate!!.monthValue, dueDate!!.dayOfMonth, dueDate!!.year)
+        binding.datePickerButtonText.text = String.format("%02d-%02d-%04d", dueDate!!.monthValue, dueDate!!.dayOfMonth, dueDate!!.year)
     }
 
     private fun updateTimeButtonText() {
-        binding.timePickerButton.text = String.format("%02d:%02d", dueTime!!.hour, dueTime!!.minute)
+        binding.timePickerButtonText.text = String.format("%02d:%02d", dueTime!!.hour, dueTime!!.minute)
     }
 
     override fun onCreateView(
@@ -123,6 +139,12 @@ class NewReminder(private var reminderItem: Reminder?) : BottomSheetDialogFragme
 
     private fun saveAction() {
         val title = binding.title.text.toString()
+
+        if (title.isEmpty()) {
+            Toast.makeText(requireContext(), "Please enter a title.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val desc = binding.desc.text.toString()
         val dueDateString = if (dueDate == null) null else Reminder.dateFormatter.format(dueDate)
         val dueTimeString = if (dueTime == null) null else Reminder.timeFormatter.format(dueTime)
